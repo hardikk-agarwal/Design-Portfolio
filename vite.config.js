@@ -5,8 +5,8 @@ import { viteSingleFile } from 'vite-plugin-singlefile'
 import { fileURLToPath } from 'node:url'
 import { existsSync, readdirSync, statSync } from 'node:fs'
 
-const entries = { production: './index.html', desk: './desk.html', story: './story.html' }
-const outDirs = { production: 'dist', desk: 'dist/desk', story: 'dist/story' }
+const entries = { production: './index.html', pages: './index.html', desk: './desk.html', story: './story.html' }
+const outDirs = { production: 'dist', pages: 'dist', desk: 'dist/desk', story: 'dist/story' }
 const sealedFile = fileURLToPath(new URL('./src/app/lib/sealed-case-studies.json', import.meta.url))
 const protectedSource = fileURLToPath(new URL('./src/protected/', import.meta.url))
 
@@ -19,15 +19,44 @@ function checkSealed() {
   }
 }
 
-export default defineConfig(({ command, mode }) => {
-  if (command === 'build' && mode === 'production') checkSealed()
+// The hosted build loads assets separately, so fetch the display font and (for the home page) the hero photographs
+// with the HTML; the first render then matches the single-file build instead of flashing fallback type or an empty frame.
+function preloadCritical() {
   return {
-    plugins: [react(), tailwindcss(), viteSingleFile()],
+    name: 'preload-critical',
+    apply: 'build',
+    transformIndexHtml: {
+      order: 'post',
+      handler(_html, { bundle }) {
+        const files = Object.keys(bundle ?? {})
+        const asset = (pattern) => {
+          const file = files.find((name) => pattern.test(name))
+          if (!file) throw new Error(`No build asset matches ${pattern}; update preloadCritical in vite.config.js.`)
+          return `./${file}`
+        }
+        const hero = JSON.stringify([asset(/hardik-bench-scene-[\w-]+\.webp$/), asset(/hardik-bench-subject-[\w-]+\.webp$/)])
+        return [
+          { tag: 'link', attrs: { rel: 'preload', href: asset(/mona-sans-latin-wdth-normal-[\w-]+\.woff2$/), as: 'font', type: 'font/woff2', crossorigin: true }, injectTo: 'head' },
+          // Mirrors parseRoute in src/app/lib/routes.js: these hashes open a page without the hero.
+          { tag: 'script', children: `if (!/^#(?:work|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) for (const href of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload', as: 'image', href }))`, injectTo: 'head' },
+        ]
+      },
+    },
+  }
+}
+
+export default defineConfig(({ command, mode }) => {
+  // `pages` is the GitHub Pages build: hashed files, lazy images and font subsets. Other builds stay single-file.
+  const pages = mode === 'pages'
+  if (command === 'build' && (mode === 'production' || pages)) checkSealed()
+  return {
+    base: pages ? './' : '/',
+    plugins: [react(), tailwindcss(), pages ? preloadCritical() : viteSingleFile()],
     resolve: {
       alias: [{ find: /^@\//, replacement: fileURLToPath(new URL('./src/app/', import.meta.url)) }],
     },
     build: {
-      assetsInlineLimit: 10000000,
+      assetsInlineLimit: pages ? undefined : 10000000,
       outDir: outDirs[mode] ?? outDirs.production,
       rollupOptions: { input: fileURLToPath(new URL(entries[mode] ?? entries.production, import.meta.url)) },
     },

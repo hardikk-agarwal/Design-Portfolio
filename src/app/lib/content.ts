@@ -1,7 +1,8 @@
 import { stories } from '../../stories.js'
 import { resumeSections, education as educationLines, skills as skillLine, downloadResume } from '../../surfaces.js'
-import cameraPortrait from '../../assets/hardik-camera.jpg'
-import candid from '../../assets/hardik-candid.jpg'
+import cameraPortrait from '../../assets/hardik-camera.webp'
+import cameraChip from '../../assets/hardik-camera-chip.webp'
+import candid from '../../assets/hardik-candid.webp'
 import subject from '../../assets/hardik-bench-subject.webp'
 import benchScene from '../../assets/hardik-bench-scene.webp'
 import { projects } from './projects'
@@ -9,7 +10,7 @@ import type { ProjectId } from './routes.js'
 
 export { downloadResume, projects }
 export type { CaseStudy, Flow, Metric, Project, Quote, Shot } from './projects'
-export const photos = { cameraPortrait, candid, subject, benchScene }
+export const photos = { cameraPortrait, cameraChip, candid, subject, benchScene }
 export const email = 'madebyhardik@gmail.com'
 
 export function projectById(id: ProjectId) {

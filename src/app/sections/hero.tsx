@@ -64,8 +64,9 @@ function HeroStage() {
           </div>
           <div className="cover-type absolute inset-x-0 px-5 text-[#f4f4f1] md:px-10">
             <h1 id="home-title" className="whitespace-nowrap text-[16vw] font-[820] uppercase leading-[0.8] tracking-[-0.02em] [font-stretch:125%] md:text-center md:text-[calc((100vw-6rem)/10.45)]">
-              <span className="hero-first block md:inline-block"><span className="hero-name-part block md:inline-block">Hardik</span></span>{' '}
-              <span className="hero-last block md:inline-block"><span className="hero-name-part block md:inline-block">Agarwal</span></span>
+              <span className="sr-only normal-case">Hardik Agarwal</span>
+              <span aria-hidden="true" className="hero-first block md:inline-block"><span className="hero-name-part block md:inline-block">Hardik</span></span>{' '}
+              <span aria-hidden="true" className="hero-last block md:inline-block"><span className="hero-name-part block md:inline-block">Agarwal</span></span>
             </h1>
           </div>
           <div className="hero-image pointer-events-none absolute inset-0">
@@ -142,6 +143,7 @@ export function Hero() {
       if (motion) {
         SplitText.create(q('.hero-name-part'), {
           type: 'words,chars',
+          aria: 'none',
           mask: 'chars',
           charsClass: 'split-char',
           autoSplit: true,
@@ -243,6 +245,7 @@ export function Hero() {
         if (motion) {
           SplitText.create(q('.statement-line'), {
             type: 'words',
+            aria: 'none',
             mask: 'words',
             wordsClass: 'split-word',
             autoSplit: true,
@@ -263,7 +266,7 @@ export function Hero() {
       }
 
       sequence.dataset.cinematic = 'true'
-      const words = SplitText.create(q('.statement-line'), { type: 'words', mask: 'words', wordsClass: 'split-word' })
+      const words = SplitText.create(q('.statement-line'), { type: 'words', aria: 'none', mask: 'words', wordsClass: 'split-word' })
       const timeline = gsap.timeline({
         defaults: { ease: 'none' },
         scrollTrigger: {

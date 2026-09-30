@@ -1,9 +1,60 @@
+import { useEffect, useRef, useState } from 'react'
 import { ArrowUp } from 'lucide-react'
 import { TypographyVortexCanvas } from '@designcodeio/threeui/components/TypographyVortexCanvas'
 import { Magnetic } from '@/components/magnetic'
 import { Link, useNavigation } from '@/lib/navigation'
-import { useTheme } from '@/lib/theme'
+import { useTheme, type Theme } from '@/lib/theme'
 import { email } from '@/lib/content'
+
+// The vortex redraws the whole footer every frame. Where that runs below 20 fps once warmed up
+// (no GPU acceleration, for example), a still frame of it replaces the animation so the footer stays responsive.
+function Vortex({ theme }: { theme: Theme }) {
+  const host = useRef<HTMLDivElement>(null)
+  const [still, setStill] = useState<HTMLCanvasElement | null>(null)
+
+  useEffect(() => {
+    const element = host.current
+    if (!element) return
+    let frame = 0
+    let last = 0
+    let deltas: number[] = []
+    const tick = (now: number) => {
+      if (last) deltas.push(now - last)
+      last = now
+      if (deltas.length < 18) {
+        frame = requestAnimationFrame(tick)
+        return
+      }
+      observer.disconnect()
+      const settled = deltas.slice(6).sort((a, b) => a - b)
+      const source = element.querySelector('canvas')
+      if (settled[settled.length >> 1] <= 50 || !source) return
+      const copy = document.createElement('canvas')
+      copy.width = source.width
+      copy.height = source.height
+      copy.getContext('2d')?.drawImage(source, 0, 0)
+      setStill(copy)
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      cancelAnimationFrame(frame)
+      last = 0
+      deltas = []
+      if (entry?.isIntersecting) frame = requestAnimationFrame(tick)
+    })
+    observer.observe(element)
+    return () => {
+      observer.disconnect()
+      cancelAnimationFrame(frame)
+    }
+  }, [])
+
+  if (still) return <div ref={(node) => { node?.replaceChildren(still) }} className={`typography-vortex-component typography-vortex-component--${theme}`} />
+  return (
+    <div ref={host} className="size-full">
+      <TypographyVortexCanvas mode={theme} phrase="HARDIK AGARWAL / PRODUCT DESIGNER / " speed={0.75} opacity={0.9} />
+    </div>
+  )
+}
 
 export function SiteFooter() {
   const { theme } = useTheme()
@@ -12,7 +63,7 @@ export function SiteFooter() {
   return (
     <footer id="contact" aria-labelledby="contact-title" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-[#eef1f6] text-foreground dark:bg-[#151515]">
       <div aria-hidden="true" className="absolute inset-0 -z-20">
-        <TypographyVortexCanvas key={theme} mode={theme} phrase="HARDIK AGARWAL / PRODUCT DESIGNER / " speed={0.75} opacity={0.9} />
+        <Vortex key={theme} theme={theme} />
       </div>
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_52%_46%_at_50%_50%,#eef1f6_38%,rgb(238_241_246/0)_100%)] dark:bg-[radial-gradient(ellipse_52%_46%_at_50%_50%,#151515_38%,rgb(21_21_21/0)_100%)]" />
 

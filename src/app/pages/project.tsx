@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Lock, X } from 'lucide-reac
 import { gsap, ScrollTrigger, useGSAP, motionOk } from '@/lib/gsap'
 import { Link } from '@/lib/navigation'
 import { email, projectById, projects, type CaseStudy, type Flow, type Metric, type Project, type Quote, type Shot } from '@/lib/content'
-import { isSealed, isSecure, openedStudy, unlockStudy } from '@/lib/protected'
+import { isSealed, isSecure, openedStudy, preloadSealed, unlockStudy } from '@/lib/protected'
 import type { ProjectId } from '@/lib/routes.js'
 import { PageTitle } from '@/components/page-title'
 import { MetricValue } from '@/sections/work'
@@ -320,11 +320,15 @@ function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy 
 function ProjectGate({ project, onUnlock }: { project: Project; onUnlock: () => void }) {
   const root = useRef<HTMLElement>(null)
   const [password, setPassword] = useState('')
-  const [status, setStatus] = useState<'idle' | 'checking' | 'wrong'>('idle')
+  const [status, setStatus] = useState<'idle' | 'checking' | 'wrong' | 'failed'>('idle')
   const request = `mailto:${email}?subject=${encodeURIComponent(`Password for the ${project.name} case study`)}`
   const message = !isSecure
     ? 'Unlocking needs a secure connection. Open this page with https.'
-    : status === 'wrong' ? "That password didn't work. Check it and try again." : status === 'checking' ? 'Unlocking…' : ''
+    : status === 'wrong' ? "That password didn't work. Check it and try again."
+      : status === 'failed' ? "The case study didn't load. Check your connection and try again."
+        : status === 'checking' ? 'Unlocking…' : ''
+
+  useEffect(preloadSealed, [])
 
   useGSAP(() => {
     gsap.matchMedia().add(motionOk, () => {
@@ -340,8 +344,8 @@ function ProjectGate({ project, onUnlock }: { project: Project; onUnlock: () => 
     try {
       await unlockStudy(project.id, value)
       onUnlock()
-    } catch {
-      setStatus('wrong')
+    } catch (error) {
+      setStatus(error instanceof DOMException && error.name === 'OperationError' ? 'wrong' : 'failed')
     }
   }
 
@@ -381,7 +385,7 @@ function ProjectGate({ project, onUnlock }: { project: Project; onUnlock: () => 
                   value={password}
                   onChange={(event) => {
                     setPassword(event.target.value)
-                    if (status === 'wrong') setStatus('idle')
+                    if (status === 'wrong' || status === 'failed') setStatus('idle')
                   }}
                   aria-invalid={status === 'wrong'}
                   aria-describedby="case-study-password-status"

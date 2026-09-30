@@ -7,6 +7,7 @@
     "dev": "vite",
     "check": "tsc -p tsconfig.json && node --check src/exhibition.js && node --check src/portfolio-scroll.js && node --check src/exhibition-stage.js && node --check src/exhibition-art.js && node --check src/desk.js && node --check src/room.js && node --check src/surfaces.js && node --test src/journey.test.js src/app/lib/routes.test.js",
     "build": "vite build && vite build --mode desk && vite build --mode story",
+    "build:pages": "vite build --mode pages && vite build --mode desk && vite build --mode story",
     "seal": "node scripts/seal-case-studies.mjs",
     "preview": "vite preview"
   },

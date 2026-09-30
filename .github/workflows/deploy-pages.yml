@@ -23,7 +23,7 @@ jobs:
           sed -i 's#https://ms-feed-25.pkgs.visualstudio.com/1es-public/_packaging/npm-public/npm/registry/#https://registry.npmjs.org/#g' package-lock.json
           npm ci
       - name: Build
-        run: npm run build
+        run: npm run build:pages
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist

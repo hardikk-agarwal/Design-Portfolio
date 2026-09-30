@@ -11,6 +11,15 @@ prototype on 28 September 2026. Originals in the Images folder are unchanged.
 | hardik-candid.jpg | [Image (4).jpg](../../Images/Image%20(4).jpg) | 1024x1024 |
 | hardik-camera.jpg | [Image (5).jpg](../../Images/Image%20(5).jpg) | 1269x1800 |
 | hardik-cutout.webp | [Image (5).jpg](../../Images/Image%20(5).jpg) | 512x1400 |
+| hardik-camera.webp | hardik-camera.jpg | 1269x1800 |
+| hardik-camera-chip.webp | hardik-camera.jpg | 529x289 |
+| hardik-candid.webp | hardik-candid.jpg | 1024x1024 |
+
+The React portfolio uses the WebP copies (quality 86, Sharp effort 6); `story.html`
+keeps the JPEGs. Mean per-channel difference from the JPEG is under 2 of 255, and
+they are 34 to 41% smaller. `hardik-camera-chip.webp` is the exact region the
+Approach statement's inline "lens" chip used to show by scaling the full portrait
+2.4x (left 370, top 393), so that chip no longer downloads the 339 KB portrait.
 
 The JPEG derivatives are quality 88, with metadata removed. They are resized,
 not retouched or generated. Responsive CSS crops them without asserting a place,

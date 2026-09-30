@@ -41,7 +41,7 @@ export function Approach() {
       <h2 id="approach-title" className="approach-text max-w-[21ch] text-[clamp(2.1rem,5.3vw,6.25rem)] font-[640] leading-[1.02] tracking-[-0.038em]">
         Design is communication. I turn ideas into working prototypes early, so everyone in the room sees the problem through the same{' '}
         <span className="approach-chip relative -top-[0.06em] mx-[0.08em] inline-block h-[0.82em] w-[1.5em] overflow-hidden rounded-full align-middle">
-          <img src={photos.cameraPortrait} alt="" className="size-full origin-[50%_26%] scale-[2.4] object-cover object-[50%_26%]" width={1269} height={1800} loading="lazy" decoding="async" />
+          <img src={photos.cameraChip} alt="" className="size-full object-cover" width={529} height={289} loading="lazy" decoding="async" />
         </span>{' '}
         lens.
       </h2>
