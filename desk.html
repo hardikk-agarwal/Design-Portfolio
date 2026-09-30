@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      (() => {
+        const parameter = new URLSearchParams(window.location.search).get('clawpilotTheme')
+        let saved
+        try { saved = localStorage.getItem('portfolio-theme') } catch {}
+        const preference = parameter || saved
+        const theme = ['light', 'dark'].includes(preference) ? preference : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', theme)
+      })()
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="An earlier interactive desk study for Hardik Agarwal's portfolio." />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Hardik Agarwal | Desk Study</title>
+  </head>
+  <body>
+    <button class="skip-link" data-action="accessible" type="button">Open readable portfolio</button>
+    <main class="room" id="room" aria-label="A seat at Hardik Agarwal's desk"></main>
+    <div id="surface-library"></div>
+    <nav class="review-shortcuts" aria-label="Portfolio shortcuts">
+      <a id="review-work" class="review-primary" href="#work"><i data-lucide="file-text" aria-hidden="true"></i>Work</a>
+      <button type="button" data-open="resume"><i data-lucide="file-text" aria-hidden="true"></i>Resume</button>
+      <a href="mailto:madebyhardik@gmail.com"><i data-lucide="arrow-up-right" aria-hidden="true"></i>Email</a>
+    </nav>
+    <div class="optical-hud" id="finder-hud" hidden>
+      <div class="finder-top"><button class="hud-button" type="button" data-action="close" aria-label="Lower viewfinder" title="Lower viewfinder"><i data-lucide="arrow-left" aria-hidden="true"></i></button><span id="finder-name">Microsoft Store</span><button class="hud-button" type="button" data-action="putdown" aria-label="Put camera down" title="Put camera down"><i data-lucide="corner-down-left" aria-hidden="true"></i></button></div>
+      <div class="finder-focus" id="finder-focus" aria-hidden="true"></div>
+      <div class="finder-bottom"><button class="hud-button" type="button" data-action="previous" aria-label="Frame previous object" title="Frame previous object"><i data-lucide="chevron-left" aria-hidden="true"></i></button><button class="hud-button" type="button" data-action="zoom-out" aria-label="Zoom out" title="Zoom out"><i data-lucide="zoom-out" aria-hidden="true"></i></button><button id="capture-frame" class="capture-button" type="button" data-action="capture" aria-label="Capture and open selected object" title="Capture and open selected object"><i data-lucide="camera" aria-hidden="true"></i></button><button class="hud-button" type="button" data-action="zoom-in" aria-label="Zoom in" title="Zoom in"><i data-lucide="zoom-in" aria-hidden="true"></i></button><button class="hud-button" type="button" data-action="next" aria-label="Frame next object" title="Frame next object"><i data-lucide="chevron-right" aria-hidden="true"></i></button></div>
+    </div>
+    <div class="optical-hud scope-hud" id="scope-hud" hidden><div class="scope-caption"><h2>Orion Nebula</h2><p>Infrared imagery: NASA/ESA/JPL-Caltech/IRAM</p></div><button class="hud-button scope-back" id="scope-back" type="button" data-action="close" aria-label="Step back from the telescope" title="Step back from the telescope"><i data-lucide="arrow-left" aria-hidden="true"></i></button><div class="scope-zoom"><button class="hud-button" type="button" data-action="zoom-out" aria-label="Zoom out" title="Zoom out"><i data-lucide="zoom-out" aria-hidden="true"></i></button><button class="hud-button" type="button" data-action="zoom-in" aria-label="Zoom in" title="Zoom in"><i data-lucide="zoom-in" aria-hidden="true"></i></button></div></div>
+    <div class="utility-controls"><button class="utility-home" type="button" data-action="home" aria-label="Return to desk" title="Return to desk"><i data-lucide="armchair" aria-hidden="true"></i></button><button type="button" data-action="light" aria-label="Change room lighting" title="Change room lighting"><i data-lucide="sun" aria-hidden="true"></i><span id="lighting-label" class="sr-only">Evening</span></button><button class="reading-control" type="button" data-action="accessible" title="Open reading view"><i data-lucide="file-text" aria-hidden="true"></i>Reading view</button></div>
+    <p id="loading-status" class="loading-status" role="status">Opening Hardik's workspace...</p>
+    <p id="announcement" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+    <section id="readable-view" class="readable-view" aria-label="Portfolio reading view" hidden>
+      <div class="reader-shell">
+        <header class="reader-header"><div><h1>Hardik Agarwal</h1><p>Product designer at Microsoft</p></div><button id="leave-readable" type="button" data-action="leave-readable" title="Explore desk"><i data-lucide="armchair" aria-hidden="true"></i><span id="leave-readable-label">Explore desk</span></button></header>
+        <nav class="reader-nav" aria-label="Reading navigation"><div class="reader-pages"><a href="#work" data-reader-page="work">Work</a><a href="#about" data-reader-page="about">About</a><a href="#resume" data-reader-page="resume">Resume</a></div><button type="button" data-action="download-resume" title="Download resume PDF"><i data-lucide="download" aria-hidden="true"></i><span class="reader-download-label">Resume PDF</span></button></nav>
+        <div class="reader-contact"><a href="mailto:madebyhardik@gmail.com">madebyhardik@gmail.com<i data-lucide="arrow-up-right" aria-hidden="true"></i></a></div>
+        <div id="readable-content"></div>
+      </div>
+    </section>
+    <noscript><p>Hardik Agarwal, Product Designer at Microsoft. Contact <a href="mailto:madebyhardik@gmail.com">madebyhardik@gmail.com</a>. JavaScript is required for the interactive room.</p></noscript>
+    <script type="module" src="/src/desk.js"></script>
+  </body>
+</html>

@@ -1,0 +1,49 @@
+import { ArrowUp } from 'lucide-react'
+import { TypographyVortexCanvas } from '@designcodeio/threeui/components/TypographyVortexCanvas'
+import { Magnetic } from '@/components/magnetic'
+import { Link, useNavigation } from '@/lib/navigation'
+import { useTheme } from '@/lib/theme'
+import { email } from '@/lib/content'
+
+export function SiteFooter() {
+  const { theme } = useTheme()
+  const { scrollTo } = useNavigation()
+
+  return (
+    <footer id="contact" aria-labelledby="contact-title" className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-[#eef1f6] text-foreground dark:bg-[#151515]">
+      <div aria-hidden="true" className="absolute inset-0 -z-20">
+        <TypographyVortexCanvas key={theme} mode={theme} phrase="HARDIK AGARWAL / PRODUCT DESIGNER / " speed={0.75} opacity={0.9} />
+      </div>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_52%_46%_at_50%_50%,#eef1f6_38%,rgb(238_241_246/0)_100%)] dark:bg-[radial-gradient(ellipse_52%_46%_at_50%_50%,#151515_38%,rgb(21_21_21/0)_100%)]" />
+
+      <div className="flex flex-1 flex-col items-center justify-center px-5 pb-10 pt-[calc(var(--header-height)+3rem)] text-center">
+        <h2 id="contact-title" className="display-wide max-w-[11ch] text-[clamp(2.6rem,8vw,9rem)]">
+          Bring me a hard problem.
+        </h2>
+        <Magnetic className="mt-12">
+          <a
+            href={`mailto:${email}`}
+            className="grid size-36 place-items-center rounded-full bg-primary text-[17px] font-semibold text-primary-foreground transition-transform duration-500 ease-expo hover:scale-[1.04] active:scale-[0.97] md:size-44 md:text-lg"
+          >
+            Get in touch
+          </a>
+        </Magnetic>
+        <a href={`mailto:${email}`} className="mt-8 text-lg font-medium underline decoration-1 underline-offset-[6px] hover:decoration-2">
+          {email}
+        </a>
+      </div>
+
+      <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-border bg-[#eef1f6]/90 px-5 py-5 text-[15px] backdrop-blur-md md:px-10 dark:bg-[#151515]/90">
+        <p>© 2026 Hardik Agarwal</p>
+        <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-6 gap-y-2">
+          <Link to="#work" className="hover:underline">Work</Link>
+          <Link to="#about" className="hover:underline">About</Link>
+          <Link to="#resume" className="hover:underline">Resume</Link>
+          <button type="button" onClick={() => scrollTo(0)} className="inline-flex items-center gap-1.5 hover:underline">
+            Back to top <ArrowUp aria-hidden="true" className="size-4" strokeWidth={1.75} />
+          </button>
+        </nav>
+      </div>
+    </footer>
+  )
+}
