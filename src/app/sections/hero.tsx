@@ -59,7 +59,7 @@ function HeroStage() {
         <div className="hero-frame absolute inset-0 overflow-hidden bg-[#1d2a1f]">
           <div className="hero-image absolute inset-0">
             <div className="cover-photo absolute inset-0">
-              <img className={layer} src={photos.benchScene} alt="Hardik seated on a green bench" width={1122} height={1402} fetchPriority="high" decoding="async" />
+              <img className={layer} src={photos.benchScene} alt="Hardik seated on a green bench" width={2244} height={2804} fetchPriority="high" decoding="async" />
             </div>
           </div>
           <div className="cover-type absolute inset-x-0 px-5 text-[#f4f4f1] md:px-10">
@@ -71,7 +71,7 @@ function HeroStage() {
           </div>
           <div className="hero-image pointer-events-none absolute inset-0">
             <div className="cover-photo absolute inset-0">
-              <img className={layer} src={photos.subject} alt="" aria-hidden="true" width={1122} height={1402} decoding="async" />
+              <img className={layer} src={photos.subject} alt="" aria-hidden="true" width={2244} height={2804} decoding="async" />
             </div>
           </div>
           <div className="hero-scrim pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(10_16_11/0.4)_0%,rgb(10_16_11/0)_16%,rgb(10_16_11/0)_52%,rgb(10_16_11/0.85)_100%)]" />

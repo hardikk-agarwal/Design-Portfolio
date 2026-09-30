@@ -31,14 +31,15 @@ the opening. Facial features are neither synthesized nor retouched. The bench
 photo was rejected for foreground extraction because the bench produced poor
 segmentation edges; its intact photograph is used instead.
 
-`hardik-bench-subject.webp` (1122x1402, quality 86, alpha quality 92) is the
+`hardik-bench-subject.webp` (2244x2804, quality 90, lossless alpha) is the
 front layer for the landing page cover, where the name passes behind Hardik's
-head. Its colour pixels are the unchanged `hardik-portrait.jpg`; its alpha is
+head. Its colour pixels are the unchanged original photograph
+([Image (3).jpg](../../Images/Image%20(3).jpg)); its alpha is
 taken from Hardik's supplied background-removed export
 ([Image (3) 1.png](../../Images/PNGs/Image%20(3)%201.png), measured as registered
 to the photo within JPEG noise). It sits exactly over the photograph beneath.
 
-`hardik-bench-scene.webp` (1122x1402, quality 84) is the landing cover
+`hardik-bench-scene.webp` (2244x2804, quality 82) is the landing cover
 photograph. Hardik, the bench slats and everything below the seat (legs,
 cobblestones) are the photograph's own pixels. Only the ivy wall above the rail
 and between the slats is replaced by a flat painted-looking wall: a radial
@@ -46,6 +47,14 @@ gradient (#34453b to #121814) with fine monochrome grain, a soft shadow band
 under the rail and a soft shadow cast by Hardik. Slat rows were classified by
 row colour statistics (teal, low texture versus dark, textured ivy). No part of
 Hardik was generated or retouched.
+
+The original bench photograph is only 1122x1402, and the cover stretches it to
+full width: about 2x on a 125% laptop and 3x on a 2x display. Browsers upscale
+with a soft bilinear-style filter, which read as pixelated. Both layers are
+therefore stored at exactly 2x, resampled once with Lanczos3 from the 1122x1402
+layers. That is interpolation only: it adds no detail and keeps the layers
+registered. A higher-resolution original would be the real fix; rebuild both
+layers from it at its native size.
 
 The earlier matte used `@imgly/background-removal-node`; both current files
 were composed with Sharp in an isolated temporary tools directory, not as
