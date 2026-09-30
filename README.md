@@ -38,7 +38,7 @@ The build needs no secrets because it ships only the sealed copy. Routes use the
 
 1. Push the repository to GitHub. A public repository is fine: it holds only the sealed case study.
 2. In Settings > Pages, set Source to GitHub Actions.
-3. Run Actions > Deploy to GitHub Pages > Run workflow. [The workflow](.github/workflows/deploy-pages.yml) installs dependencies from the public npm registry, runs `npm run build:pages`, and publishes `dist`.
+3. Push to `main`. [The workflow](.github/workflows/deploy-pages.yml) deploys every push automatically: it installs dependencies from the public npm registry, runs `npm run build:pages`, and publishes `dist`. To redeploy without a new commit, use Actions > Deploy to GitHub Pages > Run workflow.
 4. With a custom domain, turn on Enforce HTTPS.
 
 Before going live, remove `noindex, nofollow` from the HTML files if the site should appear in search.
