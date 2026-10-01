@@ -191,7 +191,7 @@ function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy 
               width={cover.width}
               height={cover.height}
               decoding="async"
-              className={cn('project-art h-auto w-full md:max-h-[calc(92svh-var(--header-height)-6rem)] md:w-auto md:max-w-full', screen)}
+              className={cn('project-art mx-auto block h-auto max-h-[60svh] w-auto max-w-full md:max-h-[calc(92svh-var(--header-height)-6rem)]', screen)}
             />
           </figure>
           <div className="relative z-10 mt-auto pt-8 md:w-[42%]">
@@ -238,7 +238,7 @@ function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy 
           <section className="project-block mt-20" aria-labelledby="problem-title">
             <h2 id="problem-title" className={heading}>The problem</h2>
             <p className={body}>{study.problem.body}</p>
-            <Stats metrics={study.problem.stats} className="mt-8" />
+            {study.problem.stats && <Stats metrics={study.problem.stats} className="mt-8" />}
             {study.problem.quote && <Blockquote quote={study.problem.quote} />}
           </section>
 

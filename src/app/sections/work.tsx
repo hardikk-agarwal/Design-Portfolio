@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { ArrowRight, ArrowUpRight, Lock } from 'lucide-react'
 import { gsap, SplitText, useGSAP, cinematic, motionOk } from '@/lib/gsap'
 import { Link, useNavigation } from '@/lib/navigation'
-import { projects, splitChange, type Metric, type Project } from '@/lib/content'
+import { featuredProjects, splitChange, type Metric, type Project } from '@/lib/content'
 import { cn } from '@/lib/utils'
 
 const stackQuery = '(min-width: 768px) and (min-height: 640px)'
@@ -144,7 +144,7 @@ export function SelectedWork() {
           const stackElement = q('.chapter-stack')[0] as HTMLElement
           return stackElement.getBoundingClientRect().top + window.scrollY
         }
-        cleanups.push(registerAnchor(`project-${projects[0].id}`, () => stackTop() + window.innerHeight))
+        cleanups.push(registerAnchor(`project-${featuredProjects[0].id}`, () => stackTop() + window.innerHeight))
         cleanups.push(() => {
           delete section.dataset.cinematic
           veil.style.removeProperty('--iris-x')
@@ -195,12 +195,12 @@ export function SelectedWork() {
             <h2 id="selected-work-title" className="display-wide text-[clamp(3.75rem,15.5vw,17rem)] leading-[0.82]">
               Selected
               <br />
-              work<span aria-hidden="true" className="work-dot ml-[0.04em] inline-block size-[0.16em] rounded-full align-baseline" style={{ backgroundColor: projects[0].color }} />
+              work<span aria-hidden="true" className="work-dot ml-[0.04em] inline-block size-[0.16em] rounded-full align-baseline" style={{ backgroundColor: featuredProjects[0].color }} />
             </h2>
             <p className="mt-8 max-w-md text-lg text-muted-foreground">Three projects at Microsoft, from developer platforms to AI answers.</p>
           </div>
         </div>
-        {projects.map((project, index) => (
+        {featuredProjects.map((project, index) => (
           <div key={project.id} className="contents">
             <span id={`project-${project.id}`} className="chapter-marker block h-0" aria-hidden="true" />
             <Chapter project={project} index={index} />

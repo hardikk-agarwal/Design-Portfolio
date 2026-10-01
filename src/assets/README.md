@@ -101,6 +101,15 @@ encrypted `src/app/lib/sealed-case-studies.json`. The public
 `work/portal-cover-locked.webp` is the cover reduced to an 8x5 colour field,
 scaled back up and blurred, with a lock badge, so no layout or text survives.
 
+Earlier work (`work/sms-*.webp`, `work/map-*.webp`) comes from Hardik's previous
+Framer portfolio (pages /smso and /common-map), downloaded at full size. Annotated
+boards are flattened on white and resized to 1600px wide; phone screens keep their
+rounded-corner alpha at 900px wide; desktop screens are 1600px wide; all WebP
+quality 80. Bing Trip Planning was password-protected there, so its screens live in
+`src/protected/trip-planning/` and are sealed like the portal; its public
+`work/trips-cover-locked.webp` is built the same way from the light "Start
+planning" screen.
+
 ## Exhibition Covers
 
 The four `cover-*.jpg` images are original renders of the project models in

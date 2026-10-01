@@ -18,6 +18,8 @@ export function projectById(id: ProjectId) {
 }
 
 export const projectNames = Object.fromEntries(projects.map((project) => [project.id, project.name]))
+export const featuredProjects = projects.filter((project) => !project.earlier)
+export const earlierProjects = projects.filter((project) => project.earlier)
 
 export const experience = (resumeSections as [string, string[]][]).map(([title, highlights]) => {
   const [role, company, dates] = title.split(' | ')

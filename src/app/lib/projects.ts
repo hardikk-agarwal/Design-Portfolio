@@ -15,6 +15,20 @@ import copilotPre from '../../assets/work/copilot-pre.webp'
 import copilotLive from '../../assets/work/copilot-live.webp'
 import copilotPost from '../../assets/work/copilot-post.webp'
 import copilotShell from '../../assets/work/copilot-shell.webp'
+import smsCover from '../../assets/work/sms-cover.webp'
+import smsNavigation from '../../assets/work/sms-navigation.webp'
+import smsReminders from '../../assets/work/sms-reminders.webp'
+import smsLanguages from '../../assets/work/sms-languages.webp'
+import smsFinance from '../../assets/work/sms-finance.webp'
+import smsOffers from '../../assets/work/sms-offers.webp'
+import smsFirstRun from '../../assets/work/sms-first-run.webp'
+import mapCover from '../../assets/work/map-cover.webp'
+import mapDestinations from '../../assets/work/map-destinations.webp'
+import mapVerticals from '../../assets/work/map-verticals.webp'
+import mapFilters from '../../assets/work/map-filters.webp'
+import mapDestination from '../../assets/work/map-destination.webp'
+import mapAttraction from '../../assets/work/map-attraction.webp'
+import tripsCoverLocked from '../../assets/work/trips-cover-locked.webp'
 
 export type Metric = { value: string; label: string }
 export type Shot = { src: string; alt: string; width: number; height: number; caption?: string }
@@ -22,7 +36,7 @@ export type Quote = { text: string; source: string }
 export type Flow = { label: string; steps: string[] }
 
 export type CaseStudy = {
-  problem: { body: string; stats: Metric[]; quote?: Quote }
+  problem: { body: string; stats?: Metric[]; quote?: Quote }
   insight: string
   contrast?: { title: string; items: string[]; keep: boolean }[]
   decisions: { title: string; body: string; shots: Shot[]; flows?: Flow[] }[]
@@ -49,12 +63,14 @@ type Teaser = {
   color: string
   ink: string
   cover: Shot
+  // Earlier work is listed on the Work page only, after the featured projects.
+  earlier?: true
 }
 
 // Locked case studies live encrypted in src/protected/<id> and open with a password.
 export type Project = Teaser & ((CaseStudy & { locked?: never }) | { locked: true })
 
-// Screens come from Hardik's Figma case studies. Figures are the ones those studies report.
+// Screens come from Hardik's Figma case studies and, for earlier work, his previous portfolio. Figures are the ones those sources and his resume report.
 export const projects: Project[] = [
   {
     id: 'store',
@@ -222,5 +238,153 @@ export const projects: Project[] = [
     color: '#2d5bcc',
     ink: '#e2e9f5',
     cover: { src: copilotCover, alt: 'Copilot answering "Next India T20 match" with a match card for India versus New Zealand and a carousel of upcoming fixtures', width: 1400, height: 1447 },
+  },
+  {
+    id: 'sms-organizer',
+    name: 'SMS Organizer',
+    category: 'Android app redesign',
+    headline: 'The inbox that speaks your language.',
+    description: "I helped revamp SMS Organizer, Microsoft's messaging app for India: one clear navigation, reminders you can act on, and messages you can translate or hear read aloud.",
+    summary: "Revamped Microsoft's SMS app for India around clarity, smart reminders and messages in your own language.",
+    role: 'Product designer',
+    organization: 'Microsoft x Tech Mahindra',
+    timeline: 'April to October 2023',
+    team: '3 designers, 1 product manager and 4+ engineers',
+    scope: 'Research, competitive analysis, app audit, Material 3 design system, usability testing and key modules',
+    metrics: [
+      { value: '30%', label: 'Lift in user engagement' },
+      { value: '5+', label: 'Languages, translated or read aloud' },
+    ],
+    problem: {
+      body: "SMS Organizer sorts an Indian inbox on the phone itself: one-time passwords, bills, bookings and offers, without uploading anything online. More than a million people had downloaded it, and reviews kept asking for a better-looking app. Two navigation bars competed for attention, text was small and low in contrast, reminders stopped at the alert, and messages arrived in languages some people couldn't read.",
+      stats: [
+        { value: '2', label: 'Navigation bars competing on one screen' },
+        { value: '20+', label: 'Languages spoken across India' },
+        { value: '6', label: 'Problem areas from the app audit and reviews' },
+      ],
+      quote: { text: 'Never seen such an advanced messaging app… Just an attractive GUI lacks, especially because this app is by Microsoft.', source: 'Google Play review, March 2023' },
+    },
+    insight: "The app was smart. The interface didn't show it.",
+    decisions: [
+      {
+        title: 'One navigation, within thumb reach',
+        body: "Two navigation bars made every screen harder to read. We moved primary navigation to the bottom, where it's familiar and easy to reach, made message filters clearly secondary and named the current page in bold. More space and a clearer type hierarchy took out the rest of the noise. Rather than moving the bar overnight, the app asked people whether they wanted to swap.",
+        shots: [{ src: smsNavigation, alt: 'Before and after of the SMS Organizer inbox, annotated: the old app with two navigation bars at the top, and the new one with message filters at the top and the main navigation at the bottom', width: 1600, height: 703 }],
+      },
+      {
+        title: 'Reminders that help you act',
+        body: "Reminders sat in one flat list and stopped at the alert. The app now creates them from booking messages for flights, trains, hotels, movies and doctor's appointments, groups them by type and shows the details that matter. Tapping one opens a sheet with relevant information from Bing, like hotels at your destination, so the next step is right there.",
+        shots: [{ src: smsReminders, alt: 'Reminders before and after, annotated: a plain list in the old app, and grouped reminder cards in the new one, with a flight reminder open in a sheet that suggests hotels and car rentals', width: 1600, height: 1059 }],
+      },
+      {
+        title: 'Every message in a language you know',
+        body: "Messages arrive in whichever language the sender chose, which isn't always one the reader can read. The app now meets people in their own language: it translates any message into theirs and reads it aloud, for people who understand a language better than they read it. I designed the layouts to hold when a translation runs long.",
+        shots: [{ src: smsLanguages, alt: 'Multilingual features, annotated: choosing a preferred language from English, Gujarati, Hindi, Marathi, Tamil and Telugu, and a conversation showing a message, its translation and a read-aloud option', width: 1600, height: 682 }],
+      },
+    ],
+    result: {
+      body: 'In UX Labs testing, people preferred the new design to the old one for its layout and presentation. The revamp shipped on a Material 3 design system with a brighter blue, 8+ themes, micro-animations, and designed empty, error and first-run states.',
+      metrics: [
+        { value: '30%', label: 'Lift in user engagement' },
+        { value: '5+', label: 'Languages, translated or read aloud' },
+        { value: '8+', label: 'Themes to make it yours' },
+        { value: '4.5:1', label: 'Minimum text contrast' },
+      ],
+      shots: [
+        { src: smsFinance, alt: 'Finance screen listing bank accounts and credit cards with balances read from SMS', width: 900, height: 1895, caption: 'Finance' },
+        { src: smsOffers, alt: 'Offers screen with cashback offers grouped by category', width: 900, height: 1895, caption: 'Offers' },
+        { src: smsFirstRun, alt: 'First-run screen introducing message translation', width: 900, height: 1873, caption: 'First run' },
+      ],
+    },
+    takeaway: {
+      line: 'Redesigning an app people already use is a migration as much as a launch.',
+      body: "Building on Material 3 let every screen take a longer translation without breaking, and a phased rollout meant no one opened an app they didn't recognize.",
+    },
+    earlier: true,
+    color: '#4466ff',
+    ink: '#ffffff',
+    cover: { src: smsCover, alt: "Redesigned SMS Organizer Reminders screen with an Amazon order, a doctor's appointment and two bills, above the new bottom navigation", width: 900, height: 1895 },
+  },
+  {
+    id: 'travel-map',
+    name: 'Bing Travel Map',
+    category: 'Travel discovery',
+    headline: 'The whole trip, on one map.',
+    description: 'I designed one interactive map for Bing Travel that brings destinations, hotels, attractions and transit together, so planning a trip no longer means switching apps.',
+    summary: 'Brought destinations, hotels, attractions and transit onto one map for Bing Travel.',
+    role: 'Product designer',
+    organization: 'Microsoft x Tech Mahindra',
+    timeline: 'November 2023 to January 2024',
+    team: '3 designers, 1 product manager and 3+ engineers',
+    scope: 'Concept, interaction design, usability testing and key modules',
+    metrics: [
+      { value: '5', label: 'Travel verticals on one map' },
+      { value: '68%', label: 'Map click rate in UX Labs studies' },
+    ],
+    problem: {
+      body: 'Travelers plan on maps. They check whether a hotel is close to what they want to see, and whether a plan is feasible at all. On Bing, that meant switching between apps and sites for hotels, flights, activities and transit, with no way to narrow the map to what mattered and little help deciding where to go in the first place.',
+      stats: [{ value: '68%', label: 'Click rate on maps across UX Labs studies' }],
+      quote: { text: 'I just look at the location of every place on the map to check that I do not take something which is very far, because feasibility is important.', source: 'Research participant, Bing Travel' },
+    },
+    insight: "Travelers don't plan in lists. They plan in places.",
+    decisions: [
+      {
+        title: 'Help people decide where to go',
+        body: "For travelers without a destination, the map groups places by continent with the top picks from each, offers trips nearby and prices them from where you're browsing. Themes like beaches, relaxation and adventure narrow the choice, and each destination shows when to visit, the weather, average flight and hotel costs, and the currency and visa details people check before they commit.",
+        shots: [{ src: mapDestinations, alt: 'Exploring destinations, annotated: a panel of nearby, North American and Asian destinations with the browsing location and search, beside a map that groups destinations by continent', width: 1600, height: 819 }],
+      },
+      {
+        title: 'Every vertical on one map',
+        body: "One search covers destinations, hotels, attractions and countries. Each destination brings flights, hotels, attractions, transit and restaurants together, and the map pins all of them, so a hotel's distance from the sights shows at a glance. People choose which pins they see.",
+        shots: [{ src: mapVerticals, alt: 'Miami on one map, annotated: universal search, the selected destination with top attractions, flights and hotels, and a map pinning all of them', width: 1600, height: 788 }],
+      },
+      {
+        title: 'Filter the map to what matters',
+        body: 'A map with every pin is as hard to read as a long list. Filters narrow it to attractions, stays, restaurants or transit, one at a time or combined, with sub-filters inside each. A heat map shows where restaurants are in demand, and transit options show how to get around the city.',
+        shots: [{ src: mapFilters, alt: 'Filter states of the Miami map, annotated: all pins, multi-select filters, attractions only, stays only, restaurants with a demand heat map, and transit', width: 1600, height: 1214 }],
+      },
+    ],
+    result: {
+      body: 'I explored the map from mild to wild. The mild ideas gave engineering something to build early, and the wild ones showed where the experience could go. With the product manager and engineers, we prioritized an MVP, and I delivered its key modules.',
+      changes: [
+        ['Switching between apps', 'Every vertical on one map'],
+        ['Not sure where to go', 'Destinations by region, theme and season'],
+        ['Every pin at once', 'Filters for what matters'],
+      ],
+      shots: [
+        { src: mapDestination, alt: 'Miami destination panel with the best time to visit, things to do and flights, beside a map of hotel and attraction pins', width: 1600, height: 955, caption: 'A destination, with every vertical pinned' },
+        { src: mapAttraction, alt: 'Zoo Miami detail with peak hours, opening times and nearby attractions, beside the map', width: 1600, height: 955, caption: 'An attraction in context' },
+      ],
+    },
+    takeaway: {
+      line: 'Design without constraints first, then let the team decide what ships.',
+      body: 'Starting wide kept the vision ambitious. Prioritizing with product and engineering kept the first release buildable.',
+    },
+    earlier: true,
+    color: '#1e5b4f',
+    ink: '#e3efe9',
+    cover: { src: mapCover, alt: 'Bing Travel map with an Explore panel of nearby, North American and Asian destinations beside a world map of destination pins', width: 1600, height: 950 },
+  },
+  {
+    id: 'trip-planning',
+    name: 'Bing Trip Planning',
+    category: 'Travel planning',
+    headline: 'Pick up the trip where you left it.',
+    description: "I designed the north star for trip planning on Bing Travel: one page per trip that remembers what you saved, what you booked and what's left to do.",
+    summary: 'Designed one page per trip on Bing Travel that remembers your planning across sessions.',
+    role: 'Product designer',
+    organization: 'Microsoft x Tech Mahindra',
+    timeline: 'June to September 2024',
+    team: '3 designers, 1 product manager and 2+ engineers',
+    scope: 'Concept, north star design and key modules',
+    metrics: [
+      { value: '1 page', label: 'Per trip, for every save and booking' },
+      { value: '4', label: 'Planning problems it solves' },
+    ],
+    locked: true,
+    earlier: true,
+    color: '#f2a65a',
+    ink: '#1d1308',
+    cover: { src: tripsCoverLocked, alt: 'Blurred preview of Bing Trip Planning with a lock, protected under NDA', width: 1600, height: 1000 },
   },
 ]

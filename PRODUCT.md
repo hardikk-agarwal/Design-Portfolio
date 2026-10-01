@@ -114,6 +114,7 @@ Hardik supplied the following in conversation on 28 September 2026:
 - Every project has native text for role, problem, key decisions, and result, plus a direct reading link. Screens are real product work from Hardik's Figma case studies; targets are labelled as targets.
 - Phones, shorter screens, and reduced motion use an ordinary static layout with a local image for every project. They do not initialize WebGL on a fresh visit.
 - The Work page keeps its comparison catalogue. The homepage has one project sequence, not a duplicate catalogue or carousel controls.
+- Earlier work (SMS Organizer, Bing Travel Map and Bing Trip Planning, 2023 to 2024 at Microsoft x Tech Mahindra) is listed only on the Work page, below the three featured projects, with full case study pages rebuilt from Hardik's previous portfolio.
 - About leads with the full-circle story, working approach, values, and personal interests before career history. Personal copy uses details supplied by Hardik.
 - About, Resume PDF, and email remain directly accessible. Project pages lead with the outcome and impact figures, then role, team, timeline, and scope; each key decision pairs short text with its screens, which follow the text on phones.
 - Existing reading deep links remain valid and avoid WebGL initialization. Return and browser navigation preserve selected-project context.
@@ -156,4 +157,4 @@ Target WCAG AA. Support keyboard navigation, touch, system theme, reduced motion
 
 Local prototype only. Hardik approved the Figma case study screens and figures for public sharing on 1 October 2026. Keep noindex and do not deploy until he asks to publish.
 
-The Windows Developer Center case study is under NDA. Publicly it shows only its teaser (name, headline, role, headline figures) and an abstract locked cover; the case study itself is encrypted and opens with a password Hardik shares by email. The site will be hosted on GitHub Pages through a manually run Actions workflow.
+The Windows Developer Center case study is under NDA. Publicly it shows only its teaser (name, headline, role, headline figures) and an abstract locked cover; the case study itself is encrypted and opens with a password Hardik shares by email. Bing Trip Planning was password-protected on Hardik's previous portfolio, so it is sealed the same way with the same password. The site will be hosted on GitHub Pages through a manually run Actions workflow.

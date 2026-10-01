@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { loadEnv } from 'vite'
 
 const root = fileURLToPath(new URL('../', import.meta.url))
-const studies = ['portal']
+const studies = ['portal', 'trip-planning']
 const password = loadEnv('production', root, '').CASE_STUDY_PASSWORD?.trim()
 
 if (!password) {

@@ -1,4 +1,4 @@
-export type ProjectId = 'store' | 'portal' | 'copilot'
+export type ProjectId = 'store' | 'portal' | 'copilot' | 'sms-organizer' | 'travel-map' | 'trip-planning'
 
 export type Route =
   | { page: 'home'; anchor?: string }

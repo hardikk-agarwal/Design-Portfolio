@@ -7,6 +7,7 @@ test('reading routes stay compatible with the previous portfolio', () => {
   assert.deepEqual(parseRoute('#about'), { page: 'about' })
   assert.deepEqual(parseRoute('#resume'), { page: 'resume' })
   assert.deepEqual(parseRoute('#work/portal'), { page: 'project', id: 'portal' })
+  assert.deepEqual(parseRoute('#work/sms-organizer'), { page: 'project', id: 'sms-organizer' })
   assert.deepEqual(parseRoute('#work/hello'), { page: 'work' })
 })
 
