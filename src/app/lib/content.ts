@@ -13,6 +13,11 @@ export { projects }
 export type { CaseStudy, Endorsement, Film, Flow, Metric, Project, Quote, Shot } from './projects'
 export const photos = { cameraPortrait, cameraChip, candid, subject, benchScene }
 export const email = 'madebyhardik@gmail.com'
+export const phone = { label: '+91 92055 38968', href: 'tel:+919205538968' }
+export const profiles = [
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/hardikkagarwal/' },
+  { label: 'Instagram', href: 'https://www.instagram.com/hardikk_agarwal/' },
+]
 
 export function projectById(id: ProjectId) {
   return projects.find((project) => project.id === id)!

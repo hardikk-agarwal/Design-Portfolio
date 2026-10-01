@@ -15,11 +15,11 @@ const columns = Array.from({ length: 12 }, (_, index) => index)
 // Pins and boxes are fractions of the 1122 × 1402 portrait, so each note stays on its body part at any crop.
 // Order is priority: when a column runs out of room, the last notes are dropped first.
 const notes: Note[] = [
-  { id: 'head', part: 'Head', title: 'I think in systems', text: 'I built one schema that lets Copilot add 4 new sports a cycle.', side: 'right', pin: [0.572, 0.158], box: [0.445, 0.125, 0.6, 0.256] },
-  { id: 'eyes', part: 'Eyes', title: 'I look closer', text: 'I led research that lifted satisfaction scores by 45%.', side: 'left', pin: [0.492, 0.197], box: [0.478, 0.184, 0.562, 0.211] },
-  { id: 'heart', part: 'Heart', title: 'I love photography and space', text: 'One sharpens my eye for framing, the other my sense of scale.', side: 'right', pin: [0.63, 0.34], box: [0.585, 0.3, 0.7, 0.4] },
-  { id: 'brooch', part: 'Brooch', title: 'I notice the small things', text: 'I triaged Windows Hello issues, helping cut craft bugs by 20%.', side: 'right', pin: [0.54, 0.403], box: [0.52, 0.335, 0.565, 0.42] },
-  { id: 'arm', part: 'Arm', title: 'I reach for new tools', text: 'I prototype in code with AI and have run demos for 30+ stakeholders.', side: 'left', pin: [0.33, 0.3], box: [0.18, 0.27, 0.43, 0.345] },
+  { id: 'head', part: 'Head', title: 'I solve it once, for good', text: 'One schema I built lets Copilot add 4 new sports a cycle.', side: 'right', pin: [0.572, 0.158], box: [0.445, 0.125, 0.6, 0.256] },
+  { id: 'eyes', part: 'Eyes', title: 'I watch before I draw', text: 'Research I led lifted satisfaction scores by 45%.', side: 'left', pin: [0.492, 0.197], box: [0.478, 0.184, 0.562, 0.211] },
+  { id: 'heart', part: 'Heart', title: 'I chase light, near and far', text: 'Photography trains my framing; astronomy, my sense of scale.', side: 'right', pin: [0.63, 0.34], box: [0.585, 0.3, 0.7, 0.4] },
+  { id: 'brooch', part: 'Brooch', title: 'I fix the papercuts', text: 'Triaging Windows Hello issues helped cut craft bugs by 20%.', side: 'right', pin: [0.54, 0.403], box: [0.52, 0.335, 0.565, 0.42] },
+  { id: 'arm', part: 'Arm', title: 'I reach past the mockup', text: 'Coded prototypes built with AI, demoed to 30+ stakeholders.', side: 'left', pin: [0.33, 0.3], box: [0.18, 0.27, 0.43, 0.345] },
 ]
 
 function LayoutGrid() {

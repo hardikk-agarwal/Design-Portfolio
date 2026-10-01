@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUp } from 'lucide-react'
+import { ArrowUp, ArrowUpRight } from 'lucide-react'
 import { TypographyVortexCanvas } from '@designcodeio/threeui/components/TypographyVortexCanvas'
 import { Magnetic } from '@/components/magnetic'
 import { gsap, motionOk } from '@/lib/gsap'
 import { Link, useNavigation } from '@/lib/navigation'
 import { useTheme, type Theme } from '@/lib/theme'
-import { email } from '@/lib/content'
+import { email, phone, profiles } from '@/lib/content'
 
 // Building the vortex's text rings blocks the main thread for a moment, so it starts only once the footer is on
 // screen and scrolling has paused, then fades in; pages read without reaching the footer never pay for it.
@@ -112,6 +112,20 @@ export function SiteFooter() {
         <a href={`mailto:${email}`} className="mt-8 text-lg font-medium underline decoration-1 underline-offset-[6px] hover:decoration-2">
           {email}
         </a>
+        <ul aria-label="Other ways to reach me" className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[15px] font-medium sm:gap-x-7 sm:text-[16px]">
+          <li>
+            <a href={phone.href} className="underline decoration-1 underline-offset-[6px] hover:decoration-2">{phone.label}</a>
+          </li>
+          {profiles.map((profile) => (
+            <li key={profile.label}>
+              <a href={profile.href} target="_blank" rel="noopener noreferrer" className="underline decoration-1 underline-offset-[6px] hover:decoration-2">
+                {profile.label}
+                <ArrowUpRight aria-hidden="true" className="ml-0.5 inline size-4 align-[-0.15em]" strokeWidth={1.75} />
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-border bg-[#eef1f6]/90 px-5 py-5 text-[15px] backdrop-blur-md md:px-10 dark:bg-[#151515]/90">
