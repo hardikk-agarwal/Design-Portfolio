@@ -21,12 +21,15 @@ function Vortex({ theme }: { theme: Theme }) {
     const tick = (now: number) => {
       if (last) deltas.push(now - last)
       last = now
-      if (deltas.length < 18) {
+      // Decide after 12 settled frames, or sooner on slow devices: 3+ frames spanning 600 ms.
+      const settled = deltas.slice(2)
+      const elapsed = settled.reduce((sum, delta) => sum + delta, 0)
+      if (settled.length < 12 && (settled.length < 3 || elapsed < 600)) {
         frame = requestAnimationFrame(tick)
         return
       }
       observer.disconnect()
-      const settled = deltas.slice(6).sort((a, b) => a - b)
+      settled.sort((a, b) => a - b)
       const source = element.querySelector('canvas')
       if (settled[settled.length >> 1] <= 50 || !source) return
       const copy = document.createElement('canvas')
