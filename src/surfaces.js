@@ -2,23 +2,23 @@ import { stories, storyMarkup } from './stories.js'
 
 export const resumeSections = [
   ['UX Designer | Microsoft | Mar 2025 - Present', [
-    'Redesigned Microsoft Store company account onboarding as sole designer: success 35% to 73%, time approximately 15 days to 1 day, reaching 240+ companies in 50 countries.',
-    'Sole designer for the new Windows Developer Center (design complete July 2026): vision, IA and publishing flows for 6,000+ monthly developers, validated with an AI-built prototype and four moderated studies.',
-    'Led design for the Trusted Developer Program pilot with Microsoft PC Manager: 20 apps and 313K+ trust-dialog views. Developer identity concepts informed by research with 100+ participants.',
-    'Triaged 30+ Windows Hello and passkey usability issues, contributing to 20% fewer craft bugs, SUS 79.5 to 83.2, and a 12% lift in biometric enrollment.',
-    'Standardized Copilot Sports answer cards into a reusable schema enabling 4 new sports per cycle.',
-    'Drove AI-assisted design-to-code practice and agentic prototypes demonstrated to 30+ stakeholders.',
+    'Redesigned Microsoft Store company account onboarding as sole designer: lifted success from 35% to 73% and cut onboarding from ~15 days to ~1 day, scaling to 240+ companies across 50 countries.',
+    'Led design for the Trusted Developer Program pilot with Microsoft PC Manager (20 apps, 313K+ trust dialog views) and developer identity verification concepts, grounded in research with 100+ participants.',
+    'Raised craft in Windows Hello and passkeys: triaged 30+ usability issues, contributing to 20% fewer craft bugs, System Usability Scale 79.5 to 83.2, and a 12% lift in biometric enrollment.',
+    'Standardized Copilot Sports answer cards, the AI result surface for cricket, tennis, motorsports and American football, into a reusable schema enabling 4 new sports per cycle.',
+    'Drove AI-assisted design practice: Claude Code and Figma MCP workflows, design-to-code prototyping, and agentic prototypes demoed to 30+ stakeholders.',
   ]],
   ['Senior Associate UX Designer | Microsoft x Tech Mahindra | Feb 2023 - Jan 2025', [
-    'Designed Bing Search answer modules serving 1M+ user queries monthly.',
+    'Designed search answer modules for Bing Search, serving 1M+ user queries monthly.',
     'Optimized Bing Travel across flights, destinations, hotels and car rentals: 20% improvement in booking success.',
-    'Research and usability testing raised post-interaction satisfaction scores 45%.',
-    'Contributed Bing design-system components used across 5+ products and reduced signoff turnaround 40%. Revamped SMS Organizer, increasing engagement 30%.',
+    'Led user research and usability testing that raised post-interaction satisfaction scores 45%.',
+    'Contributed core components to the Bing design system, used across 5+ major products, and cut design signoff turnaround 40%.',
+    'Revamped an SMS Organizer app, increasing user engagement 30%.',
   ]],
   ['Visual Designer | PlayShifu | May 2021 - Jan 2023', [
-    'Launched 6+ AR STEM games for children aged 6-12, lifting educational engagement 40%.',
-    'Led the 3D avatar team from concept to integration: 20% greater resource reuse and customization for 10,000+ users.',
-    'Converted traditional HUD interfaces to world-space UI for VR, raising interaction rates 35%.',
+    'Launched 6+ AR STEM games for children aged 6–12, lifting educational engagement 40%.',
+    'Led the 3D avatar team from concept art to app integration: a swappable avatar system improved resource reuse 20% and enabled customization for 10,000+ users.',
+    'Converted traditional HUD UI to diegetic (world-space) UI for VR, raising interaction rates 35%.',
   ]],
 ]
 
@@ -28,7 +28,13 @@ export const education = [
   'Bachelor of Arts, English | IGNOU | Jul 2019 - Jul 2023',
 ]
 
-export const skills = 'Interaction design, design systems, information architecture, accessibility, prototyping, user research, usability testing, A/B testing, Figma, Adobe Creative Cloud, After Effects, Framer, Miro, Lottie, HTML/CSS/JavaScript, Claude Code, GitHub Copilot, Figma MCP, Figma Make, VS Code.'
+export const skillGroups = [
+  ['Design', ['User-Centered Design', 'Interaction Design', 'Design Systems', 'Information Architecture', 'Prototyping', 'Accessibility']],
+  ['AI & Prototyping', ['Claude Code', 'GitHub Copilot', 'Figma MCP', 'Figma Make', 'VS Code', 'Design-to-Code', 'Agentic Prototyping']],
+  ['Tools & Research', ['Figma', 'Adobe Creative Cloud', 'After Effects', 'Sketch', 'Framer', 'Miro', 'Lottie', 'HTML/CSS/JavaScript', 'User Research', 'Usability Testing', 'A/B Testing']],
+]
+
+export const skills = `${skillGroups.flatMap(([, items]) => items).join(', ')}.`
 
 function icon(name) { return `<i data-lucide="${name}" aria-hidden="true"></i>` }
 function back() { return `<button class="surface-icon return-control" data-action="close" type="button" aria-label="Return to desk" title="Return to desk">${icon('arrow-left')}</button>` }

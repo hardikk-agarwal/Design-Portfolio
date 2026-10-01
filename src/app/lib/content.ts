@@ -1,5 +1,5 @@
 import { stories } from '../../stories.js'
-import { resumeSections, education as educationLines, skills as skillLine, downloadResume } from '../../surfaces.js'
+import { resumeSections, education as educationLines, skillGroups } from '../../surfaces.js'
 import cameraPortrait from '../../assets/hardik-camera.webp'
 import cameraChip from '../../assets/hardik-camera-chip.webp'
 import candid from '../../assets/hardik-candid.webp'
@@ -8,7 +8,7 @@ import benchScene from '../../assets/hardik-bench-scene.webp'
 import { projects } from './projects'
 import type { ProjectId } from './routes.js'
 
-export { downloadResume, projects }
+export { projects }
 export type { CaseStudy, Flow, Metric, Project, Quote, Shot } from './projects'
 export const photos = { cameraPortrait, cameraChip, candid, subject, benchScene }
 export const email = 'madebyhardik@gmail.com'
@@ -29,7 +29,7 @@ export const education = (educationLines as string[]).map((line) => {
   return { degree, school, dates }
 })
 
-export const skills = (skillLine as string).replace(/\.$/, '').split(', ')
+export const skills = (skillGroups as [string, string[]][]).map(([group, items]) => ({ group, items }))
 
 export const practice = stories.notebook.pages.map((page) => ({ title: page.title, text: page.text, tools: page.items }))
 

@@ -51,6 +51,8 @@ export default defineConfig(({ command, mode }) => {
   if (command === 'build' && (mode === 'production' || pages)) checkSealed()
   return {
     base: pages ? './' : '/',
+    // public/ holds the resume PDF for the portfolio; the archived desk and story builds generate their own.
+    publicDir: mode === 'desk' || mode === 'story' ? false : 'public',
     plugins: [react(), tailwindcss(), pages ? preloadCritical() : viteSingleFile()],
     resolve: {
       alias: [{ find: /^@\//, replacement: fileURLToPath(new URL('./src/app/', import.meta.url)) }],
