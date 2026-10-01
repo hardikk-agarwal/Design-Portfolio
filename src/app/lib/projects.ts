@@ -36,6 +36,9 @@ export type Quote = { text: string; source: string }
 // Words from colleagues' Microsoft feedback; an ellipsis marks each cut. `highlight` is quoted verbatim from `text`.
 export type Endorsement = { text: string; role: string; highlight?: string }
 export type Flow = { label: string; steps: string[] }
+// Rendered by the Remotion project in video/ into public/films.
+// NDA films are AES-GCM encrypted; their key and iv only exist inside the unlocked case study.
+export type Film = { src: string; poster: string; captions: string; duration: string; key?: string; iv?: string }
 
 export type CaseStudy = {
   problem: { body: string; stats?: Metric[]; quote?: Quote }
@@ -45,6 +48,7 @@ export type CaseStudy = {
   result: { title?: string; body: string; metrics?: Metric[]; note?: string; quote?: Quote; changes?: [string, string][]; shots?: Shot[] }
   takeaway: { line: string; body?: string }
   partners?: Endorsement[]
+  film?: Film
   // Replaces the public cover once a locked case study is opened.
   cover?: Shot
 }
@@ -146,6 +150,7 @@ export const projects: Project[] = [
       { text: 'On Company Account Onboarding, the UX requirements were complex (Reverse D-U-N-S search, country-specific fields, verification failure paths, document upload, retry flows), and you consistently delivered clear, high-bar Figma prototypes with a fast turnaround. You didn’t make the team wait on design.', highlight: 'You didn’t make the team wait on design.', role: 'Senior product manager' },
       { text: 'Beyond design, your attention to detail and diligence in ensuring engineering implemented the experience as intended were equally impressive. You also showed strong conviction in holding your ground through tough tradeoff discussions, which helped maintain the integrity of the experience.', highlight: 'holding your ground through tough tradeoff discussions', role: 'Principal PM manager' },
     ],
+    film: { src: './films/store.mp4', poster: './films/store-poster.jpg', captions: './films/store.vtt', duration: '1:52' },
     color: '#b52845',
     ink: '#f0e7e6',
     cover: { src: storeCover, alt: 'Redesigned Microsoft Store developer onboarding showing live status for email, business and employment verification', width: 1600, height: 884 },
@@ -240,9 +245,10 @@ export const projects: Project[] = [
         ['Answer as content', 'Answer as interface'],
         ['General UI language', 'Sports-specific design language'],
       ],
-      shots: [{ src: copilotShell, alt: "Copilot's 2026 redesign answering a question about India's upcoming matches with the same sports card system", width: 1200, height: 933, caption: "The same system inside Copilot's 2026 redesign" }],
+      shots: [{ src: copilotShell, alt: "Copilot's 2026 redesign answering a question about India's upcoming matches with the same sports card system", width: 1134, height: 974, caption: "The same system inside Copilot's 2026 redesign" }],
     },
     takeaway: { line: 'Consistency across surfaces is a system property, not a per-card decision.' },
+    film: { src: './films/copilot.mp4', poster: './films/copilot-poster.jpg', captions: './films/copilot.vtt', duration: '1:42' },
     color: '#2d5bcc',
     ink: '#e2e9f5',
     cover: { src: copilotCover, alt: 'Copilot answering "Next India T20 match" with a match card for India versus New Zealand and a carousel of upcoming fixtures', width: 1400, height: 1447 },

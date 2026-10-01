@@ -8,6 +8,7 @@ import { projectNames } from '@/lib/content'
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { Curtain, type CurtainHandle } from '@/components/curtain'
+import { CursorLabel } from '@/components/cursor-label'
 import { HomePage } from '@/pages/home'
 import { WorkPage } from '@/pages/work'
 import { ProjectPage } from '@/pages/project'
@@ -26,7 +27,7 @@ function documentTitle(route: Route) {
 function Page({ route }: { route: Route }) {
   switch (route.page) {
     case 'work': return <WorkPage />
-    case 'project': return <ProjectPage id={route.id} />
+    case 'project': return <ProjectPage id={route.id} film={route.film} />
     case 'about': return <AboutPage />
     case 'resume': return <ResumePage />
     default: return <HomePage />
@@ -217,6 +218,7 @@ export function App() {
         </main>
         <SiteFooter />
         <Curtain ref={curtain} />
+        <CursorLabel />
         <p className="sr-only" role="status" aria-live="polite">{announcement}</p>
       </NavigationContext.Provider>
     </ThemeContext.Provider>

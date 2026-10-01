@@ -1,0 +1,208 @@
+{
+  "fps": 30,
+  "durationInFrames": 3373,
+  "scenes": [
+    {
+      "id": "hook",
+      "from": 0,
+      "duration": 313,
+      "lines": [
+        {
+          "text": "Only thirty-five percent of companies that started onboarding to the Microsoft Store ever finished.",
+          "file": "hook-0.wav",
+          "start": 0.7,
+          "seconds": 5.672666666666666,
+          "from": 21,
+          "duration": 170
+        },
+        {
+          "text": "For individual developers, it was ninety.",
+          "file": "hook-1.wav",
+          "start": 6.722666666666666,
+          "seconds": 2.618333333333333,
+          "from": 202,
+          "duration": 79
+        }
+      ]
+    },
+    {
+      "id": "title",
+      "from": 313,
+      "duration": 132,
+      "lines": []
+    },
+    {
+      "id": "problem",
+      "from": 445,
+      "duration": 493,
+      "lines": [
+        {
+          "text": "Companies paid a ninety-nine dollar fee before they knew if they could pass, and one in three stopped right there.",
+          "file": "problem-0.wav",
+          "start": 15.333333333333334,
+          "seconds": 6.622166666666667,
+          "from": 460,
+          "duration": 199
+        },
+        {
+          "text": "Requirements surfaced late, progress was invisible, and about forty-one percent failed vetting, often with no reason given.",
+          "file": "problem-1.wav",
+          "start": 22.305500000000002,
+          "seconds": 7.759833333333333,
+          "from": 669,
+          "duration": 233
+        }
+      ]
+    },
+    {
+      "id": "insight",
+      "from": 938,
+      "duration": 178,
+      "lines": [
+        {
+          "text": "Verification was necessary.",
+          "file": "insight-0.wav",
+          "start": 31.766666666666666,
+          "seconds": 1.861875,
+          "from": 953,
+          "duration": 56
+        },
+        {
+          "text": "The uncertainty around it wasn't.",
+          "file": "insight-1.wav",
+          "start": 33.978541666666665,
+          "seconds": 1.6304166666666666,
+          "from": 1019,
+          "duration": 49
+        }
+      ]
+    },
+    {
+      "id": "decision1",
+      "from": 1116,
+      "duration": 436,
+      "lines": [
+        {
+          "text": "First, we moved onboarding into a Store-owned flow.",
+          "file": "decision1-0.wav",
+          "start": 38.1,
+          "seconds": 2.85425,
+          "from": 1143,
+          "duration": 86
+        },
+        {
+          "text": "That let us drop the ninety-nine dollar fee, sign companies in with Microsoft Entra, and explain what verification needs before anyone commits.",
+          "file": "decision1-1.wav",
+          "start": 41.30425,
+          "seconds": 9.421416666666667,
+          "from": 1239,
+          "duration": 283
+        }
+      ]
+    },
+    {
+      "id": "decision2",
+      "from": 1552,
+      "duration": 377,
+      "lines": [
+        {
+          "text": "Then I replaced one rigid path with three ways to verify.",
+          "file": "decision2-0.wav",
+          "start": 52.53333333333333,
+          "seconds": 3.659875,
+          "from": 1576,
+          "duration": 110
+        },
+        {
+          "text": "Upload a business document, and AI pre-fills the company details for review, with people still in the loop.",
+          "file": "decision2-1.wav",
+          "start": 56.54320833333333,
+          "seconds": 6.7709166666666665,
+          "from": 1696,
+          "duration": 203
+        }
+      ]
+    },
+    {
+      "id": "decision3",
+      "from": 1929,
+      "duration": 423,
+      "lines": [
+        {
+          "text": "And failure became a step, not an ending.",
+          "file": "decision3-0.wav",
+          "start": 65.1,
+          "seconds": 2.3210416666666664,
+          "from": 1953,
+          "duration": 70
+        },
+        {
+          "text": "Email and domain are checked before anything is submitted, status updates live with a clear reason, and companies fix issues without starting over.",
+          "file": "decision3-1.wav",
+          "start": 67.77104166666666,
+          "seconds": 9.44,
+          "from": 2033,
+          "duration": 283
+        }
+      ]
+    },
+    {
+      "id": "result",
+      "from": 2352,
+      "duration": 448,
+      "lines": [
+        {
+          "text": "After a pilot in fifty countries, it rolled out to every Store market.",
+          "file": "result-0.wav",
+          "start": 79.2,
+          "seconds": 4.28875,
+          "from": 2376,
+          "duration": 129
+        },
+        {
+          "text": "Onboarding success went from thirty-five to seventy-three percent, and vetting time fell from about fifteen days to one.",
+          "file": "result-1.wav",
+          "start": 83.83875,
+          "seconds": 7.097416666666667,
+          "from": 2515,
+          "duration": 213
+        }
+      ]
+    },
+    {
+      "id": "quote",
+      "from": 2800,
+      "duration": 186,
+      "lines": []
+    },
+    {
+      "id": "takeaway",
+      "from": 2986,
+      "duration": 237,
+      "lines": [
+        {
+          "text": "The best onboarding doesn't remove complexity from the system.",
+          "file": "takeaway-0.wav",
+          "start": 100.03333333333333,
+          "seconds": 3.6810833333333335,
+          "from": 3001,
+          "duration": 110
+        },
+        {
+          "text": "It absorbs it, so the user doesn't have to.",
+          "file": "takeaway-1.wav",
+          "start": 104.06441666666666,
+          "seconds": 2.4819583333333335,
+          "from": 3122,
+          "duration": 74
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "from": 3223,
+      "duration": 150,
+      "lines": []
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+WEBVTT
+
+1
+00:00:00.700 --> 00:00:03.708
+Half of all sports searches happen while the game is live.
+
+2
+00:00:04.058 --> 00:00:10.257
+And in 2025, 52% of fans used generative AI, up from 31%.
+
+3
+00:00:16.367 --> 00:00:19.865
+Copilot already had the scores, the teams and the match state.
+
+4
+00:00:20.215 --> 00:00:22.164
+But when fans asked about a game,
+
+5
+00:00:22.164 --> 00:00:24.172
+the answer was still mostly text.
+
+6
+00:00:25.867 --> 00:00:26.946
+The data was there.
+
+7
+00:00:27.296 --> 00:00:28.446
+The interface wasn't.
+
+8
+00:00:30.833 --> 00:00:35.539
+So I turned the structure already in the sports data into a visual hierarchy.
+
+9
+00:00:35.889 --> 00:00:38.354
+The card answers the question at a glance,
+
+10
+00:00:38.354 --> 00:00:41.230
+and deeper content waits for fans who want more.
+
+11
+00:00:43.333 --> 00:00:45.794
+Cricket has overs, tennis has sets,
+
+12
+00:00:45.794 --> 00:00:48.325
+F1 has laps, and the NFL has downs.
+
+13
+00:00:48.675 --> 00:00:51.822
+One shared layer controls how every card reads,
+
+14
+00:00:51.822 --> 00:00:54.299
+a sport layer controls what matters,
+
+15
+00:00:54.299 --> 00:00:58.048
+and adding a sport became data mapping, not a redesign.
+
+16
+00:01:00.233 --> 00:01:03.860
+Then I designed every state, not just the final score.
+
+17
+00:01:04.210 --> 00:01:06.298
+Pre-game, live and post-game,
+
+18
+00:01:06.298 --> 00:01:09.177
+plus the edge cases that break layouts,
+
+19
+00:01:09.177 --> 00:01:12.416
+like rain delays, red flags and super overs.
+
+20
+00:01:14.800 --> 00:01:17.046
+The system shipped across four sports,
+
+21
+00:01:17.046 --> 00:01:21.006
+and others built Copilot's broader sports experience on top of it.
+
+22
+00:01:21.356 --> 00:01:24.869
+When Copilot moved to a new design language in 2026,
+
+23
+00:01:24.869 --> 00:01:28.381
+the same cards carried straight into the new shell.
+
+24
+00:01:31.067 --> 00:01:34.209
+Consistency across surfaces is a system property,
+
+25
+00:01:34.209 --> 00:01:35.813
+not a per-card decision.

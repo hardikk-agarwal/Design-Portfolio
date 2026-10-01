@@ -2,19 +2,46 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowUp } from 'lucide-react'
 import { TypographyVortexCanvas } from '@designcodeio/threeui/components/TypographyVortexCanvas'
 import { Magnetic } from '@/components/magnetic'
+import { gsap, motionOk } from '@/lib/gsap'
 import { Link, useNavigation } from '@/lib/navigation'
 import { useTheme, type Theme } from '@/lib/theme'
 import { email } from '@/lib/content'
 
-// The vortex redraws the whole footer every frame. Where that runs below 20 fps once warmed up
+// Building the vortex's text rings blocks the main thread for a moment, so it starts only once the footer is on
+// screen and scrolling has paused, then fades in; pages read without reaching the footer never pay for it.
+// It also redraws the whole footer every frame. Where that runs below 20 fps once warmed up
 // (no GPU acceleration, for example), a still frame of it replaces the animation so the footer stays responsive.
 function Vortex({ theme }: { theme: Theme }) {
   const host = useRef<HTMLDivElement>(null)
+  const [live, setLive] = useState(false)
   const [still, setStill] = useState<HTMLCanvasElement | null>(null)
 
   useEffect(() => {
     const element = host.current
-    if (!element) return
+    if (!element || live) return
+    let visible = false
+    let timer = 0
+    const settle = () => {
+      window.clearTimeout(timer)
+      if (visible) timer = window.setTimeout(() => setLive(true), 250)
+    }
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry?.isIntersecting ?? false
+      settle()
+    })
+    observer.observe(element)
+    window.addEventListener('scroll', settle, { passive: true })
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', settle)
+      window.clearTimeout(timer)
+    }
+  }, [live])
+
+  useEffect(() => {
+    const element = host.current
+    if (!element || !live) return
+    if (window.matchMedia(motionOk).matches) gsap.fromTo(element, { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' })
     let frame = 0
     let last = 0
     let deltas: number[] = []
@@ -49,12 +76,12 @@ function Vortex({ theme }: { theme: Theme }) {
       observer.disconnect()
       cancelAnimationFrame(frame)
     }
-  }, [])
+  }, [live])
 
   if (still) return <div ref={(node) => { node?.replaceChildren(still) }} className={`typography-vortex-component typography-vortex-component--${theme}`} />
   return (
     <div ref={host} className="size-full">
-      <TypographyVortexCanvas mode={theme} phrase="HARDIK AGARWAL / PRODUCT DESIGNER / " speed={0.75} opacity={0.9} />
+      {live && <TypographyVortexCanvas mode={theme} phrase="HARDIK AGARWAL / PRODUCT DESIGNER / " speed={0.75} opacity={0.9} />}
     </div>
   )
 }

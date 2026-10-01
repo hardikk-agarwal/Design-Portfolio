@@ -5,7 +5,7 @@ export type Route =
   | { page: 'work' }
   | { page: 'about' }
   | { page: 'resume' }
-  | { page: 'project'; id: ProjectId }
+  | { page: 'project'; id: ProjectId; film?: true }
 
 export declare const projectIds: ProjectId[]
 export declare function parseRoute(hash: string): Route

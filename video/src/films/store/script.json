@@ -1,0 +1,53 @@
+{
+  "voice": "am_michael",
+  "speed": 1.08,
+  "fps": 30,
+  "gap": 0.35,
+  "captions": [
+    ["thirty-five percent", "35%"],
+    ["it was ninety.", "it was 90%."],
+    ["ninety-nine dollar fee", "$99 fee"],
+    ["one in three", "1 in 3"],
+    ["forty-one percent", "41%"],
+    ["fifty countries", "50 countries"],
+    ["from thirty-five to seventy-three percent", "from 35% to 73%"],
+    ["from about fifteen days to one", "from about 15 days to 1"]
+  ],
+  "scenes": [
+    { "id": "hook", "lead": 0.7, "tail": 1.1, "lines": [
+      "Only thirty-five percent of companies that started onboarding to the Microsoft Store ever finished.",
+      "For individual developers, it was ninety."
+    ] },
+    { "id": "title", "min": 4.4, "lines": [] },
+    { "id": "problem", "lead": 0.5, "tail": 1.2, "lines": [
+      "Companies paid a ninety-nine dollar fee before they knew if they could pass, and one in three stopped right there.",
+      "Requirements surfaced late, progress was invisible, and about forty-one percent failed vetting, often with no reason given."
+    ] },
+    { "id": "insight", "lead": 0.5, "tail": 1.6, "lines": [
+      "Verification was necessary.",
+      "The uncertainty around it wasn't."
+    ] },
+    { "id": "decision1", "lead": 0.9, "tail": 1.0, "lines": [
+      "First, we moved onboarding into a Store-owned flow.",
+      "That let us drop the ninety-nine dollar fee, sign companies in with Microsoft Entra, and explain what verification needs before anyone commits."
+    ] },
+    { "id": "decision2", "lead": 0.8, "tail": 1.0, "lines": [
+      "Then I replaced one rigid path with three ways to verify.",
+      "Upload a business document, and AI pre-fills the company details for review, with people still in the loop."
+    ] },
+    { "id": "decision3", "lead": 0.8, "tail": 1.2, "lines": [
+      "And failure became a step, not an ending.",
+      "Email and domain are checked before anything is submitted, status updates live with a clear reason, and companies fix issues without starting over."
+    ] },
+    { "id": "result", "lead": 0.8, "tail": 2.4, "lines": [
+      "After a pilot in fifty countries, it rolled out to every Store market.",
+      "Onboarding success went from thirty-five to seventy-three percent, and vetting time fell from about fifteen days to one."
+    ] },
+    { "id": "quote", "min": 6.2, "lines": [] },
+    { "id": "takeaway", "lead": 0.5, "tail": 0.9, "lines": [
+      "The best onboarding doesn't remove complexity from the system.",
+      "It absorbs it, so the user doesn't have to."
+    ] },
+    { "id": "end", "min": 5, "lines": [] }
+  ]
+}

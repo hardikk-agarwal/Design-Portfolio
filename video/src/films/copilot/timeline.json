@@ -1,0 +1,194 @@
+{
+  "fps": 30,
+  "durationInFrames": 3060,
+  "scenes": [
+    {
+      "id": "hook",
+      "from": 0,
+      "duration": 341,
+      "lines": [
+        {
+          "text": "Half of all sports searches happen while the game is live.",
+          "file": "hook-0.wav",
+          "start": 0.7,
+          "seconds": 3.0084166666666667,
+          "from": 21,
+          "duration": 90
+        },
+        {
+          "text": "And in twenty twenty-five, fifty-two percent of fans used generative AI, up from thirty-one.",
+          "file": "hook-1.wav",
+          "start": 4.058416666666667,
+          "seconds": 6.198583333333334,
+          "from": 122,
+          "duration": 186
+        }
+      ]
+    },
+    {
+      "id": "title",
+      "from": 341,
+      "duration": 132,
+      "lines": []
+    },
+    {
+      "id": "problem",
+      "from": 473,
+      "duration": 288,
+      "lines": [
+        {
+          "text": "Copilot already had the scores, the teams and the match state.",
+          "file": "problem-0.wav",
+          "start": 16.366666666666667,
+          "seconds": 3.4987916666666665,
+          "from": 491,
+          "duration": 105
+        },
+        {
+          "text": "But when fans asked about a game, the answer was still mostly text.",
+          "file": "problem-1.wav",
+          "start": 20.215458333333334,
+          "seconds": 3.95625,
+          "from": 606,
+          "duration": 119
+        }
+      ]
+    },
+    {
+      "id": "insight",
+      "from": 761,
+      "duration": 140,
+      "lines": [
+        {
+          "text": "The data was there.",
+          "file": "insight-0.wav",
+          "start": 25.866666666666667,
+          "seconds": 1.0795,
+          "from": 776,
+          "duration": 32
+        },
+        {
+          "text": "The interface wasn't.",
+          "file": "insight-1.wav",
+          "start": 27.296166666666668,
+          "seconds": 1.1495833333333334,
+          "from": 819,
+          "duration": 34
+        }
+      ]
+    },
+    {
+      "id": "decision1",
+      "from": 901,
+      "duration": 375,
+      "lines": [
+        {
+          "text": "So I turned the structure already in the sports data into a visual hierarchy.",
+          "file": "decision1-0.wav",
+          "start": 30.833333333333336,
+          "seconds": 4.705791666666666,
+          "from": 925,
+          "duration": 141
+        },
+        {
+          "text": "The card answers the question at a glance, and deeper content waits for fans who want more.",
+          "file": "decision1-1.wav",
+          "start": 35.889125,
+          "seconds": 5.340958333333333,
+          "from": 1077,
+          "duration": 160
+        }
+      ]
+    },
+    {
+      "id": "decision2",
+      "from": 1276,
+      "duration": 507,
+      "lines": [
+        {
+          "text": "Cricket has overs, tennis has sets, F1 has laps, and the NFL has downs.",
+          "file": "decision2-0.wav",
+          "start": 43.33333333333333,
+          "seconds": 4.992,
+          "from": 1300,
+          "duration": 150
+        },
+        {
+          "text": "One shared layer controls how every card reads, a sport layer controls what matters, and adding a sport became data mapping, not a redesign.",
+          "file": "decision2-1.wav",
+          "start": 48.67533333333333,
+          "seconds": 9.372375,
+          "from": 1460,
+          "duration": 281
+        }
+      ]
+    },
+    {
+      "id": "decision3",
+      "from": 1783,
+      "duration": 437,
+      "lines": [
+        {
+          "text": "Then I designed every state, not just the final score.",
+          "file": "decision3-0.wav",
+          "start": 60.23333333333333,
+          "seconds": 3.6268333333333334,
+          "from": 1807,
+          "duration": 109
+        },
+        {
+          "text": "Pre-game, live and post-game, plus the edge cases that break layouts, like rain delays, red flags and super overs.",
+          "file": "decision3-1.wav",
+          "start": 64.21016666666667,
+          "seconds": 8.206125,
+          "from": 1926,
+          "duration": 246
+        }
+      ]
+    },
+    {
+      "id": "result",
+      "from": 2220,
+      "duration": 497,
+      "lines": [
+        {
+          "text": "The system shipped across four sports, and others built Copilot's broader sports experience on top of it.",
+          "file": "result-0.wav",
+          "start": 74.8,
+          "seconds": 6.205791666666666,
+          "from": 2244,
+          "duration": 186
+        },
+        {
+          "text": "When Copilot moved to a new design language in twenty twenty-six, the same cards carried straight into the new shell.",
+          "file": "result-1.wav",
+          "start": 81.35579166666666,
+          "seconds": 7.025625,
+          "from": 2441,
+          "duration": 211
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "from": 2717,
+      "duration": 193,
+      "lines": [
+        {
+          "text": "Consistency across surfaces is a system property, not a per-card decision.",
+          "file": "takeaway-0.wav",
+          "start": 91.06666666666666,
+          "seconds": 4.745875,
+          "from": 2732,
+          "duration": 142
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "from": 2910,
+      "duration": 150,
+      "lines": []
+    }
+  ]
+}

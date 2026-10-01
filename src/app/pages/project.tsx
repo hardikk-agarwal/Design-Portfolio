@@ -6,6 +6,7 @@ import { email, projectById, projects, type CaseStudy, type Flow, type Metric, t
 import { isSealed, isSecure, openedStudy, preloadSealed, unlockStudy } from '@/lib/protected'
 import type { ProjectId } from '@/lib/routes.js'
 import { PageTitle } from '@/components/page-title'
+import { WatchFilm } from '@/components/film-player'
 import { MetricValue } from '@/sections/work'
 import { Marked, RoleChip } from '@/sections/words'
 import { cn } from '@/lib/utils'
@@ -169,7 +170,15 @@ function Blockquote({ quote }: { quote: Quote }) {
 
 function NextProject({ project }: { project: Project }) {
   return (
-    <Link to={`#work/${project.id}`} className="group relative block overflow-hidden" style={{ backgroundColor: project.color, color: project.ink }}>
+    <Link
+      to={`#work/${project.id}`}
+      className="group relative block overflow-hidden"
+      style={{ backgroundColor: project.color, color: project.ink }}
+      data-cursor={project.locked ? 'Unlock case study' : 'Read case study'}
+      data-cursor-icon={project.locked ? 'lock' : 'arrow'}
+      data-cursor-bg={project.ink}
+      data-cursor-fg={project.color}
+    >
       <div className="relative z-10 flex min-h-[64svh] flex-col justify-between px-5 py-10 md:px-10 md:py-12">
         <p className="inline-flex items-center gap-2 text-[15px] font-semibold">
           Next project <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-500 ease-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2} />
@@ -213,7 +222,7 @@ function Byline({ project }: { project: Project }) {
   )
 }
 
-function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy }) {
+function CaseStudyPage({ project, study, filmLink }: { project: Project; study: CaseStudy; filmLink: boolean }) {
   const root = useRef<HTMLElement>(null)
   const viewer = useRef<HTMLDialogElement>(null)
   const [zoom, setZoom] = useState<Shot | null>(null)
@@ -265,7 +274,9 @@ function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy 
               width={cover.width}
               height={cover.height}
               decoding="async"
-              className={cn('project-art mx-auto block h-auto max-h-[60svh] w-auto max-w-full md:max-h-[calc(92svh-var(--header-height)-6rem)]', screen)}
+              // A definite width from the aspect ratio holds the cover's space before it loads.
+              style={{ aspectRatio: `${cover.width} / ${cover.height}`, '--ratio': cover.width / cover.height } as CSSProperties}
+              className={cn('project-art mx-auto block h-auto w-[min(100%,calc(60svh*var(--ratio)))] md:w-[min(100%,calc((92svh-var(--header-height)-6rem)*var(--ratio)))]', screen)}
             />
           </figure>
           <div className="relative z-10 mt-auto pt-8 md:w-[42%]">
@@ -276,6 +287,18 @@ function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy 
             <PageTitle className="mt-4 text-[clamp(2.75rem,5.4vw,6rem)] leading-[0.88]">{project.name}</PageTitle>
             <p className="mt-5 max-w-[22ch] text-[clamp(1.35rem,2.1vw,2.1rem)] font-semibold leading-tight tracking-[-0.02em]">{project.headline}</p>
             <Byline project={project} />
+            {study.film && (
+              <WatchFilm
+                film={study.film}
+                name={project.name}
+                glyph={project.ink}
+                autoOpen={filmLink}
+                // A shared film link opens once; afterwards the address is the case study's.
+                onClose={() => { if (filmLink) window.history.replaceState(window.history.state, '', `#work/${project.id}`) }}
+                className="mt-7"
+                style={{ backgroundColor: project.ink, color: project.color }}
+              />
+            )}
             <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-5">
               {project.metrics.map((metric) => (
                 <div key={metric.label} className="flex flex-col-reverse justify-end gap-1.5">
@@ -503,7 +526,7 @@ function ProjectGate({ project, onUnlock }: { project: Project; onUnlock: () => 
   )
 }
 
-export function ProjectPage({ id }: { id: ProjectId }) {
+export function ProjectPage({ id, film = false }: { id: ProjectId; film?: boolean }) {
   const project = projectById(id)
   const [unlocks, setUnlocks] = useState(0)
   const study = project.locked ? openedStudy(id) : project
@@ -514,6 +537,6 @@ export function ProjectPage({ id }: { id: ProjectId }) {
     document.getElementById('main')?.focus({ preventScroll: true })
   }, [unlocks])
 
-  if (study) return <CaseStudyPage project={project} study={study} />
+  if (study) return <CaseStudyPage project={project} study={study} filmLink={film} />
   return <ProjectGate project={project} onUnlock={() => setUnlocks((count) => count + 1)} />
 }

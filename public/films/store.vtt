@@ -1,0 +1,105 @@
+WEBVTT
+
+1
+00:00:00.700 --> 00:00:06.373
+Only 35% of companies that started onboarding to the Microsoft Store ever finished.
+
+2
+00:00:06.723 --> 00:00:09.341
+For individual developers, it was 90%.
+
+3
+00:00:15.333 --> 00:00:19.677
+Companies paid a $99 fee before they knew if they could pass,
+
+4
+00:00:19.677 --> 00:00:21.956
+and 1 in 3 stopped right there.
+
+5
+00:00:22.306 --> 00:00:25.936
+Requirements surfaced late, progress was invisible,
+
+6
+00:00:25.936 --> 00:00:30.065
+and about 41% failed vetting, often with no reason given.
+
+7
+00:00:31.767 --> 00:00:33.629
+Verification was necessary.
+
+8
+00:00:33.979 --> 00:00:35.609
+The uncertainty around it wasn't.
+
+9
+00:00:38.100 --> 00:00:40.954
+First, we moved onboarding into a Store-owned flow.
+
+10
+00:00:41.304 --> 00:00:43.439
+That let us drop the $99 fee,
+
+11
+00:00:43.439 --> 00:00:46.383
+sign companies in with Microsoft Entra,
+
+12
+00:00:46.383 --> 00:00:50.726
+and explain what verification needs before anyone commits.
+
+13
+00:00:52.533 --> 00:00:56.193
+Then I replaced one rigid path with three ways to verify.
+
+14
+00:00:56.543 --> 00:00:58.252
+Upload a business document,
+
+15
+00:00:58.252 --> 00:01:01.352
+and AI pre-fills the company details for review,
+
+16
+00:01:01.352 --> 00:01:03.314
+with people still in the loop.
+
+17
+00:01:05.100 --> 00:01:07.421
+And failure became a step, not an ending.
+
+18
+00:01:07.771 --> 00:01:11.496
+Email and domain are checked before anything is submitted,
+
+19
+00:01:11.496 --> 00:01:14.094
+status updates live with a clear reason,
+
+20
+00:01:14.094 --> 00:01:17.211
+and companies fix issues without starting over.
+
+21
+00:01:19.200 --> 00:01:21.120
+After a pilot in 50 countries,
+
+22
+00:01:21.120 --> 00:01:23.489
+it rolled out to every Store market.
+
+23
+00:01:23.839 --> 00:01:27.102
+Onboarding success went from 35% to 73%,
+
+24
+00:01:27.102 --> 00:01:30.936
+and vetting time fell from about 15 days to 1.
+
+25
+00:01:40.033 --> 00:01:43.714
+The best onboarding doesn't remove complexity from the system.
+
+26
+00:01:44.064 --> 00:01:46.546
+It absorbs it, so the user doesn't have to.

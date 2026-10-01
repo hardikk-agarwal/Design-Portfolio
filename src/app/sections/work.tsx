@@ -3,6 +3,7 @@ import { ArrowRight, ArrowUpRight, Lock } from 'lucide-react'
 import { gsap, SplitText, useGSAP, cinematic, motionOk } from '@/lib/gsap'
 import { Link, useNavigation } from '@/lib/navigation'
 import { featuredProjects, splitChange, type Metric, type Project } from '@/lib/content'
+import { WatchFilm } from '@/components/film-player'
 import { cn } from '@/lib/utils'
 
 const stackQuery = '(min-width: 768px) and (min-height: 640px)'
@@ -44,6 +45,7 @@ function ChapterMetric({ metric }: { metric: Metric }) {
 }
 
 function Chapter({ project, index }: { project: Project; index: number }) {
+  const film = project.locked ? undefined : project.film
   return (
     <article
       className={cn('chapter relative overflow-hidden', index > 0 && 'md:rounded-t-[28px]')}
@@ -65,16 +67,19 @@ function Chapter({ project, index }: { project: Project; index: number }) {
             {project.metrics.slice(0, 2).map((metric) => <ChapterMetric key={metric.label} metric={metric} />)}
           </dl>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
-            <Link
-              to={`#work/${project.id}`}
-              aria-label={`${project.locked ? 'Unlock case study' : 'Read case study'}: ${project.name}`}
-              className="inline-flex h-12 items-center gap-2 rounded-full px-6 text-[15px] font-semibold transition-transform active:scale-[0.97]"
-              style={{ backgroundColor: project.ink, color: project.color }}
-            >
-              {project.locked
-                ? <>Unlock case study <Lock aria-hidden="true" className="size-4" strokeWidth={2} /></>
-                : <>Read case study <ArrowUpRight aria-hidden="true" className="size-4" strokeWidth={2} /></>}
-            </Link>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                to={`#work/${project.id}`}
+                aria-label={`${project.locked ? 'Unlock case study' : 'Read case study'}: ${project.name}`}
+                className="inline-flex h-12 items-center gap-2 rounded-full px-6 text-[15px] font-semibold transition-transform active:scale-[0.97]"
+                style={{ backgroundColor: project.ink, color: project.color }}
+              >
+                {project.locked
+                  ? <>Unlock case study <Lock aria-hidden="true" className="size-4" strokeWidth={2} /></>
+                  : <>Read case study <ArrowUpRight aria-hidden="true" className="size-4" strokeWidth={2} /></>}
+              </Link>
+              {film && <WatchFilm film={film} name={project.name} glyph={project.color} className="h-12 border border-current py-0" />}
+            </div>
             <p className="text-[15px] font-medium">{project.role} at {project.organization}{project.locked && ', under NDA'}</p>
           </div>
         </div>

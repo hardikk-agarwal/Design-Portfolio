@@ -4,12 +4,20 @@ import { gsap, useGSAP, motionOk } from '@/lib/gsap'
 import { Link } from '@/lib/navigation'
 import { earlierProjects, featuredProjects, type Project } from '@/lib/content'
 import { PageTitle } from '@/components/page-title'
+import { WatchFilm } from '@/components/film-player'
 import { MetricValue } from '@/sections/work'
 
 function WorkRow({ project, level: Heading = 'h2' }: { project: Project; level?: 'h2' | 'h3' }) {
   const [metric] = project.metrics
+  const film = project.locked ? undefined : project.film
   return (
-    <li className="work-row group relative grid gap-6 border-t border-border py-8 md:grid-cols-12 md:gap-8 md:py-10">
+    <li
+      className="work-row group relative grid gap-6 border-t border-border py-8 md:grid-cols-12 md:gap-8 md:py-10"
+      data-cursor={project.locked ? 'Unlock case study' : 'Read case study'}
+      data-cursor-icon={project.locked ? 'lock' : 'arrow'}
+      data-cursor-bg={project.color}
+      data-cursor-fg={project.ink}
+    >
       <div className="flex aspect-[3/2] items-center justify-center overflow-hidden rounded-[20px] p-[7%] md:col-span-5" style={{ backgroundColor: project.color }}>
         <img
           src={project.cover.src}
@@ -36,6 +44,7 @@ function WorkRow({ project, level: Heading = 'h2' }: { project: Project; level?:
           </Link>
         </Heading>
         <p className="mt-4 max-w-[40ch] text-[clamp(1.1rem,1.4vw,1.3rem)] leading-snug">{project.summary}</p>
+        {film && <WatchFilm film={film} name={project.name} glyph="var(--background)" className="relative z-10 mt-6 h-12 self-start border border-current py-0" />}
         <dl className="mt-8 grid grid-cols-2 gap-6 md:mt-auto md:pt-8">
           <div>
             <dt className="text-[14px] font-medium text-muted-foreground">My role</dt>

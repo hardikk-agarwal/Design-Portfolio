@@ -11,6 +11,13 @@ test('reading routes stay compatible with the previous portfolio', () => {
   assert.deepEqual(parseRoute('#work/hello'), { page: 'work' })
 })
 
+test('film links open the project with its film', () => {
+  assert.deepEqual(parseRoute('#work/store/film'), { page: 'project', id: 'store', film: true })
+  assert.equal(routeKey(parseRoute('#work/store/film')), routeKey(parseRoute('#work/store')))
+  assert.deepEqual(parseRoute('#work/hello/film'), { page: 'home' })
+  assert.deepEqual(parseRoute('#work/store/films'), { page: 'home' })
+})
+
 test('legacy story links resolve to home anchors', () => {
   assert.deepEqual(parseRoute('#exhibition/store'), { page: 'home', anchor: 'project-store' })
   assert.deepEqual(parseRoute('#exhibition/vr'), { page: 'work' })

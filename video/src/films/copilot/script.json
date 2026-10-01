@@ -1,0 +1,42 @@
+{
+  "voice": "am_michael",
+  "speed": 1.08,
+  "fps": 30,
+  "gap": 0.35,
+  "captions": [["twenty twenty-five", "2025"], ["fifty-two percent", "52%"], ["thirty-one", "31%"], ["twenty twenty-six", "2026"]],
+  "scenes": [
+    { "id": "hook", "lead": 0.7, "tail": 1.1, "lines": [
+      "Half of all sports searches happen while the game is live.",
+      "And in twenty twenty-five, fifty-two percent of fans used generative AI, up from thirty-one."
+    ] },
+    { "id": "title", "min": 4.4, "lines": [] },
+    { "id": "problem", "lead": 0.6, "tail": 1.2, "lines": [
+      "Copilot already had the scores, the teams and the match state.",
+      "But when fans asked about a game, the answer was still mostly text."
+    ] },
+    { "id": "insight", "lead": 0.5, "tail": 1.6, "lines": [
+      "The data was there.",
+      "The interface wasn't."
+    ] },
+    { "id": "decision1", "lead": 0.8, "tail": 1.3, "lines": [
+      "So I turned the structure already in the sports data into a visual hierarchy.",
+      "The card answers the question at a glance, and deeper content waits for fans who want more."
+    ] },
+    { "id": "decision2", "lead": 0.8, "tail": 1.4, "lines": [
+      "Cricket has overs, tennis has sets, F1 has laps, and the NFL has downs.",
+      "One shared layer controls how every card reads, a sport layer controls what matters, and adding a sport became data mapping, not a redesign."
+    ] },
+    { "id": "decision3", "lead": 0.8, "tail": 1.6, "lines": [
+      "Then I designed every state, not just the final score.",
+      "Pre-game, live and post-game, plus the edge cases that break layouts, like rain delays, red flags and super overs."
+    ] },
+    { "id": "result", "lead": 0.8, "tail": 2.2, "lines": [
+      "The system shipped across four sports, and others built Copilot's broader sports experience on top of it.",
+      "When Copilot moved to a new design language in twenty twenty-six, the same cards carried straight into the new shell."
+    ] },
+    { "id": "takeaway", "lead": 0.5, "tail": 1.2, "lines": [
+      "Consistency across surfaces is a system property, not a per-card decision."
+    ] },
+    { "id": "end", "min": 5, "lines": [] }
+  ]
+}

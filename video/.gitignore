@@ -1,0 +1,5 @@
+node_modules
+out
+public/*.wav
+# NDA films (narration, scenes and timings quote the locked case study); src/protected holds their sources.
+src/films/portal/

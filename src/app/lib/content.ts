@@ -10,7 +10,7 @@ import type { Endorsement } from './projects'
 import type { ProjectId } from './routes.js'
 
 export { projects }
-export type { CaseStudy, Endorsement, Flow, Metric, Project, Quote, Shot } from './projects'
+export type { CaseStudy, Endorsement, Film, Flow, Metric, Project, Quote, Shot } from './projects'
 export const photos = { cameraPortrait, cameraChip, candid, subject, benchScene }
 export const email = 'madebyhardik@gmail.com'
 
