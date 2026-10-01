@@ -82,7 +82,18 @@ function HeroStage() {
       <div className="cover-copy relative z-10 flex h-full flex-col justify-end px-5 pt-[calc(var(--header-height)+1.25rem)] text-[#f4f4f1] md:px-10 md:pb-10">
         <div className="hero-lead md:w-[26rem]">
           <div className="hero-fade">
-            <p className="mb-4 text-[15px] font-semibold md:text-base">Product designer at Microsoft</p>
+            <p className="mb-4 text-[15px] font-semibold md:text-base">
+              Product designer at{' '}
+              <span className="whitespace-nowrap">
+                Microsoft
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 21 21" className="ml-[0.4em] inline-block size-[0.75em] align-baseline">
+                  <path fill="#f25022" d="M0 0h10v10H0z" />
+                  <path fill="#7fba00" d="M11 0h10v10H11z" />
+                  <path fill="#00a4ef" d="M0 11h10v10H0z" />
+                  <path fill="#ffb900" d="M11 11h10v10H11z" />
+                </svg>
+              </span>
+            </p>
             <p className="text-lg leading-snug md:text-[1.35rem]">I design AI, platform and identity experiences, and prototype them in code.</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link to="#selected-work" className="inline-flex h-12 items-center gap-2 rounded-full bg-[#f4f4f1] px-6 text-[15px] font-semibold text-[#111315] transition-transform active:scale-[0.97]">
