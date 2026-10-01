@@ -62,7 +62,7 @@ export function NoteCards({ notes }: { notes: Note[] }) {
             data-note-card={note.id}
             className={cn(
               'pointer-events-auto absolute top-0 w-[15.5rem] rounded-xl bg-[rgb(10_16_11/0.62)] text-[#f4f4f1] ring-1 ring-white/10 backdrop-blur-md',
-              note.side === 'left' ? 'left-10' : 'right-10',
+              note.side === 'left' ? 'left-[var(--note-gutter)]' : 'right-[var(--note-gutter)]',
             )}
           >
             <button type="button" aria-expanded="false" className="block w-full cursor-pointer rounded-xl p-3.5 text-left">

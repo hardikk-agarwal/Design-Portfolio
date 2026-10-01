@@ -173,6 +173,28 @@
 }
 
 /* Cover: photo and cutout share one crop so they stay registered; the name sits between them. */
+.hero-sequence {
+  --photo-inset: 0px;
+  /* Note columns sit a fifth of the photo in from its sides (2.5rem at 1440 wide), so they follow the photo, not the screen. */
+  --note-gutter: calc(var(--photo-inset) + max(2.5rem, (100% - 2 * var(--photo-inset)) * 0.2 - 15.5rem));
+}
+
+/* Wider than 8:5, the portrait keeps its 8:5 crop in a centred box, so the screen shape never crops it tighter; its sides fade into the wall. */
+@media (min-aspect-ratio: 8/5) {
+  .hero-sequence {
+    --photo-inset: max(0px, (100vw - max(100svh, 560px) * 1.6) / 2);
+  }
+
+  .hero-image {
+    left: var(--photo-inset);
+    right: var(--photo-inset);
+  }
+
+  .cover-layer {
+    mask-image: linear-gradient(90deg, transparent, #000 min(10%, var(--photo-inset)), #000 calc(100% - min(10%, var(--photo-inset))), transparent);
+  }
+}
+
 .cover-layer {
   object-position: 50% 3%;
 }
@@ -189,19 +211,12 @@
 @media (min-width: 768px) and (min-aspect-ratio: 4/5) {
   .cover-type {
     /* The second term keeps the name (0.8 line-height) below the header on short landscape screens. */
-    bottom: calc(100% - max(10.5vw + 6vh, var(--header-height) + 1rem + (100vw - 6rem) / 10.45 * 0.8));
+    bottom: calc(100% - max((100vw - 2 * var(--photo-inset)) * 0.105 + 6vh, var(--header-height) + 1rem + (100vw - 6rem) / 10.45 * 0.8));
     z-index: auto;
   }
 
   .cover-copy {
     padding-bottom: 2.5rem;
-  }
-}
-
-/* Super-wide screens show a thin band of the portrait; a lower anchor keeps his face above the fold. */
-@media (min-aspect-ratio: 3/1) {
-  .cover-layer {
-    object-position: 50% 6.5%;
   }
 }
 
@@ -211,12 +226,6 @@
   height: max(100cqh, 100cqw * 1402 / 1122);
   left: calc((100cqw - max(100cqw, 100cqh * 1122 / 1402)) * 0.5);
   top: calc((100cqh - max(100cqh, 100cqw * 1402 / 1122)) * 0.03);
-}
-
-@media (min-aspect-ratio: 3/1) {
-  .note-fit {
-    top: calc((100cqh - max(100cqh, 100cqw * 1402 / 1122)) * 0.065);
-  }
 }
 
 /* Children, not the overlay itself, because the scroll timeline writes inline visibility on the overlay. */
