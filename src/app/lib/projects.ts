@@ -273,17 +273,17 @@ export const projects: Project[] = [
       {
         title: 'One navigation, within thumb reach',
         body: "Two navigation bars made every screen harder to parse. I moved primary navigation to the bottom, where it's familiar and easy to reach, turned the top bar into clearly secondary message filters and named the current page in bold. More space, a clearer type hierarchy, larger text options and stronger contrast took out the rest of the noise. Moving the bar overnight would have broken habits, so the update asks people before swapping it.",
-        shots: [{ src: smsNavigation, alt: 'Before and after of the SMS Organizer inbox, annotated: the old app with two navigation bars at the top, and the new one with message filters at the top and the main navigation at the bottom', width: 1600, height: 703 }],
+        shots: [{ src: smsNavigation, alt: 'Before and after of the SMS Organizer inbox, annotated: the old app with two navigation bars at the top, and the new one with message filters at the top and the main navigation at the bottom', width: 1600, height: 784 }],
       },
       {
         title: 'Reminders that help you act',
         body: "Reminders sat in one flat list and stopped at the alert. I redesigned them around the next step: the app creates them from booking messages for flights, trains, hotels, movies and doctor's appointments, groups them by type and shows the details that matter. Tapping one opens a sheet with relevant information from Bing, like hotels at your destination, so the next step is right there.",
-        shots: [{ src: smsReminders, alt: 'Reminders before and after, annotated: a plain list in the old app, and grouped reminder cards in the new one, with a flight reminder open in a sheet that suggests hotels and car rentals', width: 1600, height: 1059 }],
+        shots: [{ src: smsReminders, alt: 'Reminders before and after, annotated: a plain list in the old app, and grouped reminder cards in the new one, with a flight reminder open in a sheet that suggests hotels and car rentals', width: 1600, height: 1105 }],
       },
       {
         title: 'Every message in a language you know',
         body: "An SMS arrives in whichever language the sender chose, and that isn't always one the reader can read. I built language into the core of the app: people pick theirs once, translate any message into it or hear it read aloud, which matters for people who understand a language better than they read it. Every layout was designed to hold when a translation runs long.",
-        shots: [{ src: smsLanguages, alt: 'Multilingual features, annotated: choosing a preferred language from English, Gujarati, Hindi, Marathi, Tamil and Telugu, and a conversation showing a message, its translation and a read-aloud option', width: 1600, height: 682 }],
+        shots: [{ src: smsLanguages, alt: 'Multilingual features, annotated: choosing a preferred language from English, Gujarati, Hindi, Marathi, Tamil and Telugu, and a conversation showing a message, its translation and a read-aloud option', width: 1600, height: 774 }],
       },
     ],
     result: {
@@ -335,7 +335,7 @@ export const projects: Project[] = [
       {
         title: 'Help people decide where to go',
         body: "Many travelers start without a destination, so the map starts there too. It groups places by continent with the top picks from each, offers trips nearby and prices them from where you're browsing. Themes like beaches, relaxation and adventure narrow the field, and each destination shows when to visit, the weather, average flight and hotel costs, and the currency and visa details people check before they commit.",
-        shots: [{ src: mapDestinations, alt: 'Exploring destinations, annotated: a panel of nearby, North American and Asian destinations with the browsing location and search, beside a map that groups destinations by continent', width: 1600, height: 819 }],
+        shots: [{ src: mapDestinations, alt: 'Exploring destinations, annotated: a panel of nearby, North American and Asian destinations with the browsing location and search, beside a map that groups destinations by continent', width: 1600, height: 897 }],
       },
       {
         title: 'Every vertical on one map',
@@ -344,12 +344,12 @@ export const projects: Project[] = [
           { label: 'Before: a tab for every question', steps: ['Search hotels', 'Open a map', 'Look up attractions', 'Back to hotels', 'Find transit'] },
           { label: 'After: one map for the whole trip', steps: ['Search a destination', 'See every vertical pinned', 'Filter to what matters', 'Choose with distance in view'] },
         ],
-        shots: [{ src: mapVerticals, alt: 'Miami on one map, annotated: universal search, the selected destination with top attractions, flights and hotels, and a map pinning all of them', width: 1600, height: 788 }],
+        shots: [{ src: mapVerticals, alt: 'Miami on one map, annotated: universal search, the selected destination with top attractions, flights and hotels, and a map pinning all of them', width: 1600, height: 869 }],
       },
       {
         title: 'Filter the map to what matters',
         body: 'A map with every pin is as hard to read as a long list. I designed filters that narrow it to attractions, stays, restaurants or transit, one at a time or combined, with sub-filters inside each. A heat map shows where restaurants are in demand, and transit options show how to get around the city.',
-        shots: [{ src: mapFilters, alt: 'Filter states of the Miami map, annotated: all pins, multi-select filters, attractions only, stays only, restaurants with a demand heat map, and transit', width: 1600, height: 1214 }],
+        shots: [{ src: mapFilters, alt: 'Filter states of the Miami map, annotated: all pins, multi-select filters, attractions only, stays only, restaurants with a demand heat map, and transit', width: 1600, height: 1253 }],
       },
     ],
     result: {
