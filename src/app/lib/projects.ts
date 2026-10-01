@@ -74,9 +74,10 @@ export const projects: Project[] = [
       { value: '240+', label: 'Companies onboarded in a 50-country flight' },
     ],
     problem: {
-      body: 'Companies paid a $99 fee before they knew whether they could pass verification. Requirements surfaced late, progress was invisible and failures arrived without a reason, so well-known, legitimate organizations got stuck and escalations reached executive channels.',
+      body: 'Microsoft Store reaches more than 250 million Windows customers a month, and every company that publishes there must pass business verification. Companies paid a $99 fee before they knew whether they could pass it. Requirements surfaced late, progress was invisible and failures arrived without a reason. Around 230 companies a month were affected, including well-known, legitimate organizations, and escalations reached executive channels.',
       stats: [
         { value: '35%', label: 'Of companies finished onboarding, against 90% of individuals' },
+        { value: '1 in 3', label: 'Stopped at the $99 payment step' },
         { value: '~41%', label: 'Failed during vetting' },
         { value: '85%', label: 'Of failures came from domain and email checks' },
       ],
@@ -90,7 +91,7 @@ export const projects: Project[] = [
       {
         title: 'Own the experience, then remove the commitment barrier',
         body: "We moved onboarding into a Store-owned flow built on the verification services, so the Store controlled guidance, status and recovery. That unlocked the rest: dropping the $99 fee, signing in with a company's Microsoft Entra identity, and a preparation step that explains what verification needs before anyone commits.",
-        shots: [{ src: storeAccount, alt: 'Choose account type step of the redesigned onboarding, with individual and company developer options, both marked free', width: 1600, height: 884 }],
+        shots: [{ src: storeAccount, alt: 'Choose account type step of the redesigned onboarding, with individual and company developer options, both marked free', width: 1600, height: 801 }],
       },
       {
         title: 'Let companies prove who they are with what they have',
@@ -99,7 +100,11 @@ export const projects: Project[] = [
       },
       {
         title: 'Make failure a step, not an ending',
-        body: 'Verification status updates in real time, with a clear reason whenever action is needed. When a check fails, companies fix it inside the flow and pick up where they left off, and reminders on days 2, 5 and 7 replace the old silence.',
+        body: 'Most failures came from domain and email checks, so the flow now explains which email qualifies and verifies it inside onboarding, before anything is submitted. Verification status updates in real time, with a clear reason whenever action is needed. When a check still fails, companies fix it inside the flow and pick up where they left off, and reminders on days 2, 5 and 7 replace the old silence.',
+        flows: [
+          { label: 'Before: linear and opaque', steps: ['Choose account', 'Sign in with a personal account', 'Fill in details', 'Pay $99', 'Submit', 'Wait', 'Fail?', 'No reason given'] },
+          { label: 'After: structured and recoverable', steps: ['Choose account', 'Sign in', 'Business details', 'Contact', 'Submit', 'Verify', 'Resolve or complete'] },
+        ],
         shots: [{ src: storeRecover, alt: 'Account verification step explaining that business verification did not succeed, with an Upload document action beside it', width: 1600, height: 884 }],
       },
     ],
@@ -112,7 +117,7 @@ export const projects: Project[] = [
         { value: '80%+', label: 'Vetting success held' },
       ],
       note: 'Internal post-launch figures.',
-      quote: { text: 'From start to finish it took me less than 30 minutes to have a fully vetted business account, ready to go. Removing the onboarding fee is just the cherry on top of the cake.', source: 'Blue Banana Software, Microsoft Store company developer' },
+      quote: { text: 'I have created developer accounts before, but with the new onboarding flow everything is so much smoother. From start to finish it took me less than 30 minutes to have a fully vetted business account, ready to go. Removing the onboarding fee is just the cherry on top of the cake.', source: 'Blue Banana Software, Microsoft Store company developer' },
     },
     takeaway: {
       line: "The best onboarding doesn't remove complexity from the system. It absorbs it, so the user doesn't have to.",
@@ -164,6 +169,7 @@ export const projects: Project[] = [
     problem: {
       body: 'Sports fans are high-intent and real time: they want the answer now, and more of them were asking AI for it. Copilot already had the scores, teams and match state, but the answer was still mostly text.',
       stats: [
+        { value: '4×', label: 'Growth in sports search interest, 2019 to 2023' },
         { value: '50%', label: 'Of sports searches happen live' },
         { value: '52%', label: 'Of fans used generative AI in 2025, up from 31%' },
       ],
@@ -180,7 +186,11 @@ export const projects: Project[] = [
       },
       {
         title: "One reading model, each sport's own logic",
-        body: 'Cricket has overs and run rates, tennis has sets and tiebreaks, F1 has laps and pit windows, and the NFL has downs. A shared layer controls how a card reads (type, spacing, hierarchy, surfaces and states); a sport layer controls what matters. Adding a sport became data mapping, not a redesign.',
+        body: 'Cricket has overs and run rates, tennis has sets and tiebreaks, F1 has laps and pit windows, and the NFL has downs. A shared layer controls how a card reads (type, spacing, hierarchy, surfaces and states); a sport layer controls what matters. Two card structures carry every sport: a Hero card spotlights one game before, during or after it, and a Table card lists several games for league and team questions. Adding a sport became data mapping, not a redesign.',
+        flows: [
+          { label: 'Before the system', steps: ['New sport', 'New design', 'New component decisions', 'New implementation'] },
+          { label: 'With the system', steps: ['New sport', 'Existing schema', 'Sport-specific mapping', 'Implementation'] },
+        ],
         shots: [
           { src: copilotF1, alt: 'Live F1 card for the Emilia Romagna Grand Prix with lap count and the top three drivers', width: 960, height: 666, caption: 'F1' },
           { src: copilotTennis, alt: 'Tennis card for the Indian Wells Open with live set scores', width: 960, height: 666, caption: 'Tennis' },
@@ -190,7 +200,7 @@ export const projects: Project[] = [
       },
       {
         title: 'Design every state, not just the final score',
-        body: 'Cards cover pre-game, live and post-game, plus the edge cases that break layouts: rain delays, red flags, super overs, 40-character names and dense stats. Every state works in light and dark, on desktop and mobile, with component specs engineers could build without reinterpreting.',
+        body: 'Cards cover pre-game, live and post-game, plus the edge cases that break layouts: rain delays, red flags, super overs, 40-character names and dense stats. Every state works in light and dark, on desktop and mobile, with component specs engineers could build without reinterpreting. Before launch I reviewed the build against those specs for typography, spacing, score hierarchy, icons and dark mode.',
         shots: [
           { src: copilotPre, alt: "Pre-game cricket card with the start time and each team's recent form", width: 900, height: 485, caption: 'Pre-game' },
           { src: copilotLive, alt: 'Live cricket card with both scores and the runs still needed', width: 900, height: 583, caption: 'Live' },
@@ -204,6 +214,7 @@ export const projects: Project[] = [
         ['Plain-text answers', 'Visual answers'],
         ['One-off sport designs', 'A shared sports schema'],
         ['Answer as content', 'Answer as interface'],
+        ['General UI language', 'Sports-specific design language'],
       ],
       shots: [{ src: copilotShell, alt: "Copilot's 2026 redesign answering a question about India's upcoming matches with the same sports card system", width: 1200, height: 933, caption: "The same system inside Copilot's 2026 redesign" }],
     },
