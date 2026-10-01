@@ -48,9 +48,9 @@ export const stories = {
     name: 'Working notebook', object: 'The open notebook', category: 'Design practice', title: 'A thought, made tangible.',
     description: 'How I move between understanding a problem, shaping an interaction, and building something people can try.',
     color: 'blue', pages: [
-      { title: 'Research', text: 'I test before I trust a hunch, and I bring the evidence into the room. Research with 100+ participants shaped my developer identity concepts.', items: ['User research', 'Usability testing', 'A/B testing'] },
+      { title: 'Research', text: 'I test a hunch before I trust it, so decisions rest on evidence, not opinion. Research with 100+ participants shaped my developer identity concepts.', items: ['User research', 'Usability testing', 'A/B testing'] },
       { title: 'Design', text: 'I work from the first flow to the final detail: the structure underneath, the system it belongs to and whether everyone can use it. Components I contributed to the Bing design system are used across 5+ products.', items: ['Interaction design', 'Information architecture', 'Design systems', 'Accessibility'] },
-      { title: 'Build', text: 'I prototype in code with AI, so people can react to how an idea actually behaves. This site was built the same way.', items: ['Figma + Figma Make', 'Claude Code + GitHub Copilot', 'Figma MCP', 'HTML / CSS / JavaScript', 'Agentic prototyping'] },
+      { title: 'Build', text: 'I prototype in code with AI, so teams react to how an idea actually behaves, not how they imagine it. I built this site the same way.', items: ['Figma + Figma Make', 'Claude Code + GitHub Copilot', 'Figma MCP', 'HTML / CSS / JavaScript', 'Agentic prototyping'] },
     ],
   },
   about: {
@@ -61,8 +61,8 @@ export const stories = {
       ['How I work', 'A lot of design debate comes from people picturing different things. So I make ideas real early, in Figma or as a working prototype in code, and get everyone reacting to the same thing. Once we see the problem through the same lens, decisions get easier.'],
       ['What I value', 'Ownership, clear communication and respect for people\'s time. I show up prepared, do what I said I would and help the team keep moving. That matters to me as much as the design itself.'],
       ['Outside work', 'Photography is practice in deciding what belongs in the frame. Astronomy is a regular reminder of how much is left to learn. I try new tech as early as I can, which is a big part of why I prototype with AI, and staying active keeps my head clear.'],
-      ['Microsoft', 'UX Designer, March 2025 to now. Rated Outstanding. As sole designer, I rebuilt Microsoft Store company onboarding and shaped the new Windows Developer Center. I also designed Copilot\'s visual sports answers, led design for the Trusted Developer Program pilot and worked on Windows Hello and passkeys.'],
-      ['Microsoft x Tech Mahindra', 'Senior Associate UX Designer, February 2023 to January 2025. I designed Bing Search answer modules serving 1M+ queries a month and helped lift Bing Travel booking success by 20%. I also contributed Bing design-system components used across 5+ products and revamped SMS Organizer.'],
+      ['Microsoft', 'UX Designer, March 2025 to now. I was rated Outstanding. As sole designer, I rebuilt Microsoft Store company onboarding, nearly doubling its success rate, and shaped the new Windows Developer Center. I also designed Copilot\'s visual sports answers, led design for the Trusted Developer Program pilot and worked on Windows Hello and passkeys.'],
+      ['Microsoft x Tech Mahindra', 'Senior Associate UX Designer, February 2023 to January 2025. I designed Bing Search answer modules serving 1M+ queries a month, plus Bing Travel\'s map and trip planning, and helped lift travel booking success by 20%. I also contributed Bing design system components used across 5+ products and redesigned SMS Organizer.'],
       ['PlayShifu', 'Visual Designer, May 2021 to January 2023. I launched 6+ AR STEM games for kids, led the 3D avatar team from concept to integration, and moved VR interfaces off the HUD and into the world.'],
       ['Education', 'Master of Design in User Experience Design with AI, O P Jindal University. Bachelor of Design in Communication Design, Pearl Academy. Bachelor of Arts in English, IGNOU.'],
     ],

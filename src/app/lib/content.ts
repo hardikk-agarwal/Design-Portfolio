@@ -52,9 +52,9 @@ export const about = {
 }
 
 export const interests = [
-  { title: 'Photography', text: 'Framing, light and deciding what to leave out of the shot.' },
-  { title: 'Space', text: 'A sense of scale, and questions that keep getting bigger.' },
-  { title: 'Technology', text: 'Trying new tech early to see what I can make with it. The same itch drives my AI prototyping.' },
+  { title: 'Photography', text: 'It trains me to decide what belongs in the frame and what to leave out.' },
+  { title: 'Space', text: 'It keeps reminding me how much is left to learn.' },
+  { title: 'Technology', text: "I try new tech early to see what I can make with it. It's why I prototype with AI." },
   { title: 'Fitness', text: 'Staying active keeps my head clear for the next problem.' },
 ]
 

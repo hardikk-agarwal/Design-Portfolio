@@ -20,7 +20,7 @@ let keySeed = 0
 const createKey = () => `${Date.now().toString(36)}-${(keySeed++).toString(36)}`
 
 function documentTitle(route: Route) {
-  return route.page === 'home' ? 'Hardik Agarwal | Product Designer' : `${routeTitle(route, projectNames)} | Hardik Agarwal`
+  return route.page === 'home' ? 'Hardik Agarwal | Product designer' : `${routeTitle(route, projectNames)} | Hardik Agarwal`
 }
 
 function Page({ route }: { route: Route }) {

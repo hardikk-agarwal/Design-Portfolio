@@ -15,11 +15,11 @@ const columns = Array.from({ length: 12 }, (_, index) => index)
 // Pins and boxes are fractions of the 1122 × 1402 portrait, so each note stays on its body part at any crop.
 // Order is priority: when a column runs out of room, the last notes are dropped first.
 const notes: Note[] = [
-  { id: 'head', part: 'Head', title: 'Thinks in systems', text: "Built one schema for Copilot's sports answers, enabling 4 new sports a cycle.", side: 'right', pin: [0.572, 0.158], box: [0.445, 0.125, 0.6, 0.256] },
-  { id: 'eyes', part: 'Eyes', title: 'Looks closer', text: 'Used research and usability testing to lift satisfaction scores by 45%.', side: 'left', pin: [0.492, 0.197], box: [0.478, 0.184, 0.562, 0.211] },
-  { id: 'heart', part: 'Heart', title: 'Loves photography and space', text: 'One sharpens his eye for framing; the other, his sense of scale.', side: 'right', pin: [0.63, 0.34], box: [0.585, 0.3, 0.7, 0.4] },
-  { id: 'brooch', part: 'Brooch', title: 'Notices the small things', text: 'Helped cut craft bugs in Windows Hello by 20%.', side: 'right', pin: [0.54, 0.403], box: [0.52, 0.335, 0.565, 0.42] },
-  { id: 'arm', part: 'Arm', title: 'Reaches for new tools', text: 'Designs in code with AI; has demoed agentic prototypes to 30+ stakeholders.', side: 'left', pin: [0.33, 0.3], box: [0.18, 0.27, 0.43, 0.345] },
+  { id: 'head', part: 'Head', title: 'I think in systems', text: 'I built one schema that lets Copilot add 4 new sports a cycle.', side: 'right', pin: [0.572, 0.158], box: [0.445, 0.125, 0.6, 0.256] },
+  { id: 'eyes', part: 'Eyes', title: 'I look closer', text: 'I led research that lifted satisfaction scores by 45%.', side: 'left', pin: [0.492, 0.197], box: [0.478, 0.184, 0.562, 0.211] },
+  { id: 'heart', part: 'Heart', title: 'I love photography and space', text: 'One sharpens my eye for framing, the other my sense of scale.', side: 'right', pin: [0.63, 0.34], box: [0.585, 0.3, 0.7, 0.4] },
+  { id: 'brooch', part: 'Brooch', title: 'I notice the small things', text: 'I triaged Windows Hello issues, helping cut craft bugs by 20%.', side: 'right', pin: [0.54, 0.403], box: [0.52, 0.335, 0.565, 0.42] },
+  { id: 'arm', part: 'Arm', title: 'I reach for new tools', text: 'I prototype in code with AI and have run demos for 30+ stakeholders.', side: 'left', pin: [0.33, 0.3], box: [0.18, 0.27, 0.43, 0.345] },
 ]
 
 function LayoutGrid() {
@@ -94,7 +94,7 @@ function HeroStage() {
                 </svg>
               </span>
             </p>
-            <p className="text-lg leading-snug md:text-[1.35rem]">I design AI, platform and identity experiences, and prototype them in code.</p>
+            <p className="text-lg leading-snug md:text-[1.35rem]">I design for AI, developer platforms and identity, and prototype in code.</p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link to="#selected-work" className="inline-flex h-12 items-center gap-2 rounded-full bg-[#f4f4f1] px-6 text-[15px] font-semibold text-[#111315] transition-transform active:scale-[0.97]">
                 View work <ArrowDown aria-hidden="true" className="size-4" strokeWidth={2} />
@@ -126,7 +126,7 @@ function HeroStatement() {
         </p>
         <div className="statement-detail mt-8 max-w-[23rem]">
           <p className="text-[17px] leading-relaxed text-muted-foreground">
-            The path ran through communication design, then AR and VR. Today I design how developers bring their apps to Windows, and it still feels like coming full circle.
+            My path ran through communication design, then AR and VR. Today I design how developers bring their apps to Windows, which feels like coming full circle.
           </p>
           <Link to="#work/portal" className="mt-5 inline-flex items-center gap-1.5 text-[17px] font-semibold underline decoration-1 underline-offset-[6px] hover:decoration-2">
             See the Windows Developer Center <ArrowUpRight aria-hidden="true" className="size-4" strokeWidth={2} />

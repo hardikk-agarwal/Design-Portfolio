@@ -371,7 +371,7 @@ function ProjectGate({ project, onUnlock }: { project: Project; onUnlock: () => 
             <Lock aria-hidden="true" className="size-7" strokeWidth={1.75} />
             <h2 id="gate-title" className="mt-5 text-[clamp(1.5rem,2vw,1.9rem)] font-bold leading-tight tracking-[-0.02em] [font-stretch:106%]">This case study is under NDA</h2>
             <p className="mt-3 text-[16px] leading-relaxed">
-              This work isn't public yet, and I honor the non-disclosure agreement that covers it. The full case study is password protected.
+              This work is covered by a non-disclosure agreement, so the full case study is password protected.
             </p>
             <form onSubmit={submit} className="mt-7">
               <label htmlFor="case-study-password" className="text-[14px] font-semibold">Password</label>

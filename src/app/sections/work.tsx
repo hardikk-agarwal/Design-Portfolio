@@ -67,13 +67,13 @@ function Chapter({ project, index }: { project: Project; index: number }) {
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
             <Link
               to={`#work/${project.id}`}
-              aria-label={`${project.locked ? 'Unlock case study' : 'Read project'}: ${project.name}`}
+              aria-label={`${project.locked ? 'Unlock case study' : 'Read case study'}: ${project.name}`}
               className="inline-flex h-12 items-center gap-2 rounded-full px-6 text-[15px] font-semibold transition-transform active:scale-[0.97]"
               style={{ backgroundColor: project.ink, color: project.color }}
             >
               {project.locked
                 ? <>Unlock case study <Lock aria-hidden="true" className="size-4" strokeWidth={2} /></>
-                : <>Read project <ArrowUpRight aria-hidden="true" className="size-4" strokeWidth={2} /></>}
+                : <>Read case study <ArrowUpRight aria-hidden="true" className="size-4" strokeWidth={2} /></>}
             </Link>
             <p className="text-[15px] font-medium">{project.role} at {project.organization}{project.locked && ', under NDA'}</p>
           </div>

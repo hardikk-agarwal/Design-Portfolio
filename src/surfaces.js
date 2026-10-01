@@ -13,7 +13,7 @@ export const resumeSections = [
     'Optimized Bing Travel across flights, destinations, hotels and car rentals: 20% improvement in booking success.',
     'Led user research and usability testing that raised post-interaction satisfaction scores 45%.',
     'Contributed core components to the Bing design system, used across 5+ major products, and cut design signoff turnaround 40%.',
-    'Revamped an SMS Organizer app, increasing user engagement 30%.',
+    'Revamped the SMS Organizer app, increasing user engagement 30%.',
   ]],
   ['Visual Designer | PlayShifu | May 2021 - Jan 2023', [
     'Launched 6+ AR STEM games for children aged 6–12, lifting educational engagement 40%.',
@@ -29,9 +29,10 @@ export const education = [
 ]
 
 export const skillGroups = [
-  ['Design', ['User-Centered Design', 'Interaction Design', 'Design Systems', 'Information Architecture', 'Prototyping', 'Accessibility']],
-  ['AI & Prototyping', ['Claude Code', 'GitHub Copilot', 'Figma MCP', 'Figma Make', 'VS Code', 'Design-to-Code', 'Agentic Prototyping']],
-  ['Tools & Research', ['Figma', 'Adobe Creative Cloud', 'After Effects', 'Sketch', 'Framer', 'Miro', 'Lottie', 'HTML/CSS/JavaScript', 'User Research', 'Usability Testing', 'A/B Testing']],
+  ['Design', ['User-centered design', 'Interaction design', 'Information architecture', 'Design systems', 'Prototyping', 'Accessibility']],
+  ['Research', ['User research', 'Usability testing', 'A/B testing']],
+  ['AI and code', ['Claude Code', 'GitHub Copilot', 'Figma MCP', 'Figma Make', 'VS Code', 'HTML, CSS and JavaScript', 'Design-to-code', 'Agentic prototyping']],
+  ['Tools', ['Figma', 'Framer', 'Adobe Creative Cloud', 'After Effects', 'Lottie', 'Sketch', 'Miro']],
 ]
 
 export const skills = `${skillGroups.flatMap(([, items]) => items).join(', ')}.`

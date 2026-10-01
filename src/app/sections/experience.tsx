@@ -46,7 +46,7 @@ export function Experience() {
       <div className="grid gap-10 px-5 md:grid-cols-12 md:px-10">
         <div className="md:col-span-4">
           <h2 id="experience-title" className="display text-[clamp(2.75rem,5.4vw,5.75rem)]">Experience</h2>
-          <p className="mt-5 max-w-[30ch] text-[17px] leading-relaxed text-muted-foreground">From visual design at PlayShifu to product design at Microsoft, where I was rated Outstanding.</p>
+          <p className="mt-5 max-w-[30ch] text-[17px] leading-relaxed text-muted-foreground">In 5+ years I've gone from visual design at PlayShifu to product design at Microsoft, where I was rated Outstanding.</p>
         </div>
         <ol className="jobs md:col-span-8 md:col-start-5">
           {experience.map((job) => (

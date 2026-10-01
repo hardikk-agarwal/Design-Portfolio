@@ -55,7 +55,7 @@ export function NoteCards({ notes }: { notes: Note[] }) {
           <path key={id} data-note-line={id} fill="none" stroke="#f0587a" strokeWidth={1.25} />
         ))}
       </svg>
-      <ul aria-label="Notes on Hardik">
+      <ul aria-label="Notes about me">
         {notes.map((note) => (
           <li
             key={note.id}

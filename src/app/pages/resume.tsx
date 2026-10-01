@@ -32,7 +32,7 @@ export function ResumePage() {
           </a>
         </div>
         <p className="mt-10 max-w-[48ch] text-[clamp(1.2rem,1.7vw,1.6rem)] leading-snug">
-          Product designer with 5+ years across AI, platform and consumer products. Rated Outstanding at Microsoft, where I lifted Store developer onboarding from 35% to 73% and cut it from ~15 days to ~1 day. I design end to end and prototype in code with AI.
+          I'm a product designer with 5+ years across AI, developer platforms and consumer products. At Microsoft, where I was rated Outstanding, I lifted Store company onboarding success from 35% to 73% and cut the wait from ~15 days to ~1 day. I design end to end and prototype in code with AI.
         </p>
       </section>
 

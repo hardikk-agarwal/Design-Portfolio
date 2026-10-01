@@ -18,7 +18,7 @@ Curious, responsible, and collaborative. Hardik wants to be remembered for passi
 
 ## Voice
 
-- First person everywhere except the cover notes, which read as third-person redlines on a design comp ("Thinks in systems").
+- First person everywhere, including the cover notes, which read as my own redlines on a design comp ("I think in systems"). Only alt text names Hardik.
 - Meaning over inventory: say what an interest or tool does for the work. Never list gear, brands, or tools as personality; tools belong in toolkit lists.
 - Lead with what Hardik owned and what changed, one proof point per claim, without repeating the same figure in every section. Keep the resume's attribution ("contributed to", "helped") and approximate figures.
 - Specific and plain: no em dashes, buzzwords, restated headings, or intros that describe the layout. Sentence case for roles and labels.
