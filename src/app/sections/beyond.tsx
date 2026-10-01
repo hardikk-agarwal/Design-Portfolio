@@ -28,7 +28,7 @@ export function BeyondWork() {
   return (
     <section ref={root} id="beyond-work" aria-labelledby="beyond-title" className="px-5 py-[clamp(5rem,14vh,10rem)] md:px-10">
       <div className="grid gap-12 md:grid-cols-12 md:items-center md:gap-8">
-        <figure className="beyond-photo overflow-hidden rounded-[20px] md:col-span-5">
+        <figure className="beyond-photo overflow-hidden rounded-[20px] md:col-span-5 md:w-full md:max-w-[calc(90svh*4/5)] md:justify-self-end">
           <img src={photos.candid} alt="Hardik smiling while seated at a restaurant table" width={1024} height={1024} loading="lazy" decoding="async" className="aspect-[4/5] w-full object-cover object-[50%_40%]" />
         </figure>
         <div className="md:col-span-6 md:col-start-7">

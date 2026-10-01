@@ -188,12 +188,20 @@
 
 @media (min-width: 768px) and (min-aspect-ratio: 4/5) {
   .cover-type {
-    bottom: calc(100% - (10.5vw + 6vh));
+    /* The second term keeps the name (0.8 line-height) below the header on short landscape screens. */
+    bottom: calc(100% - max(10.5vw + 6vh, var(--header-height) + 1rem + (100vw - 6rem) / 10.45 * 0.8));
     z-index: auto;
   }
 
   .cover-copy {
     padding-bottom: 2.5rem;
+  }
+}
+
+/* Super-wide screens show a thin band of the portrait; a lower anchor keeps his face above the fold. */
+@media (min-aspect-ratio: 3/1) {
+  .cover-layer {
+    object-position: 50% 6.5%;
   }
 }
 
@@ -203,6 +211,12 @@
   height: max(100cqh, 100cqw * 1402 / 1122);
   left: calc((100cqw - max(100cqw, 100cqh * 1122 / 1402)) * 0.5);
   top: calc((100cqh - max(100cqh, 100cqw * 1402 / 1122)) * 0.03);
+}
+
+@media (min-aspect-ratio: 3/1) {
+  .note-fit {
+    top: calc((100cqh - max(100cqh, 100cqw * 1402 / 1122)) * 0.065);
+  }
 }
 
 /* Children, not the overlay itself, because the scroll timeline writes inline visibility on the overlay. */
@@ -287,6 +301,7 @@
   z-index: 20;
   height: 100svh;
   margin-bottom: -100svh;
+  overflow: clip;
   pointer-events: none;
   -webkit-mask-image: radial-gradient(circle at var(--iris-x) var(--iris-y), transparent var(--iris-r), #000 calc(var(--iris-r) + 1px));
   mask-image: radial-gradient(circle at var(--iris-x) var(--iris-y), transparent var(--iris-r), #000 calc(var(--iris-r) + 1px));
