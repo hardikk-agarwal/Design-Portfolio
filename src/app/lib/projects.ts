@@ -39,7 +39,7 @@ export type CaseStudy = {
   problem: { body: string; stats?: Metric[]; quote?: Quote }
   insight: string
   contrast?: { title: string; items: string[]; keep: boolean }[]
-  decisions: { title: string; body: string; shots: Shot[]; flows?: Flow[] }[]
+  decisions: { title: string; body: string; shots: Shot[]; flows?: Flow[]; compare?: true }[]
   result: { title?: string; body: string; metrics?: Metric[]; note?: string; quote?: Quote; changes?: [string, string][]; shots?: Shot[] }
   takeaway: { line: string; body?: string }
   // Replaces the public cover once a locked case study is opened.
@@ -195,6 +195,7 @@ export const projects: Project[] = [
       {
         title: 'Answer first, explore when you want more',
         body: 'I turned the structure already in the sports data into a visual hierarchy, so the card resolves the question at a glance and deeper content waits for fans who want it. I owned that instant layer; another designer owned the exploration below it.',
+        compare: true,
         shots: [
           { src: copilotBefore, alt: 'Copilot answering a question about the next India versus New Zealand match with a text list', width: 880, height: 588, caption: 'Before: a text answer' },
           { src: copilotAfter, alt: 'Copilot answering a question about the next India T20 match with a visual match card and upcoming fixtures', width: 880, height: 588, caption: 'After: the answer is the card' },

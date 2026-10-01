@@ -1,5 +1,5 @@
-import { Fragment, useEffect, useRef, useState, type FormEvent } from 'react'
-import { ArrowLeft, ArrowRight, ArrowUpRight, Check, Lock, X } from 'lucide-react'
+import { Fragment, useEffect, useRef, useState, type CSSProperties, type FormEvent, type PointerEvent } from 'react'
+import { ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronsLeftRight, Lock, X } from 'lucide-react'
 import { gsap, ScrollTrigger, useGSAP, motionOk } from '@/lib/gsap'
 import { Link } from '@/lib/navigation'
 import { email, projectById, projects, type CaseStudy, type Flow, type Metric, type Project, type Quote, type Shot } from '@/lib/content'
@@ -30,9 +30,76 @@ function Shots({ shots, onZoom }: { shots: Shot[]; onZoom: (shot: Shot) => void 
   )
 }
 
+function Compare({ before, after }: { before: Shot; after: Shot }) {
+  const frame = useRef<HTMLDivElement>(null)
+  const range = useRef<HTMLInputElement>(null)
+  const hint = useRef<gsap.core.Timeline | null>(null)
+
+  const show = (value: number) => {
+    const split = Math.min(100, Math.max(0, value))
+    frame.current?.style.setProperty('--split', `${split}%`)
+    if (range.current) range.current.value = String(Math.round(split))
+  }
+  const follow = (event: PointerEvent<HTMLDivElement>) => {
+    const box = event.currentTarget.getBoundingClientRect()
+    show(((event.clientX - box.left) / box.width) * 100)
+  }
+
+  // A single sweep shows the frame can be dragged; any input from the reader stops it.
+  useGSAP(() => {
+    gsap.matchMedia().add(motionOk, () => {
+      const state = { split: 50 }
+      hint.current = gsap.timeline({ scrollTrigger: { trigger: frame.current, start: 'top 70%', once: true }, onUpdate: () => show(state.split) })
+        .to(state, { split: 32, duration: 0.6, ease: 'power2.inOut' })
+        .to(state, { split: 68, duration: 0.9, ease: 'power2.inOut' })
+        .to(state, { split: 50, duration: 0.6, ease: 'power2.inOut' })
+    })
+  }, { scope: frame })
+
+  return (
+    <figure className="mt-8">
+      <div
+        ref={frame}
+        onPointerDown={(event) => {
+          hint.current?.kill()
+          event.currentTarget.setPointerCapture(event.pointerId)
+          follow(event)
+        }}
+        onPointerMove={(event) => event.currentTarget.hasPointerCapture(event.pointerId) && follow(event)}
+        className={cn('group/compare relative cursor-ew-resize touch-pan-y select-none overflow-hidden', screen)}
+        style={{ '--split': '50%', aspectRatio: `${after.width} / ${after.height}` } as CSSProperties}
+      >
+        <img src={after.src} alt={after.alt} width={after.width} height={after.height} loading="lazy" decoding="async" draggable={false} className="absolute inset-0 size-full object-cover" />
+        <img src={before.src} alt={before.alt} width={before.width} height={before.height} loading="lazy" decoding="async" draggable={false} className="absolute inset-0 size-full object-cover [clip-path:inset(0_calc(100%_-_var(--split))_0_0)]" />
+        <span aria-hidden="true" className="absolute left-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[13px] font-semibold text-white">Before</span>
+        <span aria-hidden="true" className="absolute right-3 top-3 rounded-full bg-black/70 px-2.5 py-1 text-[13px] font-semibold text-white">After</span>
+        <span aria-hidden="true" className="pointer-events-none absolute inset-y-0 left-[var(--split)] w-0.5 -translate-x-1/2 bg-white shadow-[0_0_0_1px_rgb(0_0_0/0.18)]">
+          <span className="absolute left-1/2 top-1/2 grid size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-black shadow-[0_8px_24px_rgb(0_0_0/0.35)] group-focus-within/compare:outline-2 group-focus-within/compare:outline-offset-2 group-focus-within/compare:outline-ring">
+            <ChevronsLeftRight className="size-5" strokeWidth={2} />
+          </span>
+        </span>
+        <input
+          ref={range}
+          type="range"
+          min={0}
+          max={100}
+          defaultValue={50}
+          aria-label="Share of the screen showing the before version"
+          onInput={(event) => {
+            hint.current?.kill()
+            show(Number(event.currentTarget.value))
+          }}
+          className="sr-only"
+        />
+      </div>
+      <figcaption className="mt-3 text-[14px] font-medium text-muted-foreground">{before.caption}. {after.caption}. Drag to compare.</figcaption>
+    </figure>
+  )
+}
+
 function Flows({ flows }: { flows: Flow[] }) {
   return (
-    <div className="mt-8 grid gap-7 rounded-xl border border-border p-5 md:p-7">
+    <div className="flows mt-8 grid gap-7 rounded-xl border border-border p-5 md:p-7">
       {flows.map((flow, index) => {
         const lead = index === flows.length - 1
         return (
@@ -40,7 +107,7 @@ function Flows({ flows }: { flows: Flow[] }) {
             <p className="text-[14px] font-medium text-muted-foreground">{flow.label}</p>
             <ol className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-2.5">
               {flow.steps.map((step, stepIndex) => (
-                <li key={step} className="flex items-center gap-2">
+                <li key={step} className="flow-step flex items-center gap-2">
                   <span className={cn('rounded-full px-3.5 py-1.5 text-[15px] font-semibold', lead ? 'bg-primary text-primary-foreground' : 'border border-border text-muted-foreground')}>{step}</span>
                   {stepIndex < flow.steps.length - 1 && <ArrowRight aria-hidden="true" className="size-3.5 text-muted-foreground" strokeWidth={2} />}
                 </li>
@@ -167,6 +234,7 @@ function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy 
 
   useGSAP(() => {
     const q = gsap.utils.selector(root)
+    gsap.fromTo(q('.project-progress'), { scaleX: 0 }, { scaleX: 1, ease: 'none', scrollTrigger: { trigger: q('.project-body')[0], start: 'top top', end: 'bottom bottom', scrub: true } })
     const mm = gsap.matchMedia()
     mm.add(motionOk, () => {
       gsap.from(q('.project-art-wrap'), { yPercent: 12, scale: 0.92, opacity: 0, duration: 1.6, ease: 'expo.out', delay: 0.35 })
@@ -174,11 +242,16 @@ function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy 
       q('.project-block').forEach((block) => {
         gsap.from(block, { y: 50, opacity: 0, duration: 1, ease: 'expo.out', scrollTrigger: { trigger: block, start: 'top 86%', toggleActions: 'play none none reverse' } })
       })
+      // Journeys read step by step, the before path first.
+      q('.flows').forEach((flows) => {
+        gsap.from(flows.querySelectorAll('.flow-step'), { opacity: 0, x: -12, duration: 0.45, ease: 'power2.out', stagger: 0.05, scrollTrigger: { trigger: flows, start: 'top 80%', toggleActions: 'play none none reverse' } })
+      })
     })
   }, { scope: root, dependencies: [project.id] })
 
   return (
     <article ref={root} aria-labelledby="page-title">
+      <div aria-hidden="true" className="project-progress pointer-events-none fixed inset-x-0 top-[var(--header-height)] z-40 h-[3px] origin-left scale-x-0" style={{ backgroundColor: project.color }} />
       <header className="project-hero relative overflow-hidden" style={{ backgroundColor: project.color, color: project.ink }}>
         <div className="relative flex min-h-[92svh] flex-col px-5 pb-10 pt-[calc(var(--header-height)+1.75rem)] md:px-10 md:pb-12">
           <Link to="#work" className="relative z-10 inline-flex w-fit items-center gap-2 rounded-full py-2 text-[15px] font-semibold hover:underline">
@@ -216,7 +289,7 @@ function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy 
         </div>
       </header>
 
-      <div className="grid gap-12 px-5 py-[clamp(4rem,12vh,8rem)] md:grid-cols-12 md:gap-8 md:px-10">
+      <div className="project-body grid gap-12 px-5 py-[clamp(4rem,12vh,8rem)] md:grid-cols-12 md:gap-8 md:px-10">
         <dl className="project-block grid content-start gap-7 md:sticky md:top-[calc(var(--header-height)+2rem)] md:col-span-3 md:self-start">
           {[
             ['My role', project.role],
@@ -254,7 +327,9 @@ function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy 
                   <h3 className="mt-2 max-w-[30ch] text-[clamp(1.35rem,1.9vw,1.9rem)] font-bold leading-tight tracking-[-0.02em] [font-stretch:106%]">{decision.title}</h3>
                   <p className={body}>{decision.body}</p>
                   {decision.flows && <Flows flows={decision.flows} />}
-                  {decision.shots.length > 0 && <Shots shots={decision.shots} onZoom={setZoom} />}
+                  {decision.compare && decision.shots.length === 2
+                    ? <Compare before={decision.shots[0]} after={decision.shots[1]} />
+                    : decision.shots.length > 0 && <Shots shots={decision.shots} onZoom={setZoom} />}
                 </li>
               ))}
             </ol>
