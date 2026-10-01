@@ -33,6 +33,8 @@ import tripsCoverLocked from '../../assets/work/trips-cover-locked.webp'
 export type Metric = { value: string; label: string }
 export type Shot = { src: string; alt: string; width: number; height: number; caption?: string }
 export type Quote = { text: string; source: string }
+// Words from colleagues' Microsoft feedback; an ellipsis marks each cut. `highlight` is quoted verbatim from `text`.
+export type Endorsement = { text: string; role: string; highlight?: string }
 export type Flow = { label: string; steps: string[] }
 
 export type CaseStudy = {
@@ -42,6 +44,7 @@ export type CaseStudy = {
   decisions: { title: string; body: string; shots: Shot[]; flows?: Flow[]; compare?: true }[]
   result: { title?: string; body: string; metrics?: Metric[]; note?: string; quote?: Quote; changes?: [string, string][]; shots?: Shot[] }
   takeaway: { line: string; body?: string }
+  partners?: Endorsement[]
   // Replaces the public cover once a locked case study is opened.
   cover?: Shot
 }
@@ -139,6 +142,10 @@ export const projects: Project[] = [
       line: "The best onboarding doesn't remove complexity from the system. It absorbs it, so the user doesn't have to.",
       body: 'Along the way I surfaced 400 craft and implementation issues in review, then prototyped Craft Check, a tool that compares the Figma design with the build, to catch them earlier.',
     },
+    partners: [
+      { text: 'On Company Account Onboarding, the UX requirements were complex (Reverse D-U-N-S search, country-specific fields, verification failure paths, document upload, retry flows), and you consistently delivered clear, high-bar Figma prototypes with a fast turnaround. You didn’t make the team wait on design.', highlight: 'You didn’t make the team wait on design.', role: 'Senior product manager' },
+      { text: 'Beyond design, your attention to detail and diligence in ensuring engineering implemented the experience as intended were equally impressive. You also showed strong conviction in holding your ground through tough tradeoff discussions, which helped maintain the integrity of the experience.', highlight: 'holding your ground through tough tradeoff discussions', role: 'Principal PM manager' },
+    ],
     color: '#b52845',
     ink: '#f0e7e6',
     cover: { src: storeCover, alt: 'Redesigned Microsoft Store developer onboarding showing live status for email, business and employment verification', width: 1600, height: 884 },

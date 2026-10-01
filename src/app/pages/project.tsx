@@ -7,6 +7,7 @@ import { isSealed, isSecure, openedStudy, preloadSealed, unlockStudy } from '@/l
 import type { ProjectId } from '@/lib/routes.js'
 import { PageTitle } from '@/components/page-title'
 import { MetricValue } from '@/sections/work'
+import { Marked, RoleChip } from '@/sections/words'
 import { cn } from '@/lib/utils'
 
 const screen = 'rounded-xl ring-1 ring-black/10 shadow-[0_32px_64px_-32px_rgb(0_0_0/0.5)]'
@@ -355,6 +356,20 @@ function CaseStudyPage({ project, study }: { project: Project; study: CaseStudy 
             {study.result.metrics && <Stats metrics={study.result.metrics} className={study.result.note ? 'mt-3' : 'mt-8'} />}
             {study.result.quote && <Blockquote quote={study.result.quote} />}
           </section>
+
+          {study.partners && (
+            <section className="project-block mt-20" aria-labelledby="partners-title">
+              <h2 id="partners-title" className={heading}>From the team</h2>
+              <div className="mt-8 grid gap-10 sm:grid-cols-2 sm:gap-8">
+                {study.partners.map((partner) => (
+                  <figure key={partner.text} className="border-t border-border pt-6">
+                    <figcaption><RoleChip role={partner.role} /></figcaption>
+                    <blockquote className="mt-4 text-[17px] leading-relaxed">“<Marked text={partner.text} highlight={partner.highlight} />”</blockquote>
+                  </figure>
+                ))}
+              </div>
+            </section>
+          )}
 
           <section className="project-block mt-20 border-t border-foreground/80 pt-8" aria-labelledby="takeaway-title">
             <h2 id="takeaway-title" className="text-[15px] font-semibold text-muted-foreground">What I took from it</h2>

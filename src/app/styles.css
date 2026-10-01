@@ -328,6 +328,20 @@
   }
 }
 
+/* Colleague quotes: cards pinned to a dotted board, key phrases marked in rose. */
+.words-board {
+  background-image: radial-gradient(color-mix(in oklab, var(--foreground) 16%, transparent) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+.word-mark {
+  --mark: 100%;
+  color: inherit;
+  background: linear-gradient(rgb(240 88 122 / 0.34), rgb(240 88 122 / 0.34)) no-repeat 0 92% / var(--mark) 0.45em;
+  padding-inline: 0.04em;
+  box-decoration-break: clone;
+}
+
 /* ThreeUI Typography Vortex, trimmed to the rules this page needs. */
 .typography-vortex-component {
   position: relative;

@@ -6,10 +6,11 @@ import candid from '../../assets/hardik-candid.webp'
 import subject from '../../assets/hardik-bench-subject.webp'
 import benchScene from '../../assets/hardik-bench-scene.webp'
 import { projects } from './projects'
+import type { Endorsement } from './projects'
 import type { ProjectId } from './routes.js'
 
 export { projects }
-export type { CaseStudy, Flow, Metric, Project, Quote, Shot } from './projects'
+export type { CaseStudy, Endorsement, Flow, Metric, Project, Quote, Shot } from './projects'
 export const photos = { cameraPortrait, cameraChip, candid, subject, benchScene }
 export const email = 'madebyhardik@gmail.com'
 
@@ -59,6 +60,22 @@ export const interests = [
 ]
 
 export const toolkit = ['Figma', 'Figma Make', 'Claude Code', 'GitHub Copilot', 'Figma MCP', 'Framer', 'After Effects', 'Lottie', 'HTML, CSS and JavaScript', 'VS Code', 'Adobe Creative Cloud', 'Miro']
+
+export const endorsements: { featured: Endorsement & { more: string }; quotes: Endorsement[] } = {
+  featured: {
+    text: 'Overall, your contribution has been transformative, bringing stability, quality, and a much stronger design culture to the team.',
+    highlight: 'your contribution has been transformative',
+    more: '…your arrival brought in much-needed clarity, structure, and momentum… You’ve also become a dependable partner for both PMs and engineering, bridging gaps and ensuring that design is not just an afterthought but a core part of the solution.',
+    role: 'Principal group product manager',
+  },
+  quotes: [
+    { text: 'Hardik is one of the most responsive and thoughtful designers I’ve worked with at Microsoft… He doesn’t just take a spec and wireframe it; he asks the right questions to understand the ‘why’ behind what we’re building, which means the designs hold up when we pressure-test them.', highlight: 'one of the most responsive and thoughtful designers', role: 'Senior product manager' },
+    { text: 'Your contributions across a wide range of Store projects have been outstanding… you’ve consistently demonstrated the ability to handle diverse and complex areas with depth, quality, and ownership.', highlight: 'have been outstanding', role: 'Principal PM manager' },
+    { text: 'Hardik went beyond design by building functional prototypes… This hands-on work helped the team quickly validate feasibility and informed key product directions.', highlight: 'went beyond design by building functional prototypes', role: 'Senior product manager' },
+    { text: 'He has gone above and beyond his role as a designer by being involved in brainstorming and proposal sessions as well… He always thinks from the customer’s mindset and brings the customer’s opinion and voice to the conversation.', highlight: 'brings the customer’s opinion and voice to the conversation', role: 'Principal software engineering manager' },
+    { text: 'His keen attention to small details, from spacing and alignment to micro-interactions, is what sets his work apart and shows how deeply he cares about craft… You can count on him to turn things around quickly without cutting corners, which is rare.', highlight: 'without cutting corners', role: 'Software engineer' },
+  ],
+}
 
 export function splitChange(value: string) {
   const parts = value.split(' to ')
