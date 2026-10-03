@@ -1,0 +1,105 @@
+WEBVTT
+
+1
+00:00:00.700 --> 00:00:04.162
+SMS Organizer was downloaded over a million times,
+
+2
+00:00:04.162 --> 00:00:07.554
+and it sorted every message on the phone itself.
+
+3
+00:00:07.904 --> 00:00:12.481
+People loved what it did. Reviews kept asking for an app that looked the part.
+
+4
+00:00:20.067 --> 00:00:21.349
+My audit showed why.
+
+5
+00:00:21.699 --> 00:00:24.571
+Two navigation bars competed for attention,
+
+6
+00:00:24.571 --> 00:00:26.975
+text was small and low in contrast,
+
+7
+00:00:26.975 --> 00:00:29.068
+reminders stopped at the alert,
+
+8
+00:00:29.068 --> 00:00:33.254
+and some messages arrived in languages readers couldn't read.
+
+9
+00:00:35.367 --> 00:00:36.399
+The app was smart.
+
+10
+00:00:36.749 --> 00:00:38.118
+The interface didn't show it.
+
+11
+00:00:40.533 --> 00:00:43.583
+First, I moved the main navigation to the bottom,
+
+12
+00:00:43.583 --> 00:00:47.630
+within thumb reach, and turned the top bar into message filters.
+
+13
+00:00:47.980 --> 00:00:51.658
+Larger text and stronger contrast cleared the rest of the noise,
+
+14
+00:00:51.658 --> 00:00:54.704
+and the update asks people before it moves anything.
+
+15
+00:00:56.700 --> 00:00:58.666
+Reminders used to stop at the alert.
+
+16
+00:00:59.016 --> 00:01:01.984
+Now the app creates them from booking messages,
+
+17
+00:01:01.984 --> 00:01:03.310
+groups them by type,
+
+18
+00:01:03.310 --> 00:01:07.351
+and a tap opens the next step, like hotels at your destination.
+
+19
+00:01:09.567 --> 00:01:13.158
+An SMS arrives in whatever language the sender chose.
+
+20
+00:01:13.508 --> 00:01:15.702
+So people pick their language once,
+
+21
+00:01:15.702 --> 00:01:19.339
+then translate any message into it or hear it read aloud,
+
+22
+00:01:19.339 --> 00:01:22.661
+and every layout holds when a translation runs long.
+
+23
+00:01:24.867 --> 00:01:26.066
+In UX Labs testing,
+
+24
+00:01:26.066 --> 00:01:30.107
+people preferred the new design for its layout and modern look.
+
+25
+00:01:30.457 --> 00:01:35.649
+It shipped on a Material 3 design system I built. Engagement rose 30%.
+
+26
+00:01:38.733 --> 00:01:43.587
+Redesigning an app people already use is a migration as much as a launch.

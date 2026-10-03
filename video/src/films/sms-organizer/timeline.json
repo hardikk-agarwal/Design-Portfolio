@@ -1,0 +1,194 @@
+{
+  "fps": 30,
+  "durationInFrames": 3300,
+  "scenes": [
+    {
+      "id": "hook",
+      "from": 0,
+      "duration": 452,
+      "lines": [
+        {
+          "text": "SMS Organizer was downloaded over a million times, and it sorted every message on the phone itself.",
+          "file": "hook-0.wav",
+          "start": 0.7,
+          "seconds": 6.853833333333333,
+          "from": 21,
+          "duration": 206
+        },
+        {
+          "text": "People loved what it did. Reviews kept asking for an app that looked the part.",
+          "file": "hook-1.wav",
+          "start": 7.903833333333333,
+          "seconds": 4.576833333333333,
+          "from": 237,
+          "duration": 137
+        }
+      ]
+    },
+    {
+      "id": "title",
+      "from": 452,
+      "duration": 132,
+      "lines": []
+    },
+    {
+      "id": "problem",
+      "from": 584,
+      "duration": 462,
+      "lines": [
+        {
+          "text": "My audit showed why.",
+          "file": "problem-0.wav",
+          "start": 20.066666666666666,
+          "seconds": 1.2823333333333333,
+          "from": 602,
+          "duration": 38
+        },
+        {
+          "text": "Two navigation bars competed for attention, text was small and low in contrast, reminders stopped at the alert, and some messages arrived in languages readers couldn't read.",
+          "file": "problem-1.wav",
+          "start": 21.698999999999998,
+          "seconds": 11.554666666666666,
+          "from": 651,
+          "duration": 347
+        }
+      ]
+    },
+    {
+      "id": "insight",
+      "from": 1046,
+      "duration": 146,
+      "lines": [
+        {
+          "text": "The app was smart.",
+          "file": "insight-0.wav",
+          "start": 35.36666666666667,
+          "seconds": 1.032125,
+          "from": 1061,
+          "duration": 31
+        },
+        {
+          "text": "The interface didn't show it.",
+          "file": "insight-1.wav",
+          "start": 36.74879166666667,
+          "seconds": 1.36925,
+          "from": 1102,
+          "duration": 41
+        }
+      ]
+    },
+    {
+      "id": "decision1",
+      "from": 1192,
+      "duration": 485,
+      "lines": [
+        {
+          "text": "First, I moved the main navigation to the bottom, within thumb reach, and turned the top bar into message filters.",
+          "file": "decision1-0.wav",
+          "start": 40.53333333333333,
+          "seconds": 7.096166666666667,
+          "from": 1216,
+          "duration": 213
+        },
+        {
+          "text": "Larger text and stronger contrast cleared the rest of the noise, and the update asks people before it moves anything.",
+          "file": "decision1-1.wav",
+          "start": 47.9795,
+          "seconds": 6.724666666666667,
+          "from": 1439,
+          "duration": 202
+        }
+      ]
+    },
+    {
+      "id": "decision2",
+      "from": 1677,
+      "duration": 386,
+      "lines": [
+        {
+          "text": "Reminders used to stop at the alert.",
+          "file": "decision2-0.wav",
+          "start": 56.699999999999996,
+          "seconds": 1.9659583333333333,
+          "from": 1701,
+          "duration": 59
+        },
+        {
+          "text": "Now the app creates them from booking messages, groups them by type, and a tap opens the next step, like hotels at your destination.",
+          "file": "decision2-1.wav",
+          "start": 59.01595833333333,
+          "seconds": 8.334708333333333,
+          "from": 1770,
+          "duration": 250
+        }
+      ]
+    },
+    {
+      "id": "decision3",
+      "from": 2063,
+      "duration": 459,
+      "lines": [
+        {
+          "text": "An SMS arrives in whatever language the sender chose.",
+          "file": "decision3-0.wav",
+          "start": 69.56666666666666,
+          "seconds": 3.591458333333333,
+          "from": 2087,
+          "duration": 108
+        },
+        {
+          "text": "So people pick their language once, then translate any message into it or hear it read aloud, and every layout holds when a translation runs long.",
+          "file": "decision3-1.wav",
+          "start": 73.50812499999999,
+          "seconds": 9.153166666666667,
+          "from": 2205,
+          "duration": 275
+        }
+      ]
+    },
+    {
+      "id": "result",
+      "from": 2522,
+      "duration": 425,
+      "lines": [
+        {
+          "text": "In UX Labs testing, people preferred the new design for its layout and modern look.",
+          "file": "result-0.wav",
+          "start": 84.86666666666666,
+          "seconds": 5.24075,
+          "from": 2546,
+          "duration": 157
+        },
+        {
+          "text": "It shipped on a Material three design system I built. Engagement rose thirty percent.",
+          "file": "result-1.wav",
+          "start": 90.45741666666666,
+          "seconds": 5.192041666666666,
+          "from": 2714,
+          "duration": 156
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "from": 2947,
+      "duration": 203,
+      "lines": [
+        {
+          "text": "Redesigning an app people already use is a migration as much as a launch.",
+          "file": "takeaway-0.wav",
+          "start": 98.73333333333333,
+          "seconds": 4.854,
+          "from": 2962,
+          "duration": 146
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "from": 3150,
+      "duration": 150,
+      "lines": []
+    }
+  ]
+}

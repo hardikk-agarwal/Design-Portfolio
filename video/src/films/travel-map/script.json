@@ -1,0 +1,42 @@
+{
+  "voice": "am_michael",
+  "speed": 1.08,
+  "fps": 30,
+  "gap": 0.35,
+  "captions": [["sixty-eight percent", "68%"]],
+  "scenes": [
+    { "id": "hook", "lead": 0.7, "tail": 2.8, "lines": [
+      "Across UX Labs studies, maps had a sixty-eight percent click rate.",
+      "Travelers plan on maps. They check what's close, and whether a day is even possible."
+    ] },
+    { "id": "title", "min": 4.4, "lines": [] },
+    { "id": "problem", "lead": 0.6, "tail": 1.6, "lines": [
+      "On Bing, planning a trip meant switching between apps and sites for hotels, flights, activities and transit.",
+      "There was no way to narrow the map to what mattered, and little help deciding where to go at all."
+    ] },
+    { "id": "insight", "lead": 0.5, "tail": 1.6, "lines": [
+      "Travelers don't plan in lists.",
+      "They plan in places."
+    ] },
+    { "id": "decision1", "lead": 0.8, "tail": 1.4, "lines": [
+      "Many travelers start without a destination, so the map starts there too.",
+      "It groups places by continent, offers trips nearby priced from where you're browsing, and themes like beaches or adventure narrow the field."
+    ] },
+    { "id": "decision2", "lead": 0.8, "tail": 1.4, "lines": [
+      "Then I brought every travel vertical onto a single map.",
+      "One search covers destinations, hotels and attractions, and the map pins all of them, so a hotel's distance from the sights shows at a glance."
+    ] },
+    { "id": "decision3", "lead": 0.8, "tail": 1.6, "lines": [
+      "But a map with every pin is as hard to read as a long list.",
+      "So filters narrow it to attractions, stays or restaurants, where a heat map shows demand, and transit shows how to get around."
+    ] },
+    { "id": "result", "lead": 0.8, "tail": 2.4, "lines": [
+      "I explored the map from mild to wild. The mild ideas gave engineering something to build early, and the wild ones showed where it could go.",
+      "Then I tested the concepts with users, prioritized an MVP with product and engineering, and delivered its key modules."
+    ] },
+    { "id": "takeaway", "lead": 0.5, "tail": 1.4, "lines": [
+      "Design without constraints first, then let the team decide what ships."
+    ] },
+    { "id": "end", "min": 5, "lines": [] }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "voice": "am_michael",
+  "speed": 1.08,
+  "fps": 30,
+  "gap": 0.35,
+  "captions": [["Material three", "Material 3"], ["thirty percent", "30%"]],
+  "scenes": [
+    { "id": "hook", "lead": 0.7, "tail": 2.6, "lines": [
+      "SMS Organizer was downloaded over a million times, and it sorted every message on the phone itself.",
+      "People loved what it did. Reviews kept asking for an app that looked the part."
+    ] },
+    { "id": "title", "min": 4.4, "lines": [] },
+    { "id": "problem", "lead": 0.6, "tail": 1.6, "lines": [
+      "My audit showed why.",
+      "Two navigation bars competed for attention, text was small and low in contrast, reminders stopped at the alert, and some messages arrived in languages readers couldn't read."
+    ] },
+    { "id": "insight", "lead": 0.5, "tail": 1.6, "lines": [
+      "The app was smart.",
+      "The interface didn't show it."
+    ] },
+    { "id": "decision1", "lead": 0.8, "tail": 1.2, "lines": [
+      "First, I moved the main navigation to the bottom, within thumb reach, and turned the top bar into message filters.",
+      "Larger text and stronger contrast cleared the rest of the noise, and the update asks people before it moves anything."
+    ] },
+    { "id": "decision2", "lead": 0.8, "tail": 1.4, "lines": [
+      "Reminders used to stop at the alert.",
+      "Now the app creates them from booking messages, groups them by type, and a tap opens the next step, like hotels at your destination."
+    ] },
+    { "id": "decision3", "lead": 0.8, "tail": 1.4, "lines": [
+      "An SMS arrives in whatever language the sender chose.",
+      "So people pick their language once, then translate any message into it or hear it read aloud, and every layout holds when a translation runs long."
+    ] },
+    { "id": "result", "lead": 0.8, "tail": 2.6, "lines": [
+      "In UX Labs testing, people preferred the new design for its layout and modern look.",
+      "It shipped on a Material three design system I built. Engagement rose thirty percent."
+    ] },
+    { "id": "takeaway", "lead": 0.5, "tail": 1.4, "lines": [
+      "Redesigning an app people already use is a migration as much as a launch."
+    ] },
+    { "id": "end", "min": 5, "lines": [] }
+  ]
+}

@@ -96,6 +96,16 @@ export function camera(f: number, start: Cam, moves: Move[]): Cam {
   return c
 }
 
+// Camera moves cued by narration beats; a move waits until the previous one lands, so quick beats never jump.
+export function cues(list: [number, Cam][], lead = 8, dur = 26): Move[] {
+  let free = -Infinity
+  return list.map(([beat, to]) => {
+    const at = Math.max(beat - lead, free)
+    free = at + dur
+    return { at, dur, to }
+  })
+}
+
 // A product screen in a window that swings in from 3D, with a camera that pans and zooms in source pixels.
 export function Screen({ src, size: [sw, sh], box: [w, h], cam, enter = 0, children, opacity = 1 }: { src: string; size: [number, number]; box: [number, number]; cam: Cam; enter?: number; children?: (map: (r: Rect) => Rect) => ReactNode; opacity?: number }) {
   const p = tw(useCurrentFrame(), enter, 46)

@@ -1,0 +1,194 @@
+{
+  "fps": 30,
+  "durationInFrames": 3426,
+  "scenes": [
+    {
+      "id": "hook",
+      "from": 0,
+      "duration": 390,
+      "lines": [
+        {
+          "text": "Across UX Labs studies, maps had a sixty-eight percent click rate.",
+          "file": "hook-0.wav",
+          "start": 0.7,
+          "seconds": 4.137416666666667,
+          "from": 21,
+          "duration": 124
+        },
+        {
+          "text": "Travelers plan on maps. They check what's close, and whether a day is even possible.",
+          "file": "hook-1.wav",
+          "start": 5.187416666666667,
+          "seconds": 5.004083333333333,
+          "from": 156,
+          "duration": 150
+        }
+      ]
+    },
+    {
+      "id": "title",
+      "from": 390,
+      "duration": 132,
+      "lines": []
+    },
+    {
+      "id": "problem",
+      "from": 522,
+      "duration": 431,
+      "lines": [
+        {
+          "text": "On Bing, planning a trip meant switching between apps and sites for hotels, flights, activities and transit.",
+          "file": "problem-0.wav",
+          "start": 18,
+          "seconds": 6.598875,
+          "from": 540,
+          "duration": 198
+        },
+        {
+          "text": "There was no way to narrow the map to what mattered, and little help deciding where to go at all.",
+          "file": "problem-1.wav",
+          "start": 24.948874999999997,
+          "seconds": 5.231083333333333,
+          "from": 748,
+          "duration": 157
+        }
+      ]
+    },
+    {
+      "id": "insight",
+      "from": 953,
+      "duration": 165,
+      "lines": [
+        {
+          "text": "Travelers don't plan in lists.",
+          "file": "insight-0.wav",
+          "start": 32.266666666666666,
+          "seconds": 1.7214583333333333,
+          "from": 968,
+          "duration": 52
+        },
+        {
+          "text": "They plan in places.",
+          "file": "insight-1.wav",
+          "start": 34.338125,
+          "seconds": 1.32325,
+          "from": 1030,
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "id": "decision1",
+      "from": 1118,
+      "duration": 466,
+      "lines": [
+        {
+          "text": "Many travelers start without a destination, so the map starts there too.",
+          "file": "decision1-0.wav",
+          "start": 38.06666666666666,
+          "seconds": 4.21475,
+          "from": 1142,
+          "duration": 126
+        },
+        {
+          "text": "It groups places by continent, offers trips nearby priced from where you're browsing, and themes like beaches or adventure narrow the field.",
+          "file": "decision1-1.wav",
+          "start": 42.63141666666667,
+          "seconds": 8.771666666666667,
+          "from": 1279,
+          "duration": 263
+        }
+      ]
+    },
+    {
+      "id": "decision2",
+      "from": 1584,
+      "duration": 454,
+      "lines": [
+        {
+          "text": "Then I brought every travel vertical onto a single map.",
+          "file": "decision2-0.wav",
+          "start": 53.599999999999994,
+          "seconds": 3.342,
+          "from": 1608,
+          "duration": 100
+        },
+        {
+          "text": "One search covers destinations, hotels and attractions, and the map pins all of them, so a hotel's distance from the sights shows at a glance.",
+          "file": "decision2-1.wav",
+          "start": 57.291999999999994,
+          "seconds": 9.227916666666667,
+          "from": 1719,
+          "duration": 277
+        }
+      ]
+    },
+    {
+      "id": "decision3",
+      "from": 2038,
+      "duration": 435,
+      "lines": [
+        {
+          "text": "But a map with every pin is as hard to read as a long list.",
+          "file": "decision3-0.wav",
+          "start": 68.73333333333333,
+          "seconds": 3.5864166666666666,
+          "from": 2062,
+          "duration": 108
+        },
+        {
+          "text": "So filters narrow it to attractions, stays or restaurants, where a heat map shows demand, and transit shows how to get around.",
+          "file": "decision3-1.wav",
+          "start": 72.66975000000001,
+          "seconds": 8.175166666666666,
+          "from": 2180,
+          "duration": 245
+        }
+      ]
+    },
+    {
+      "id": "result",
+      "from": 2473,
+      "duration": 619,
+      "lines": [
+        {
+          "text": "I explored the map from mild to wild. The mild ideas gave engineering something to build early, and the wild ones showed where it could go.",
+          "file": "result-0.wav",
+          "start": 83.23333333333333,
+          "seconds": 8.910333333333334,
+          "from": 2497,
+          "duration": 267
+        },
+        {
+          "text": "Then I tested the concepts with users, prioritized an MVP with product and engineering, and delivered its key modules.",
+          "file": "result-1.wav",
+          "start": 92.49366666666667,
+          "seconds": 8.182125,
+          "from": 2775,
+          "duration": 245
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "from": 3092,
+      "duration": 184,
+      "lines": [
+        {
+          "text": "Design without constraints first, then let the team decide what ships.",
+          "file": "takeaway-0.wav",
+          "start": 103.56666666666666,
+          "seconds": 4.24325,
+          "from": 3107,
+          "duration": 127
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "from": 3276,
+      "duration": 150,
+      "lines": []
+    }
+  ]
+}

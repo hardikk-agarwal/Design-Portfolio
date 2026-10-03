@@ -1,6 +1,6 @@
 // Shared film shell and scene layouts. Each film supplies its timeline, scene components and project colour.
-import type { ComponentType, CSSProperties, ReactNode } from 'react'
-import { AbsoluteFill, Html5Audio, Sequence, staticFile, useCurrentFrame, useVideoConfig } from 'remotion'
+import { useLayoutEffect, type ComponentType, type CSSProperties, type ReactNode } from 'react'
+import { AbsoluteFill, Html5Audio, Img, Sequence, continueRender, delayRender, getInputProps, staticFile, useCurrentFrame, useVideoConfig } from 'remotion'
 import { C, Exit, Grain, Mark, Rise, Screen, body, chip, display, glide, heading, tw } from './ui'
 
 export type Line = { text: string; file: string; start: number; seconds: number; from: number; duration: number }
@@ -53,12 +53,77 @@ function Chrome({ timeline, accent, name }: { timeline: Timeline; accent: string
   )
 }
 
+// Layout check for review renders (scripts/qa.mjs passes { qa: true }): logs visible text that is clipped,
+// leaves the frame or collides with other text, so frames can be checked without looking at them.
+function QaProbe() {
+  const f = useCurrentFrame()
+  useLayoutEffect(() => {
+    const handle = delayRender('qa probe')
+    const started = performance.now()
+    // The render page sizes its canvas after the first layout; measuring before that wraps every line.
+    const sized = (): Promise<void> => new Promise((resolve) => {
+      const check = () => (document.querySelector<HTMLElement>('[data-film-root]')!.offsetWidth > 0 || performance.now() - started > 4000 ? resolve() : setTimeout(check, 25))
+      check()
+    })
+    void Promise.all([document.fonts.ready, sized()]).then(() => {
+      const root = document.querySelector<HTMLElement>('[data-film-root]')!
+      const frame = root.getBoundingClientRect()
+      if (!frame.width) {
+        console.log(`QA ${JSON.stringify({ f, issues: ['canvas never sized; measurements skipped'] })}`)
+        continueRender(handle)
+        return
+      }
+      const seen = (el: Element | null) => { let o = 1; for (let e = el; e && e !== root.parentElement; e = e.parentElement) o *= Number(getComputedStyle(e).opacity); return o }
+      const texts: { el: HTMLElement; text: string; r: DOMRect; lines: DOMRect[] }[] = []
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT)
+      for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+        const text = n.textContent?.trim()
+        const el = n.parentElement
+        if (!text || !el || seen(el) < 0.35 || getComputedStyle(el).visibility === 'hidden') continue
+        const range = document.createRange()
+        range.selectNodeContents(n)
+        const r = range.getBoundingClientRect()
+        // Line fragments trimmed to the line height: range boxes include the font's full ascent and descent.
+        const lh = parseFloat(getComputedStyle(el).lineHeight)
+        const lines = [...range.getClientRects()].map((l) => (lh > 0 && lh < l.height ? new DOMRect(l.left, l.top + (l.height - lh) / 2, l.width, lh) : l))
+        if (r.width && r.height) texts.push({ el, text: text.slice(0, 40), r, lines })
+      }
+      const issues: string[] = []
+      const rel = (r: DOMRect) => `${Math.round(r.left - frame.left)},${Math.round(r.top - frame.top)} ${Math.round(r.width)}x${Math.round(r.height)}`
+      for (const t of texts) {
+        if (t.r.left < frame.left - 1 || t.r.top < frame.top - 1 || t.r.right > frame.right + 1 || t.r.bottom > frame.bottom + 1) issues.push(`off-frame "${t.text}" ${rel(t.r)}`)
+        for (let e = t.el.parentElement; e && e !== root; e = e.parentElement) {
+          if (getComputedStyle(e).overflow === 'visible') continue
+          const c = e.getBoundingClientRect()
+          const area = t.lines.reduce((sum, l) => sum + l.width * l.height, 0)
+          const kept = t.lines.reduce((sum, l) => sum + Math.max(0, Math.min(l.right, c.right) - Math.max(l.left, c.left)) * Math.max(0, Math.min(l.bottom, c.bottom) - Math.max(l.top, c.top)), 0)
+          const shown = area ? kept / area : 1
+          if (shown > 0.02 && shown < 0.97) issues.push(`clipped ${Math.round(shown * 100)}% "${t.text}" ${rel(t.r)}`)
+          break
+        }
+      }
+      for (let i = 0; i < texts.length; i++) for (let j = i + 1; j < texts.length; j++) {
+        const a = texts[i], b = texts[j]
+        if (a.el.contains(b.el) || b.el.contains(a.el)) continue
+        const hit = a.lines.some((p) => b.lines.some((q) => {
+          const w = Math.min(p.right, q.right) - Math.max(p.left, q.left), h = Math.min(p.bottom, q.bottom) - Math.max(p.top, q.top)
+          return w > 2 && h > 2 && (w * h) / Math.min(p.width * p.height, q.width * q.height) > 0.15
+        }))
+        if (hit) issues.push(`overlap "${a.text}" / "${b.text}" at ${rel(a.r)}`)
+      }
+      console.log(`QA ${JSON.stringify({ f, issues })}`)
+      continueRender(handle)
+    })
+  }, [f])
+  return null
+}
+
 export function FilmShell({ id, timeline, scenes, glow, accent, name }: { id: string; timeline: Timeline; scenes: Record<string, ComponentType<SceneProps>>; glow: Record<string, [number, number]>; accent: string; name: string }) {
   const f = useCurrentFrame()
   const { durationInFrames } = useVideoConfig()
   const black = Math.max(1 - tw(f, 0, 14), tw(f, durationInFrames - 26, 26))
   return (
-    <AbsoluteFill style={{ background: C.bg, color: C.ink }}>
+    <AbsoluteFill data-film-root style={{ background: C.bg, color: C.ink }}>
       <Backdrop timeline={timeline} glow={glow} accent={accent} />
       {timeline.scenes.map((scene) => {
         const Scene = scenes[scene.id]
@@ -73,6 +138,7 @@ export function FilmShell({ id, timeline, scenes, glow, accent, name }: { id: st
       <Grain />
       <AbsoluteFill style={{ background: '#000', opacity: black }} />
       <Html5Audio src={staticFile(`${id}-mix.wav`)} />
+      {getInputProps().qa ? <QaProbe /> : null}
     </AbsoluteFill>
   )
 }
@@ -90,13 +156,16 @@ export function Bar({ label, value, at, fill }: { label: string; value: number; 
 }
 
 // Project name rises letter by letter (wrapping by word), then the headline, role chips and a tilted cover screen.
-export function TitleCard({ name, headline, chips, cover, size = 168, width = 1600 }: { name: string; headline: string; chips: string[]; cover: { src: string; size: [number, number]; box: [number, number]; left: number; top: number }; size?: number; width?: number }) {
+// `phone` covers are frameless screenshots whose rounded corners come from their own alpha.
+export function TitleCard({ name, headline, chips, cover, size = 168, width = 1600, phone = false }: { name: string; headline: string; chips: string[]; cover: { src: string; size: [number, number]; box: [number, number]; left: number; top: number }; size?: number; width?: number; phone?: boolean }) {
   const f = useCurrentFrame()
   let index = 0
   return (
     <AbsoluteFill>
       <div style={{ position: 'absolute', left: cover.left, top: cover.top, transform: `translateY(${(1 - tw(f, 4, 70)) * 220}px) rotate(-5deg)` }}>
-        <Screen src={cover.src} size={cover.size} box={cover.box} cam={{ x: cover.size[0] / 2, y: cover.size[1] / 2, z: 1 }} enter={2} />
+        {phone
+          ? <Img src={cover.src} style={{ display: 'block', width: cover.box[0], height: cover.box[1], opacity: tw(f, 2, 30), filter: 'drop-shadow(0 50px 70px rgba(0, 0, 0, 0.6))' }} />
+          : <Screen src={cover.src} size={cover.size} box={cover.box} cam={{ x: cover.size[0] / 2, y: cover.size[1] / 2, z: 1 }} enter={2} />}
       </div>
       <div style={{ position: 'absolute', left: 160, top: 230, maxWidth: width }}>
         <div style={{ ...display, fontSize: size, display: 'flex', flexWrap: 'wrap', columnGap: '0.24em' }}>

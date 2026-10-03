@@ -3,3 +3,6 @@ out
 public/*.wav
 # NDA films (narration, scenes and timings quote the locked case study); src/protected holds their sources.
 src/films/portal/
+src/films/trip-planning/
+# Films made for a friend's portfolio (his screens and copy), kept out of this public repo.
+ankush/

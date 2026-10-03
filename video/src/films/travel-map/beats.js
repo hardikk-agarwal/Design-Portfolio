@@ -1,0 +1,23 @@
+// Narration-synced beats: [scene, line index, fragment of that line ('^' = line start), name, sound].
+export default [
+  ['hook', 1, '^', 'quote', 'pop'],
+  ['problem', 0, 'switching', 'switch', 'pop'],
+  ['problem', 1, '^', 'filter', 'pop'],
+  ['problem', 1, 'little help', 'help', 'pop'],
+  ['insight', 1, '^', 'mark', 'impact'],
+  ['decision1', 1, 'continent', 'continent', 'pop'],
+  ['decision1', 1, 'trips nearby', 'nearby', 'pop'],
+  ['decision1', 1, 'themes', 'themes', 'pop'],
+  ['decision2', 1, '^', 'search', 'pop'],
+  ['decision2', 1, 'pins all', 'pins', 'pop'],
+  ['decision2', 1, 'distance', 'distance', 'pop'],
+  ['decision3', 0, 'every pin', 'pins', null],
+  ['decision3', 1, 'attractions', 'attractions', 'pop'],
+  ['decision3', 1, 'stays', 'stays', 'pop'],
+  ['decision3', 1, 'restaurants', 'restaurants', 'pop'],
+  ['decision3', 1, 'and transit', 'transit', 'pop'],
+  ['result', 0, 'mild to wild', 'wild', 'pop'],
+  ['result', 1, 'tested', 'tested', 'tick'],
+  ['result', 1, 'an MVP', 'mvp', 'tick'],
+  ['result', 1, 'delivered', 'delivered', 'tick'],
+]

@@ -1,0 +1,121 @@
+WEBVTT
+
+1
+00:00:00.700 --> 00:00:04.837
+Across UX Labs studies, maps had a 68% click rate.
+
+2
+00:00:05.187 --> 00:00:08.047
+Travelers plan on maps. They check what's close,
+
+3
+00:00:08.047 --> 00:00:10.192
+and whether a day is even possible.
+
+4
+00:00:18.000 --> 00:00:18.489
+On Bing,
+
+5
+00:00:18.489 --> 00:00:22.583
+planning a trip meant switching between apps and sites for hotels,
+
+6
+00:00:22.583 --> 00:00:24.599
+flights, activities and transit.
+
+7
+00:00:24.949 --> 00:00:27.753
+There was no way to narrow the map to what mattered,
+
+8
+00:00:27.753 --> 00:00:30.180
+and little help deciding where to go at all.
+
+9
+00:00:32.267 --> 00:00:33.988
+Travelers don't plan in lists.
+
+10
+00:00:34.338 --> 00:00:35.661
+They plan in places.
+
+11
+00:00:38.067 --> 00:00:40.584
+Many travelers start without a destination,
+
+12
+00:00:40.584 --> 00:00:42.281
+so the map starts there too.
+
+13
+00:00:42.631 --> 00:00:44.511
+It groups places by continent,
+
+14
+00:00:44.511 --> 00:00:47.957
+offers trips nearby priced from where you're browsing,
+
+15
+00:00:47.957 --> 00:00:51.403
+and themes like beaches or adventure narrow the field.
+
+16
+00:00:53.600 --> 00:00:56.942
+Then I brought every travel vertical onto a single map.
+
+17
+00:00:57.292 --> 00:00:59.307
+One search covers destinations,
+
+18
+00:00:59.307 --> 00:01:02.816
+hotels and attractions, and the map pins all of them,
+
+19
+00:01:02.816 --> 00:01:06.520
+so a hotel's distance from the sights shows at a glance.
+
+20
+00:01:08.733 --> 00:01:12.320
+But a map with every pin is as hard to read as a long list.
+
+21
+00:01:12.670 --> 00:01:16.433
+So filters narrow it to attractions, stays or restaurants,
+
+22
+00:01:16.433 --> 00:01:18.408
+where a heat map shows demand,
+
+23
+00:01:18.408 --> 00:01:20.845
+and transit shows how to get around.
+
+24
+00:01:23.233 --> 00:01:29.323
+I explored the map from mild to wild. The mild ideas gave engineering something to build early,
+
+25
+00:01:29.323 --> 00:01:32.144
+and the wild ones showed where it could go.
+
+26
+00:01:32.494 --> 00:01:35.129
+Then I tested the concepts with users,
+
+27
+00:01:35.129 --> 00:01:38.499
+prioritized an MVP with product and engineering,
+
+28
+00:01:38.499 --> 00:01:40.676
+and delivered its key modules.
+
+29
+00:01:43.567 --> 00:01:45.567
+Design without constraints first,
+
+30
+00:01:45.567 --> 00:01:47.810
+then let the team decide what ships.
