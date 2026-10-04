@@ -12,9 +12,9 @@ export const stories = {
   },
   store: {
     name: 'Microsoft Store', object: 'The project folder', category: 'Developer platform', title: 'A shorter path to the Store.',
-    description: 'As sole designer, I rebuilt how companies sign up to publish on the Microsoft Store.',
+    description: 'I rebuilt how companies sign up to publish on the Microsoft Store.',
     summary: 'Turned a roughly 15-day company onboarding into about a day.',
-    color: 'blue', role: 'Sole designer', organization: 'Microsoft',
+    color: 'blue', role: 'Product designer', organization: 'Microsoft',
     metrics: [['35% to 73%', 'Onboarding success'], ['~15 days to ~1 day', 'Time to onboard'], ['240+', 'Companies in 50 countries']],
     sections: [
       ['The problem', 'Setting up a company account on the Microsoft Store took about 15 days, and only 35% of companies got through. The front door to the Store was losing most of the developers who reached it.'],
@@ -61,7 +61,7 @@ export const stories = {
       ['How I work', 'A lot of design debate comes from people picturing different things. So I make ideas real early, in Figma or as a working prototype in code, and get everyone reacting to the same thing. Once we see the problem through the same lens, decisions get easier.'],
       ['What I value', 'Ownership, clear communication and respect for people\'s time. I show up prepared, do what I said I would and help the team keep moving. That matters to me as much as the design itself.'],
       ['Outside work', 'Photography is practice in deciding what belongs in the frame. Astronomy is a regular reminder of how much is left to learn. I try new tech as early as I can, which is a big part of why I prototype with AI, and staying active keeps my head clear.'],
-      ['Microsoft', 'UX Designer, March 2025 to now. I was rated Outstanding. As sole designer, I rebuilt Microsoft Store company onboarding, nearly doubling its success rate, and shaped the new Windows Developer Center. I also designed Copilot\'s visual sports answers, led design for the Trusted Developer Program pilot and worked on Windows Hello and passkeys.'],
+      ['Microsoft', 'UX Designer, March 2025 to now. I was rated Outstanding. I rebuilt Microsoft Store company onboarding, nearly doubling its success rate, and shaped the new Windows Developer Center. I also designed Copilot\'s visual sports answers, led design for the Trusted Developer Program pilot and worked on Windows Hello and passkeys.'],
       ['Microsoft x Tech Mahindra', 'Senior Associate UX Designer, February 2023 to January 2025. I designed Bing Search answer modules serving 1M+ queries a month, plus Bing Travel\'s map and trip planning, and helped lift travel booking success by 20%. I also contributed Bing design system components used across 5+ products and redesigned SMS Organizer.'],
       ['PlayShifu', 'Visual Designer, May 2021 to January 2023. I launched 6+ AR STEM games for kids, led the 3D avatar team from concept to integration, and moved VR interfaces off the HUD and into the world.'],
       ['Education', 'Master of Design in User Experience Design with AI, O P Jindal University. Bachelor of Design in Communication Design, Pearl Academy. Bachelor of Arts in English, IGNOU.'],

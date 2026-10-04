@@ -283,6 +283,7 @@ function CaseStudyPage({ project, study, filmLink }: { project: Project; study: 
             <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
               <p className="text-[15px] font-medium">{project.category}</p>
               {project.status && <p className="rounded-full border border-current px-2.5 py-0.5 text-[13px] font-semibold">{project.status}</p>}
+              <p className="rounded-full border border-current px-2.5 py-0.5 text-[13px] font-semibold">Short version</p>
             </div>
             <PageTitle className="mt-4 text-[clamp(2.75rem,5.4vw,6rem)] leading-[0.88]">{project.name}</PageTitle>
             <p className="mt-5 max-w-[22ch] text-[clamp(1.35rem,2.1vw,2.1rem)] font-semibold leading-tight tracking-[-0.02em]">{project.headline}</p>
@@ -398,6 +399,17 @@ function CaseStudyPage({ project, study, filmLink }: { project: Project; study: 
             <h2 id="takeaway-title" className="text-[15px] font-semibold text-muted-foreground">What I took from it</h2>
             <p className="mt-4 max-w-[34ch] text-[clamp(1.4rem,2.1vw,2rem)] font-semibold leading-snug tracking-[-0.015em]">{study.takeaway.line}</p>
             {study.takeaway.body && <p className={body}>{study.takeaway.body}</p>}
+          </section>
+
+          <section className="project-block mt-16 rounded-[20px] border border-border p-6 md:p-8" aria-labelledby="full-title">
+            <h2 id="full-title" className="text-[15px] font-semibold text-muted-foreground">This is the short version</h2>
+            <p className="mt-3 max-w-[40ch] text-[clamp(1.15rem,1.5vw,1.35rem)] font-semibold leading-snug">The full case study goes deeper into the process and the trade-offs behind each decision. I’m happy to walk you through it.</p>
+            <a
+              href={`mailto:${email}?subject=${encodeURIComponent(`Full case study: ${project.name}`)}`}
+              className="mt-5 inline-flex items-center gap-1.5 text-[17px] font-semibold underline decoration-1 underline-offset-[6px] hover:decoration-2"
+            >
+              Ask for the full case study <ArrowUpRight aria-hidden="true" className="size-4" strokeWidth={2} />
+            </a>
           </section>
         </div>
       </div>

@@ -89,7 +89,7 @@ test('reading links resolve only supported portfolio pages', () => {
 test('the work overview exposes roles, results, and direct project links', () => {
   const markup = readerMarkup('work')
   for (const page of ['store', 'copilot', 'hello', 'vr']) assert.ok(markup.includes(`href="#work/${page}"`))
-  assert.ok(markup.includes('Sole designer / Microsoft'))
+  assert.ok(markup.includes('Product designer / Microsoft'))
   assert.ok(markup.includes('35% to 73%'))
   assert.ok(markup.includes('New sports per cycle'))
 })
@@ -132,7 +132,7 @@ test('the scroll story presents each project once with a readable role, result, 
     assert.ok(markup.includes(`data-artwork="${exhibit.id}"`))
     assert.ok(markup.includes(`aria-label="Read project: ${exhibit.label}"`))
   }
-  assert.ok(markup.includes('Sole designer / Microsoft'))
+  assert.ok(markup.includes('Product designer / Microsoft'))
   assert.ok(markup.includes('35% to 73%'))
   assert.ok(markup.includes('79.5 to 83.2'))
   assert.equal((markup.match(/Original illustration, not product UI/g) || []).length, 4)

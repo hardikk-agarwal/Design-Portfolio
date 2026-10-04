@@ -2,7 +2,7 @@ import { stories, storyMarkup } from './stories.js'
 
 export const resumeSections = [
   ['UX Designer | Microsoft | Mar 2025 - Present', [
-    'Redesigned Microsoft Store company account onboarding as sole designer: lifted success from 35% to 73% and cut onboarding from ~15 days to ~1 day, scaling to 240+ companies across 50 countries.',
+    'Redesigned Microsoft Store company account onboarding: lifted success from 35% to 73% and cut onboarding from ~15 days to ~1 day, scaling to 240+ companies across 50 countries.',
     'Led design for the Trusted Developer Program pilot with Microsoft PC Manager (20 apps, 313K+ trust dialog views) and developer identity verification concepts, grounded in research with 100+ participants.',
     'Raised craft in Windows Hello and passkeys: triaged 30+ usability issues, contributing to 20% fewer craft bugs, System Usability Scale 79.5 to 83.2, and a 12% lift in biometric enrollment.',
     'Standardized Copilot Sports answer cards, the AI result surface for cricket, tennis, motorsports and American football, into a reusable schema enabling 4 new sports per cycle.',

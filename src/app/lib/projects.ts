@@ -86,7 +86,7 @@ export const projects: Project[] = [
     headline: 'A shorter path to the Store.',
     description: 'I rebuilt company onboarding for Microsoft Store developers. Verification stayed strict; the guesswork around it went away.',
     summary: 'I rebuilt company onboarding around clarity and recovery, without lowering the trust bar.',
-    role: 'Sole product designer',
+    role: 'Product designer',
     organization: 'Microsoft',
     timeline: '2025 to 2026',
     team: '8 partner teams across product, engineering, verification, accounts, legal, support and marketing',
@@ -94,7 +94,6 @@ export const projects: Project[] = [
     metrics: [
       { value: '35% to 73%', label: 'Onboarding success' },
       { value: '~15 days to ~1 day', label: 'Average vetting time' },
-      { value: '240+', label: 'Companies onboarded in a 50-country pilot' },
     ],
     problem: {
       body: 'Microsoft Store reaches more than 250 million Windows customers a month, and every company that publishes there must pass business verification. Companies paid a $99 fee before they knew whether they could pass it. Requirements surfaced late, progress was invisible and failures arrived without a reason. Around 230 companies a month were affected, including well-known, legitimate organizations, and escalations reached executive channels.',
@@ -162,7 +161,7 @@ export const projects: Project[] = [
     headline: 'Publishing, the way developers think about it.',
     description: 'I shaped the new Windows Developer Center, from where it should live to how an app goes from package to published.',
     summary: 'I redesigned app publishing around how developers think, and tested it with a coded prototype and developer research.',
-    role: 'Sole product designer',
+    role: 'Product designer',
     organization: 'Microsoft',
     timeline: 'July 2026',
     status: 'Design complete, not yet built',
@@ -331,7 +330,7 @@ export const projects: Project[] = [
     headline: 'The whole trip, on one map.',
     description: "I took Bing Travel's map from concept to MVP: one interactive map for destinations, hotels, attractions and transit, so planning a trip no longer means switching apps.",
     summary: 'I brought destinations, hotels, attractions and transit onto one map for Bing Travel.',
-    role: 'Sole product designer',
+    role: 'Product designer',
     organization: 'Microsoft x Tech Mahindra',
     timeline: 'November 2023 to January 2024',
     team: '1 product manager and 3+ engineers',
@@ -381,7 +380,7 @@ export const projects: Project[] = [
     },
     takeaway: {
       line: 'Design without constraints first, then let the team decide what ships.',
-      body: 'Being the only designer meant holding the vision and the plan at once. Starting wide kept the map ambitious, and prioritizing with product and engineering kept the first release buildable.',
+      body: 'I had to hold the vision and the plan at once. Starting wide kept the map ambitious, and prioritizing with product and engineering kept the first release buildable.',
     },
     film: { src: './films/travel-map.mp4', poster: './films/travel-map-poster.jpg', captions: './films/travel-map.vtt', duration: '1:54' },
     earlier: true,
