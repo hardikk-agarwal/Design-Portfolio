@@ -6,7 +6,7 @@ export const resumeSections = [
     'Led design for the Trusted Developer Program pilot with Microsoft PC Manager (20 apps, 313K+ trust dialog views) and developer identity verification concepts, grounded in research with 100+ participants.',
     'Raised craft in Windows Hello and passkeys: triaged 30+ usability issues, contributing to 20% fewer craft bugs, System Usability Scale 79.5 to 83.2, and a 12% lift in biometric enrollment.',
     'Standardized Copilot Sports answer cards, the AI result surface for cricket, tennis, motorsports and American football, into a reusable schema enabling 4 new sports per cycle.',
-    'Drove AI-assisted design practice: Claude Code and Figma MCP workflows, design-to-code prototyping, and agentic prototypes demoed to 30+ stakeholders.',
+    'Drove AI-assisted design practice: Claude Code and Figma MCP workflows, design-to-code prototyping, and agentic prototypes demoed to 30+ cross-functional stakeholders.',
   ]],
   ['Senior Associate UX Designer | Microsoft x Tech Mahindra | Feb 2023 - Jan 2025', [
     'Designed search answer modules for Bing Search, serving 1M+ user queries monthly.',
@@ -29,8 +29,8 @@ export const education = [
 ]
 
 export const skillGroups = [
-  ['Design', ['User-centered design', 'Interaction design', 'Information architecture', 'Design systems', 'Prototyping', 'Accessibility']],
-  ['Research', ['User research', 'Usability testing', 'A/B testing']],
+  ['Design', ['User-centered design', 'Interaction design', 'Information architecture', 'Design systems', 'User flows', 'Wireframing', 'Prototyping', 'Web and mobile UI', 'Accessibility']],
+  ['Research', ['User research', 'Usability testing', 'A/B testing', 'Analytics']],
   ['AI and code', ['Claude Code', 'GitHub Copilot', 'Figma MCP', 'Figma Make', 'VS Code', 'HTML, CSS and JavaScript', 'Design-to-code', 'Agentic prototyping']],
   ['Tools', ['Figma', 'Framer', 'Adobe Creative Cloud', 'After Effects', 'Lottie', 'Sketch', 'Miro']],
 ]
