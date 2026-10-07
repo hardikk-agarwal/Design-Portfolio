@@ -171,7 +171,10 @@ export function App() {
   }, [])
 
   useEffect(() => {
-    void document.fonts.ready.then(() => ScrollTrigger.refresh())
+    // ScrollTrigger refreshes itself on load, so fonts that arrive before it don't need a refresh of their own.
+    void document.fonts.ready.then(() => {
+      if (document.readyState === 'complete') ScrollTrigger.refresh()
+    })
   }, [])
 
   useEffect(() => {

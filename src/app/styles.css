@@ -74,6 +74,7 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 8px);
   --font-sans: "Mona Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-hand: "Caveat Variable", "Segoe Print", "Bradley Hand", cursive;
   --ease-expo: var(--ease-out-expo);
 }
 
@@ -233,17 +234,10 @@
   visibility: hidden;
 }
 
-/* Notes rest as titles. The open note shows its detail, pin, line and body-part bounds; the others step back. */
+/* Notes rest as handwritten titles. The open note shows its detail and circles its part; the others step back. */
 [data-note-card] {
-  transition: opacity 0.3s ease, background-color 0.3s ease;
-}
-
-[data-note-card][data-open] {
-  background-color: rgb(10 16 11 / 0.8);
-}
-
-[data-note-card] button:focus-visible {
-  border-radius: 0.75rem;
+  text-shadow: 0 1px 14px rgb(6 10 7 / 0.55), 0 0 2px rgb(6 10 7 / 0.35);
+  transition: opacity 0.3s ease;
 }
 
 .note-detail {
@@ -270,31 +264,48 @@
   transition: opacity 0.3s ease 0.08s, visibility 0s;
 }
 
-[data-note-line],
-[data-note-pin],
-[data-note-box] {
-  transition: opacity 0.3s ease, scale 0.35s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.3s ease;
+[data-note-line] {
+  transition: opacity 0.3s ease, stroke-width 0.3s ease;
 }
 
 [data-note-line][data-open] {
-  stroke-width: 1.75;
+  stroke-width: 2.5;
 }
 
-[data-note-pin][data-open] {
-  scale: 1.4;
+/* Closing fades the loop, then rewinds it unseen; opening draws it around the part. */
+[data-note-loop] {
+  opacity: 0;
+  stroke-dasharray: calc(var(--loop-length, 600) * 1px) calc(var(--loop-length, 600) * 1px + 12px);
+  stroke-dashoffset: calc(var(--loop-length, 600) * 1px + 6px);
+  transition: opacity 0.25s ease, stroke-dashoffset 0s linear 0.25s;
 }
 
-[data-note-box][data-open] {
+[data-note-loop][data-open] {
   opacity: 1;
+  stroke-dashoffset: 0;
+  transition: opacity 0.1s ease, stroke-dashoffset 0.6s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
 .hero-sequence[data-note] [data-note-card]:not([data-open]) {
   opacity: 0.45;
 }
 
-.hero-sequence[data-note] [data-note-line]:not([data-open]),
-.hero-sequence[data-note] [data-note-pin]:not([data-open]) {
+.hero-sequence[data-note] [data-note-line]:not([data-open]) {
   opacity: 0.35;
+}
+
+/* Notes painted with light, like the star trails behind them. */
+[data-note-card].note-light {
+  text-shadow: 0 0 10px rgb(255 186 110 / 0.6), 0 0 2px rgb(255 236 210 / 0.7), 0 1px 12px rgb(0 0 0 / 0.5);
+}
+
+.note-glow {
+  filter: drop-shadow(0 0 3px rgb(255 214 160 / 0.95)) drop-shadow(0 0 10px rgb(255 150 70 / 0.55));
+}
+
+/* Without GPU rendering (hero-exposure.tsx), one tight glow: the wide one is too slow to redraw there. */
+.hero-stage[data-lite] .note-glow {
+  filter: drop-shadow(0 0 3px rgb(255 214 160 / 0.95));
 }
 
 /* Work: the period in "Selected work." opens like an aperture onto the first project. */

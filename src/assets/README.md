@@ -33,20 +33,22 @@ segmentation edges; its intact photograph is used instead.
 
 `hardik-bench-subject.webp` (2244x2804, quality 90, lossless alpha) is the
 front layer for the landing page cover, where the name passes behind Hardik's
-head. Its colour pixels are the unchanged original photograph
-([Image (3).jpg](../../Images/Image%20(3).jpg)); its alpha is
+head. Its colour pixels are the bench photograph
+([Image (3).jpg](../../Images/Image%20(3).jpg)) with the clothing edit described
+below; its alpha is
 taken from Hardik's supplied background-removed export
 ([Image (3) 1.png](../../Images/PNGs/Image%20(3)%201.png), measured as registered
 to the photo within JPEG noise). It sits exactly over the photograph beneath.
 
 `hardik-bench-scene.webp` (2244x2804, quality 82) is the landing cover
 photograph. Hardik, the bench slats and everything below the seat (legs,
-cobblestones) are the photograph's own pixels. Only the ivy wall above the rail
+cobblestones) are the photograph's own pixels, apart from the clothing edit
+below. Only the ivy wall above the rail
 and between the slats is replaced by a flat painted-looking wall: a radial
 gradient (#34453b to #121814) with fine monochrome grain, a soft shadow band
 under the rail and a soft shadow cast by Hardik. Slat rows were classified by
-row colour statistics (teal, low texture versus dark, textured ivy). No part of
-Hardik was generated or retouched.
+row colour statistics (teal, low texture versus dark, textured ivy). Apart from
+the clothing edit, no part of Hardik was generated or retouched.
 
 The original bench photograph is only 1122x1402, and the cover stretches it to
 full width: about 2x on a 125% laptop and 3x on a 2x display. Browsers upscale
@@ -55,6 +57,33 @@ therefore stored at exactly 2x, resampled once with Lanczos3 from the 1122x1402
 layers. That is interpolation only: it adds no detail and keeps the layers
 registered. A higher-resolution original would be the real fix; rebuild both
 layers from it at its native size.
+
+Clothing edit (7 October 2026, requested by Hardik): the open shirt is buttoned
+up to the collar, with only the top collar button left open, and the beaded
+brooch is removed. Both changes were made with Azure OpenAI image editing
+(`gpt-image-2.5-sunburst` on Hardik's own Azure resource) from a 2x crop of the
+chest, masked first to the shirt opening and then to the brooch. Each result was
+aligned, level-matched to the surrounding fabric and pasted back only inside its
+mask; at the collar only the model's fabric was taken, so the neck stays
+original. 10,584 of the photograph's 1,573,044 pixels changed (0.67%, all within
+x 587 to 675 and y 356 to 587). The face, hair, hands, jacket, wall and bench are
+the original pixels, and a check confirmed nothing above the jaw changed. The
+edited photograph stays local as
+[collar-1-no-brooch-1.png](../../Images/edits/collar-1-no-brooch-1.png); the
+original file is unchanged. Both cover layers were rebuilt from it: the cutout
+keeps its alpha, and the scene keeps its painted-wall pixels and takes every
+other pixel from the edited photograph, resampled with Lanczos3 as before.
+
+`hardik-bench-wall.png` (561x701, alpha mask, 28 KB) masks the painted wall in
+the cover photograph, including the gaps between the bench slats and a soft edge
+at his hair. It was made by comparing `hardik-bench-scene.webp` with the original
+photograph at half size, since only the replaced wall differs; it covers 98.7% of
+the wall and none of Hardik. The clothing edit touched only pixels inside Hardik,
+so the mask still fits. The long-exposure cover uses it, registered to the
+photograph's crop, as a CSS mask for a static veil that darkens the wall so the
+bench stands apart, and inside the star-trail canvas, where it is drawn once per
+resize as a stencil (a CSS mask over a canvas that redraws halves the frame rate
+without a GPU).
 
 The earlier matte used `@imgly/background-removal-node`; both current files
 were composed with Sharp in an isolated temporary tools directory, not as

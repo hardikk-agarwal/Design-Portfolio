@@ -34,11 +34,16 @@ function preloadCritical() {
           if (!file) throw new Error(`No build asset matches ${pattern}; update preloadCritical in vite.config.js.`)
           return `./${file}`
         }
-        const hero = JSON.stringify([asset(/hardik-bench-scene-[\w-]+\.webp$/), asset(/hardik-bench-subject-[\w-]+\.webp$/)])
+        // The two photograph layers, then the wall mask that the star trails and the veil are cut to.
+        const hero = JSON.stringify([
+          ['image', asset(/hardik-bench-scene-[\w-]+\.webp$/)],
+          ['image', asset(/hardik-bench-subject-[\w-]+\.webp$/)],
+          ['image', asset(/hardik-bench-wall-[\w-]+\.png$/)],
+        ])
         return [
           { tag: 'link', attrs: { rel: 'preload', href: asset(/mona-sans-latin-wdth-normal-[\w-]+\.woff2$/), as: 'font', type: 'font/woff2', crossorigin: true }, injectTo: 'head' },
           // Mirrors parseRoute in src/app/lib/routes.js: these hashes open a page without the hero.
-          { tag: 'script', children: `if (!/^#(?:work|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) for (const href of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload', as: 'image', href }))`, injectTo: 'head' },
+          { tag: 'script', children: `if (!/^#(?:work|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) for (const [as, href] of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload', as, href }))`, injectTo: 'head' },
         ]
       },
     },

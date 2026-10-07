@@ -4,13 +4,15 @@ import { gsap, SplitText, useGSAP, cinematic, motionOk } from '@/lib/gsap'
 import { Link, useNavigation } from '@/lib/navigation'
 import { photos } from '@/lib/content'
 import { NoteCards, NoteMarks, bindNotes, hideNotes, layoutNotes, noteAt, revealNotes, type Note } from '@/sections/hero-notes'
+import { StarTrails, exposure, type CoverContext } from '@/sections/hero-exposure'
 
 function setHeaderTone(clear: boolean) {
   if (clear) document.documentElement.dataset.headerTone = 'clear'
   else delete document.documentElement.dataset.headerTone
 }
 
-const columns = Array.from({ length: 12 }, (_, index) => index)
+// The intro plays once per page load.
+let introPlayed = false
 
 // Pins and boxes are fractions of the 1122 × 1402 portrait, so each note stays on its body part at any crop.
 // Order is priority: when a column runs out of room, the last notes are dropped first.
@@ -18,21 +20,9 @@ const notes: Note[] = [
   { id: 'head', part: 'Head', title: 'I solve it once, for good', text: 'One schema I built lets Copilot add 4 new sports a cycle.', side: 'right', pin: [0.572, 0.158], box: [0.445, 0.125, 0.6, 0.256] },
   { id: 'eyes', part: 'Eyes', title: 'I watch before I draw', text: 'Research I led lifted satisfaction scores by 45%.', side: 'left', pin: [0.492, 0.197], box: [0.478, 0.184, 0.562, 0.211] },
   { id: 'heart', part: 'Heart', title: 'I chase light, near and far', text: 'Photography trains my framing; astronomy, my sense of scale.', side: 'right', pin: [0.63, 0.34], box: [0.585, 0.3, 0.7, 0.4] },
-  { id: 'brooch', part: 'Brooch', title: 'I fix the papercuts', text: 'Triaging Windows Hello issues helped cut craft bugs by 20%.', side: 'right', pin: [0.54, 0.403], box: [0.52, 0.335, 0.565, 0.42] },
+  { id: 'buttons', part: 'Buttons', title: 'I fix the papercuts', text: 'Triaging Windows Hello issues helped cut craft bugs by 20%.', side: 'right', pin: [0.561, 0.36], box: [0.548, 0.268, 0.578, 0.44] },
   { id: 'arm', part: 'Arm', title: 'I reach past the mockup', text: 'Coded prototypes built with AI, demoed to 30+ stakeholders.', side: 'left', pin: [0.33, 0.3], box: [0.18, 0.27, 0.43, 0.345] },
 ]
-
-function LayoutGrid() {
-  return (
-    <div aria-hidden="true" className="design-layer pointer-events-none absolute inset-0 hidden lg:block">
-      <div className="design-grid absolute inset-y-0 left-10 right-10 grid grid-cols-12 gap-6">
-        {columns.map((column) => (
-          <span key={column} className="design-column block h-full bg-[rgb(240_88_122/0.07)] shadow-[inset_1px_0_0_rgb(240_88_122/0.32),inset_-1px_0_0_rgb(240_88_122/0.32)]" />
-        ))}
-      </div>
-    </div>
-  )
-}
 
 // Rides on a copy of the photo's crop, so pins share the photo's parallax and scroll scale.
 function NotePins() {
@@ -56,12 +46,13 @@ function HeroStage() {
   return (
     <>
       <div className="hero-media absolute inset-0">
-        <div className="hero-frame absolute inset-0 overflow-hidden bg-[#1d2a1f]">
+        <div className="hero-frame absolute inset-0 overflow-hidden bg-[#0b110d]">
           <div className="hero-image absolute inset-0">
             <div className="cover-photo absolute inset-0">
-              <img className={layer} src={photos.benchScene} alt="Hardik seated on a green bench" width={2244} height={2804} fetchPriority="high" decoding="async" />
+              <img className={layer} data-cover="scene" src={photos.benchScene} alt="Hardik seated on a green bench" width={2244} height={2804} fetchPriority="high" decoding="async" />
             </div>
           </div>
+          <StarTrails />
           <div className="cover-type absolute inset-x-0 px-5 text-[#f4f4f1] md:px-10">
             <h1 id="home-title" className="whitespace-nowrap text-[16vw] font-[820] uppercase leading-[0.8] tracking-[-0.02em] [font-stretch:125%] md:text-center md:text-[calc((100vw-6rem)/10.45)]">
               <span className="sr-only normal-case">Hardik Agarwal</span>
@@ -71,11 +62,10 @@ function HeroStage() {
           </div>
           <div className="hero-image pointer-events-none absolute inset-0">
             <div className="cover-photo absolute inset-0">
-              <img className={layer} src={photos.subject} alt="" aria-hidden="true" width={2244} height={2804} decoding="async" />
+              <img className={layer} data-cover="subject" src={photos.subject} alt="" aria-hidden="true" width={2244} height={2804} decoding="async" />
             </div>
           </div>
           <div className="hero-scrim pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(10_16_11/0.4)_0%,rgb(10_16_11/0)_16%,rgb(10_16_11/0)_52%,rgb(10_16_11/0.85)_100%)]" />
-          <LayoutGrid />
           <NotePins />
         </div>
       </div>
@@ -151,6 +141,9 @@ export function Hero() {
       const { cinematic: isCinematic, motion, pointer } = context.conditions as Record<string, boolean>
       const cleanups: (() => void)[] = []
 
+      // The name rises when the intro calls for it, so it waits (paused) until then.
+      let nameCalled = false
+      let nameRise: gsap.core.Tween | undefined
       if (motion) {
         SplitText.create(q('.hero-name-part'), {
           type: 'words,chars',
@@ -158,11 +151,10 @@ export function Hero() {
           mask: 'chars',
           charsClass: 'split-char',
           autoSplit: true,
-          onSplit: (self) => gsap.from(self.chars, { yPercent: 140, duration: 1.25, ease: 'expo.out', stagger: 0.035, delay: 0.55 }),
+          onSplit: (self) => (nameRise = gsap.from(self.chars, { yPercent: 140, duration: 1.25, ease: 'expo.out', stagger: 0.035, paused: !nameCalled })),
         })
-        gsap.from(q('.hero-fade'), { y: 26, opacity: 0, duration: 1.1, ease: 'expo.out', delay: 0.95 })
-        gsap.fromTo(q('.cover-photo'), { filter: 'blur(18px)', scale: 1.08 }, { filter: 'blur(0px)', scale: 1, duration: 2, ease: 'expo.out', delay: 0.05, clearProps: 'filter' })
       }
+      if (motion) gsap.set(q('.hero-fade'), { y: 26, opacity: 0 })
 
       if (motion && pointer) {
         const stage = q('.hero-stage')[0] as HTMLElement
@@ -178,8 +170,10 @@ export function Hero() {
           const ny = ((event.clientY - box.top) / box.height) * 2 - 1
           typeX(nx * -20)
           typeY(ny * -10)
-          photoX(nx * 9)
-          photoY(ny * 5)
+          // Lite (no GPU rendering): moving the photo repaints the whole cover, so it holds still and the name alone drifts.
+          const still = Boolean(stage.dataset.lite)
+          photoX(still ? 0 : nx * 9)
+          photoY(still ? 0 : ny * 5)
         }
         const leave = () => { typeX(0); typeY(0); photoX(0); photoY(0) }
         stage.addEventListener('pointermove', move)
@@ -233,16 +227,48 @@ export function Hero() {
         })
       }
 
+      const reveal = context.add('revealNotes', () => {
+        layout()
+        revealNotes(sequence, notes)
+      })
+      const inputs = ['wheel', 'touchstart', 'keydown', 'pointerdown'] as const
+      const cover: CoverContext = {
+        q: (selector) => q(selector) as HTMLElement[],
+        stage: q('.hero-stage')[0] as HTMLElement,
+        subject: q('[data-cover="subject"]')[0] as HTMLImageElement,
+        rest: isCinematic ? 1.1 : 1,
+        motion,
+        // Once the photograph is in place: the name, the copy, then the notes.
+        story: () =>
+          gsap
+            .timeline()
+            .call(() => {
+              nameCalled = true
+              nameRise?.play()
+            })
+            .to(q('.hero-fade'), { y: 0, opacity: 1, duration: 1.1, ease: 'expo.out', clearProps: 'transform,opacity' }, 0.9)
+            .call(() => reveal(), undefined, 1.4),
+        played: () => {
+          introPlayed = true
+        },
+        skippable: (timeline) => {
+          const hurry = () => timeline.timeScale(4)
+          const stop = () => inputs.forEach((type) => window.removeEventListener(type, hurry))
+          inputs.forEach((type) => window.addEventListener(type, hurry, { passive: true }))
+          void timeline.then(stop)
+          cleanups.push(stop)
+        },
+        onCleanup: (cleanup) => cleanups.push(cleanup),
+      }
+      exposure.setup(cover)
       if (motion) {
         hideNotes(sequence, notes)
-        gsap.from(q('.design-column'), { scaleY: 0, transformOrigin: '50% 100%', duration: 1.2, ease: 'expo.out', stagger: 0.035, delay: 1.1 })
-        gsap.to(q('.design-grid'), { opacity: 0.4, duration: 1.4, ease: 'power2.inOut', delay: 4.6 })
-        const reveal = context.add('revealNotes', () => {
-          layout()
-          revealNotes(sequence, notes)
-        })
-        gsap.delayedCall(1.7, () => reveal())
-      }
+        if (!introPlayed) exposure.intro(cover)
+        else {
+          exposure.still()
+          cover.story()
+        }
+      } else exposure.still()
 
       if (!isCinematic) {
         const tone = gsap.timeline({
@@ -296,7 +322,7 @@ export function Hero() {
         .to(q('.hero-last'), { xPercent: 55, opacity: 0, duration: 0.6, ease: 'power2.in' }, 0)
         .to(q('.hero-lead'), { y: -30, opacity: 0, duration: 0.3, ease: 'power1.in' }, 0)
         .to(q('.note-overlay'), { autoAlpha: 0, duration: 0.2, ease: 'power1.in' }, 0)
-        .to(q('.hero-scrim, .design-layer, .note-pins'), { autoAlpha: 0, duration: 0.6 }, 0.15)
+        .to(q('.hero-scrim, .note-pins'), { autoAlpha: 0, duration: 0.6 }, 0.15)
         .from(words.words, { yPercent: 140, duration: 0.3, stagger: 0.03, ease: 'power3.out' }, 0.62)
         .from(q('.statement-detail'), { y: 28, opacity: 0, duration: 0.3, ease: 'power2.out' }, 0.92)
         .to({}, { duration: 0.3 })
