@@ -12,8 +12,18 @@
           ? preference
           : window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         document.documentElement.setAttribute('data-theme', theme)
+        // The app restores scroll itself; the home page opens on the cover's viewfinder, so its black and the clear header
+        // are painted before the app loads (the cover clears data-boot once it is up).
+        history.scrollRestoration = 'manual'
+        if (!/^#(?:work|about|resume|exhibition|my-story|my-approach|selected-work|experience|beyond-work|contact)(?:\/|$)/.test(location.hash)) {
+          document.documentElement.dataset.boot = ''
+          document.documentElement.dataset.headerTone = 'clear'
+        }
       })()
     </script>
+    <style>
+      html[data-boot] { background: #030403; }
+    </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="I'm Hardik Agarwal, a product designer at Microsoft. I grew up customizing Windows and now help design it, across developer platforms, identity and AI." />
     <meta name="robots" content="noindex, nofollow" />

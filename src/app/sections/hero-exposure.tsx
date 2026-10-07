@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { gsap } from '@/lib/gsap'
 import { cn } from '@/lib/utils'
+import { offsetIn } from '@/sections/hero-notes'
 import wallMask from '../../assets/hardik-bench-wall.png'
 
 export type CoverContext = {
@@ -15,7 +16,7 @@ export type CoverContext = {
   // Marks the intro as played for this page load. Called on its first tick, so React's development double-mount
   // doesn't use it up.
   played: () => void
-  // Any input fast-forwards this timeline.
+  // Any input starts this timeline if it is still waiting, and fast-forwards it.
   skippable: (timeline: gsap.core.Timeline) => void
   onCleanup: (cleanup: () => void) => void
 }
@@ -30,6 +31,9 @@ const styles = [
 // Arc of a full trail, and how fast the field keeps turning at rest (radians, radians per second).
 const sweep = 0.3
 const turn = 0.0045
+// What a full trail would take in a real exposure: that share of one turn of the sky (a sidereal day, in seconds).
+const exposureSeconds = (sweep / (2 * Math.PI)) * 86164
+const clock = (seconds: number) => [seconds / 3600, (seconds / 60) % 60, seconds % 60].map((part) => String(Math.floor(part)).padStart(2, '0')).join(':')
 
 // Without GPU rendering every frame that redraws the trails or blurs the note glow costs several times its budget. When
 // the intro's first frames run slow, the cover goes lite for the rest of the page load: the trails redraw less often
@@ -53,13 +57,16 @@ function goLite(context: CoverContext) {
 }
 
 // Covers only the painted wall behind Hardik (and the gaps between the slats), registered to the photograph: the mask
-// shares the photo's cover crop. He, the bench and the ground stay the photograph's own pixels. With `masked` off it is
-// just the registered box, for layers that apply the mask themselves.
-function WallLayer({ children, className, masked = true }: { children?: ReactNode; className?: string; masked?: boolean }) {
-  const mask = `url(${wallMask})`
-  const masking = masked ? { maskImage: mask, WebkitMaskImage: mask, maskSize: 'cover', WebkitMaskSize: 'cover', maskPosition: '50% 3%', WebkitMaskPosition: '50% 3%', maskRepeat: 'no-repeat', WebkitMaskRepeat: 'no-repeat' } : undefined
+// shares the photo's cover crop and fades out with its sides on wide screens. He, the bench and the ground stay the
+// photograph's own pixels. With `masked` off it is just the registered box, for layers that apply the mask themselves;
+// `wide` runs it edge to edge instead of inside the photo's 8:5 box.
+function WallLayer({ children, className, masked = true, wide = false }: { children?: ReactNode; className?: string; masked?: boolean; wide?: boolean }) {
+  const layers = `url(${wallMask}), var(--side-fade)`
+  const masking = masked
+    ? { maskImage: layers, WebkitMaskImage: layers, maskSize: 'cover, 100% 100%', WebkitMaskSize: 'cover, 100% 100%', maskPosition: '50% 3%, 0 0', WebkitMaskPosition: '50% 3%, 0 0', maskRepeat: 'no-repeat', WebkitMaskRepeat: 'no-repeat', maskComposite: 'intersect', WebkitMaskComposite: 'source-in' }
+    : undefined
   return (
-    <div className="hero-image pointer-events-none absolute inset-0">
+    <div className={cn('hero-image pointer-events-none absolute inset-0', wide && 'full-bleed')}>
       <div className="cover-photo absolute inset-0">
         <div className={cn('absolute inset-[-2%] size-[104%] overflow-hidden', className)} style={masking}>
           {children}
@@ -70,31 +77,82 @@ function WallLayer({ children, className, masked = true }: { children?: ReactNod
 }
 
 // Star trails on the painted wall, masked to it inside the canvas (a CSS mask over a canvas that keeps changing halves
-// the frame rate without a GPU). They also show between the bench slats.
+// the frame rate without a GPU). They also show between the bench slats, and carry on past the photo on wide screens.
 export function StarTrails() {
   return (
     <div aria-hidden="true" className="star-trails pointer-events-none absolute inset-0">
       <div className="exposure-dim absolute inset-0 bg-[#020403] opacity-0" />
       {/* A static veil on the wall only, so the bench separates from it. */}
       <WallLayer className="bg-[rgb(5_8_10/0.46)]" />
-      <WallLayer masked={false}>
+      <WallLayer masked={false} wide>
         <canvas className="exposure-trails absolute inset-0 size-full opacity-50" />
       </WallLayer>
     </div>
   )
 }
 
+// The autofocus point, on his eyes in the photo's own crop (inside the photo frame, so it zooms with it).
+export function FocusPoint() {
+  return (
+    <div aria-hidden="true" className="hero-image pointer-events-none absolute inset-0">
+      <div className="cover-photo absolute inset-0">
+        <div className="absolute inset-[-2%] size-[104%] [container-type:size]">
+          <div className="note-fit absolute">
+            <span className="focus-point absolute left-[52%] top-[19.75%] aspect-square w-[5.5%] -translate-x-1/2 -translate-y-1/2 opacity-0">
+              <svg viewBox="0 0 40 40" className="block size-full overflow-visible text-[#f4f4f1]" fill="none" stroke="currentColor" strokeWidth="1.5">
+                <path vectorEffect="non-scaling-stroke" d="M0 11V0h11M29 0h11v11M40 29v11H29M11 40H0V29" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// The viewfinder around the photo while it is exposed: framing marks, the settings and how long the shutter has been
+// open, and the shutter itself.
+export function Viewfinder() {
+  const corners = ['left-0 top-0 border-l-[1.5px] border-t-[1.5px]', 'right-0 top-0 border-r-[1.5px] border-t-[1.5px]', 'bottom-0 left-0 border-b-[1.5px] border-l-[1.5px]', 'bottom-0 right-0 border-b-[1.5px] border-r-[1.5px]']
+  return (
+    <div aria-hidden="true" className="viewfinder pointer-events-none absolute inset-0 z-30 hidden text-[#f4f4f1]">
+      <div className="viewfinder-frame absolute inset-[7%] border border-[#f4f4f1]/10">
+        <div className="absolute -inset-2.5">
+          {corners.map((corner) => <span key={corner} className={cn('absolute size-6 border-[#f4f4f1]/80', corner)} />)}
+        </div>
+      </div>
+      <div className="viewfinder-info absolute inset-x-[7%] bottom-[3.5%] flex translate-y-1/2 items-center justify-between text-[11px] font-semibold uppercase leading-none tracking-[0.18em] text-[#f4f4f1]/80 md:text-[12px]">
+        <span className="flex gap-4 md:gap-7">
+          <span>Bulb</span>
+          <span>f/2.8</span>
+          <span>ISO 800</span>
+        </span>
+        <span className="flex items-center gap-2.5">
+          <span className="exposure-dot size-1.5 rounded-full bg-[#ff6b5b]" />
+          <span className="exposure-time tabular tracking-[0.12em]">00:00:00</span>
+        </span>
+      </div>
+      <div className="viewfinder-shutter absolute inset-0 bg-black opacity-0" />
+    </div>
+  )
+}
+
 // Concentric arcs around a celestial pole above and to the right of the photograph. `draw(length, drift)` paints each
 // trail `length` (0 to 1) of a full arc long, turned `drift` radians around the pole. Trails that turn past the far edge
-// re-enter at the near edge, both out of view, so the field can turn forever.
-function trailField(canvas: HTMLCanvasElement, rest: number, mask: HTMLImageElement) {
+// re-enter at the near edge, both out of view, so the field can turn forever. `photo` is a photograph layer: the pole,
+// the wall mask and the sharpness follow its box, and past its sides (screens wider than 8:5) the wall carries on.
+function trailField(canvas: HTMLCanvasElement, rest: number, mask: HTMLImageElement, photo: HTMLImageElement, stage: HTMLElement) {
+  const origin = offsetIn(canvas, stage)
+  const corner = offsetIn(photo, stage)
+  const inset = offsetIn(photo.closest<HTMLElement>('.hero-image')!, stage).x
   const wanted = Math.min(2, window.devicePixelRatio || 1) * rest
-  const density = Math.min(wanted, Math.sqrt(2.6e6 / (canvas.offsetWidth * canvas.offsetHeight)))
+  const density = Math.min(wanted, Math.sqrt(2.6e6 / (photo.offsetWidth * photo.offsetHeight)))
   const width = (canvas.width = Math.round(canvas.offsetWidth * density))
   const height = (canvas.height = Math.round(canvas.offsetHeight * density))
+  const box = { x: (corner.x - origin.x) * density, y: (corner.y - origin.y) * density, width: photo.offsetWidth * density, height: photo.offsetHeight * density }
   const context = canvas.getContext('2d')!
   context.lineCap = 'round'
-  const pole = { x: width * 1.08, y: -height * 0.28 }
+  const pole = { x: box.x + box.width * 1.08, y: box.y - box.height * 0.28 }
   const corners = [[0, 0], [width, 0], [0, height], [width, height]]
   const distances = corners.map(([x, y]) => Math.hypot(x - pole.x, y - pole.y))
   const angles = corners.map(([x, y]) => Math.atan2(y - pole.y, x - pole.x))
@@ -116,10 +174,31 @@ function trailField(canvas: HTMLCanvasElement, rest: number, mask: HTMLImageElem
     stencil = document.createElement('canvas')
     stencil.width = width
     stencil.height = height
-    const scale = Math.max(width / mask.naturalWidth, height / mask.naturalHeight)
+    const paint = stencil.getContext('2d')!
+    const scale = Math.max(box.width / mask.naturalWidth, box.height / mask.naturalHeight)
     const maskWidth = mask.naturalWidth * scale
     const maskHeight = mask.naturalHeight * scale
-    stencil.getContext('2d')!.drawImage(mask, (width - maskWidth) * 0.5, (height - maskHeight) * 0.03, maskWidth, maskHeight)
+    const top = box.y + (box.height - maskHeight) * 0.03
+    paint.drawImage(mask, box.x + (box.width - maskWidth) * 0.5, top, maskWidth, maskHeight)
+    if (inset > 0) {
+      // Past the photo's sides the wall runs on above the bench rail (its top is row 232 of the mask's 701); between the
+      // slats the trails fade out with the photo, over the same distance as .cover-layer.
+      const fade = Math.min(0.1 * photo.offsetWidth, inset) * density
+      const rail = top + maskHeight * 0.331
+      const right = box.x + box.width
+      paint.globalCompositeOperation = 'destination-out'
+      for (const [from, to] of [[box.x, box.x + fade], [right, right - fade]]) {
+        const ramp = paint.createLinearGradient(from, 0, to, 0)
+        ramp.addColorStop(0, '#000')
+        ramp.addColorStop(1, 'rgb(0 0 0 / 0)')
+        paint.fillStyle = ramp
+        paint.fillRect(Math.min(from, to), rail, fade, height - rail)
+      }
+      paint.globalCompositeOperation = 'source-over'
+      paint.fillStyle = '#000'
+      paint.fillRect(0, 0, box.x + fade, rail)
+      paint.fillRect(right - fade, 0, width - right + fade, rail)
+    }
     return stencil
   }
   return (length: number, drift: number) => {
@@ -152,8 +231,8 @@ function parts(context: CoverContext) {
   return { dim: layer.querySelector<HTMLElement>('.exposure-dim')!, canvas: layer.querySelector<HTMLCanvasElement>('.exposure-trails')! }
 }
 
-// A long exposure on the painted wall: star trails grow around their pole as the cover gently dims and lifts again,
-// then keep turning, slowly and faintly, behind him.
+// A long exposure on the painted wall: star trails grow around their pole as the cover exposes out of the night, then
+// keep turning, slowly and faintly, behind him.
 export const exposure = {
   // Every run: sizes the field and, with motion, keeps it turning while the cover is on screen.
   setup(context: CoverContext) {
@@ -161,7 +240,8 @@ export const exposure = {
     const state = { length: 1, drift: 0, speed: 0 }
     const mask = new Image()
     mask.src = wallMask
-    let paint = trailField(canvas, context.rest, mask)
+    const build = () => trailField(canvas, context.rest, mask, context.subject, context.stage)
+    let paint = build()
     const draw = () => paint(state.length, state.drift)
     // The first draw waits for the mask, so an intro that starts with no trails doesn't paint a full field first.
     void mask.decode().then(draw, () => undefined)
@@ -170,7 +250,7 @@ export const exposure = {
       const next = `${canvas.offsetWidth}x${canvas.offsetHeight}`
       if (next === size) return
       size = next
-      paint = trailField(canvas, context.rest, mask)
+      paint = build()
       draw()
     })
     observer.observe(canvas)
@@ -205,7 +285,10 @@ export const exposure = {
   still() {
     if (field) field.state.speed = 1
   },
-  // With motion, once per page load.
+  // With motion, once per page load, the cover is shot through a viewfinder: at night (the stars still points, the photo
+  // dark) the focus point hunts while the photo layers load and locks once both have decoded (or after 4 s, or on any
+  // input). Then the shutter opens: the trails grow and the cover exposes as the time a real exposure would take counts
+  // up. It closes with a blink, the view zooms into the photo and the story plays.
   intro(context: CoverContext) {
     const { dim, canvas } = parts(context)
     if (!field) {
@@ -213,10 +296,35 @@ export const exposure = {
       return
     }
     const { state, draw } = field
-    state.length = 0
+    const finder = context.q('.viewfinder')[0]
+    const time = context.q('.exposure-time')[0]
+    const frame = context.q('.hero-frame')[0]
+    const media = context.q('.hero-media')[0]
+    const focus = context.q('.focus-point')[0]
+    const mark = focus.firstElementChild!
+    const header = document.querySelector<HTMLElement>('.site-header')
+    state.length = 0.004
     state.speed = 0
     draw()
-    // Judge the machine on the intro's own frames, about half a second of them (the first two can include page
+    gsap.set(context.subject, { filter: 'brightness(0.12) saturate(0.6)' })
+    gsap.set(dim, { opacity: 0.9 })
+    gsap.fromTo(canvas, { opacity: 0 }, { opacity: 0.9, duration: 0.9, ease: 'power1.out' })
+    gsap.set(media, { backgroundColor: '#030403' })
+    gsap.set(frame, { scale: 0.86 })
+    if (header) gsap.set(header, { autoAlpha: 0 })
+    gsap.fromTo(finder, { display: 'block', opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.1 })
+    gsap.set(focus, { opacity: 1 })
+    const hunt = gsap.to(mark, {
+      keyframes: [
+        { x: '-40%', y: '18%', scale: 1.18, duration: 0.32 },
+        { x: '22%', y: '-12%', scale: 0.94, duration: 0.28 },
+        { x: '8%', y: '6%', scale: 1.08, duration: 0.26 },
+        { x: '0%', y: '0%', scale: 1, duration: 0.3 },
+      ],
+      ease: 'power2.inOut',
+      repeat: -1,
+    })
+    // Judge the machine on the exposure's own frames, about half a second of them (the first two can include page
     // start-up). Most of them must make 24 ms; a fast machine misses only the odd frame while the page settles.
     const deltas: number[] = []
     let elapsed = 0
@@ -229,26 +337,50 @@ export const exposure = {
       if (lite || sorted[Math.floor(sorted.length * 0.75)] <= 24) return
       goLite(context)
     }
-    gsap.ticker.add(probe)
     context.onCleanup(() => gsap.ticker.remove(probe))
     let drawn = 0
     const grow = () => {
+      time.textContent = clock(state.length * exposureSeconds)
       const now = performance.now()
       if (lite && now - drawn < 50) return
       drawn = now
       draw()
     }
-    gsap.set(context.subject, { filter: 'brightness(0.62) saturate(0.85)' })
-    gsap.set(dim, { opacity: 0.38 })
     const intro = gsap
-      .timeline({ onStart: context.played })
-      .fromTo(canvas, { opacity: 0 }, { opacity: 0.9, duration: 0.7, ease: 'power1.out' }, 0.1)
-      .to(state, { length: 1, duration: 2.3, ease: 'power2.inOut', onUpdate: grow, onComplete: draw }, 0.1)
-      .to(dim, { opacity: 0, duration: 1.3, ease: 'sine.inOut' }, 1.6)
-      .to(context.subject, { filter: 'brightness(1) saturate(1)', duration: 1.3, ease: 'sine.inOut', clearProps: 'filter' }, 1.6)
-      .to(canvas, { opacity: 0.5, duration: 1.4, ease: 'sine.inOut' }, 2.1)
-      .to(state, { speed: 1, duration: 3, ease: 'sine.in' }, 2.4)
-      .add(context.story(), 1.9)
+      .timeline({
+        paused: true,
+        onStart: () => {
+          context.played()
+          gsap.ticker.add(probe)
+        },
+      })
+      .call(() => hunt.kill(), undefined, 0)
+      .to(mark, { x: 0, y: 0, scale: 1, color: '#8cf5a8', duration: 0.3, ease: 'back.out(2.5)' }, 0)
+      .to(focus, { opacity: 0, duration: 0.3 }, 0.6)
+      .to(state, { length: 1, duration: 2.2, ease: 'power2.inOut', onUpdate: grow, onComplete: draw }, 0.45)
+      .to(dim, { opacity: 0, duration: 2, ease: 'power1.inOut' }, 0.6)
+      .to(context.subject, { filter: 'brightness(1) saturate(1)', duration: 2, ease: 'power1.inOut', clearProps: 'filter' }, 0.6)
+      .to(context.q('.viewfinder-shutter'), { opacity: 1, duration: 0.07, ease: 'none' }, 2.65)
+      .to(context.q('.viewfinder-shutter'), { opacity: 0, duration: 0.25, ease: 'power1.out' }, 2.8)
+      .to(frame, { scale: 1, duration: 1.1, ease: 'expo.inOut', clearProps: 'transform' }, 2.8)
+      .to(context.q('.viewfinder-frame'), { scale: 1.3, opacity: 0, duration: 0.9, ease: 'power2.in' }, 2.8)
+      .to(context.q('.viewfinder-info'), { opacity: 0, duration: 0.3 }, 2.8)
+      .set(finder, { display: 'none' }, 3.9)
+      .set(media, { clearProps: 'backgroundColor' }, 3.9)
+      .to(canvas, { opacity: 0.5, duration: 1.4, ease: 'sine.inOut' }, 3)
+      .to(state, { speed: 1, duration: 3, ease: 'sine.in' }, 2.7)
+      .add(context.story(), 3.1)
+    if (header) intro.to(header, { autoAlpha: 1, duration: 0.6, clearProps: 'opacity,visibility' }, 3.4)
     context.skippable(intro)
+    let mounted = true
+    const open = () => {
+      if (mounted) intro.play()
+    }
+    void Promise.all(context.q('img[data-cover]').map((image) => (image as HTMLImageElement).decode().catch(() => undefined))).then(open)
+    const timer = window.setTimeout(open, 4000)
+    context.onCleanup(() => {
+      mounted = false
+      window.clearTimeout(timer)
+    })
   },
 }

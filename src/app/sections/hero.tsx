@@ -4,7 +4,7 @@ import { gsap, SplitText, useGSAP, cinematic, motionOk } from '@/lib/gsap'
 import { Link, useNavigation } from '@/lib/navigation'
 import { photos } from '@/lib/content'
 import { NoteCards, NoteMarks, bindNotes, hideNotes, layoutNotes, noteAt, revealNotes, type Note } from '@/sections/hero-notes'
-import { StarTrails, exposure, type CoverContext } from '@/sections/hero-exposure'
+import { StarTrails, FocusPoint, Viewfinder, exposure, type CoverContext } from '@/sections/hero-exposure'
 
 function setHeaderTone(clear: boolean) {
   if (clear) document.documentElement.dataset.headerTone = 'clear'
@@ -67,6 +67,7 @@ function HeroStage() {
           </div>
           <div className="hero-scrim pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(10_16_11/0.4)_0%,rgb(10_16_11/0)_16%,rgb(10_16_11/0)_52%,rgb(10_16_11/0.85)_100%)]" />
           <NotePins />
+          <FocusPoint />
         </div>
       </div>
       <div className="cover-copy relative z-10 flex h-full flex-col justify-end px-5 pt-[calc(var(--header-height)+1.25rem)] text-[#f4f4f1] md:px-10 md:pb-10">
@@ -97,6 +98,7 @@ function HeroStage() {
         </div>
       </div>
       <NoteCards notes={notes} />
+      <Viewfinder />
     </>
   )
 }
@@ -140,6 +142,8 @@ export function Hero() {
     mm.add({ cinematic, motion: motionOk, pointer: '(hover: hover) and (pointer: fine)', any: 'all' }, (context) => {
       const { cinematic: isCinematic, motion, pointer } = context.conditions as Record<string, boolean>
       const cleanups: (() => void)[] = []
+      // index.html paints the cover's night colour until the cover itself is up.
+      delete document.documentElement.dataset.boot
 
       // The name rises when the intro calls for it, so it waits (paused) until then.
       let nameCalled = false
@@ -252,7 +256,7 @@ export function Hero() {
           introPlayed = true
         },
         skippable: (timeline) => {
-          const hurry = () => timeline.timeScale(4)
+          const hurry = () => timeline.timeScale(4).play()
           const stop = () => inputs.forEach((type) => window.removeEventListener(type, hurry))
           inputs.forEach((type) => window.addEventListener(type, hurry, { passive: true }))
           void timeline.then(stop)

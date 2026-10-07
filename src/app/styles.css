@@ -176,6 +176,8 @@
 /* Cover: photo and cutout share one crop so they stay registered; the name sits between them. */
 .hero-sequence {
   --photo-inset: 0px;
+  /* The photo's sides fade into the frame while it sits in its 8:5 box (a no-op at zero inset). */
+  --side-fade: linear-gradient(90deg, transparent, #000 min(10%, var(--photo-inset)), #000 calc(100% - min(10%, var(--photo-inset))), transparent);
   /* Note columns sit a fifth of the photo in from its sides (2.5rem at 1440 wide), so they follow the photo, not the screen. */
   --note-gutter: calc(var(--photo-inset) + max(2.5rem, (100% - 2 * var(--photo-inset)) * 0.2 - 15.5rem));
 }
@@ -191,8 +193,14 @@
     right: var(--photo-inset);
   }
 
+  /* The sky behind the photo still runs edge to edge. */
+  .hero-image.full-bleed {
+    left: 0;
+    right: 0;
+  }
+
   .cover-layer {
-    mask-image: linear-gradient(90deg, transparent, #000 min(10%, var(--photo-inset)), #000 calc(100% - min(10%, var(--photo-inset))), transparent);
+    mask-image: var(--side-fade);
   }
 }
 
@@ -306,6 +314,26 @@
 /* Without GPU rendering (hero-exposure.tsx), one tight glow: the wide one is too slow to redraw there. */
 .hero-stage[data-lite] .note-glow {
   filter: drop-shadow(0 0 3px rgb(255 214 160 / 0.95));
+}
+
+/* The viewfinder's exposure dot blinks while the shutter is open. */
+.exposure-dot {
+  animation: exposure-blink 1.4s ease-in-out infinite;
+}
+
+@keyframes exposure-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* Landscape phones: the cover is taller than the screen, so the viewfinder's settings move to its top margin. */
+@media (max-height: 559px) {
+  .viewfinder-info {
+    top: 3.5%;
+    bottom: auto;
+    translate: 0 -50%;
+  }
 }
 
 /* Work: the period in "Selected work." opens like an aperture onto the first project. */
