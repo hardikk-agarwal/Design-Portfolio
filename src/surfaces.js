@@ -24,8 +24,8 @@ export const resumeSections = [
 
 export const education = [
   'Master of Design, User Experience Design with AI | O P Jindal University | Sep 2024 - Sep 2025',
-  'Bachelor of Design, Communication Design | Pearl Academy | Jul 2017 - Jul 2021',
-  'Bachelor of Arts, English | IGNOU | Jul 2019 - Jul 2023',
+  '4-Year Professional Diploma, Interaction Design | Pearl Academy | Jul 2017 - Jul 2021',
+  'Bachelor of Arts, English | IGNOU | 2017 - 2020',
 ]
 
 export const skillGroups = [

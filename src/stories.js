@@ -64,7 +64,7 @@ export const stories = {
       ['Microsoft', 'UX Designer, March 2025 to now. I was rated Outstanding. I rebuilt Microsoft Store company onboarding, nearly doubling its success rate, and shaped the new Windows Developer Center. I also designed Copilot\'s visual sports answers, led design for the Trusted Developer Program pilot and worked on Windows Hello and passkeys.'],
       ['Microsoft x Tech Mahindra', 'Senior Associate UX Designer, February 2023 to January 2025. I designed Bing Search answer modules serving 1M+ queries a month, plus Bing Travel\'s map and trip planning, and helped lift travel booking success by 20%. I also contributed Bing design system components used across 5+ products and redesigned SMS Organizer.'],
       ['PlayShifu', 'Visual Designer, May 2021 to January 2023. I launched 6+ AR STEM games for kids, led the 3D avatar team from concept to integration, and moved VR interfaces off the HUD and into the world.'],
-      ['Education', 'Master of Design in User Experience Design with AI, O P Jindal University. Bachelor of Design in Communication Design, Pearl Academy. Bachelor of Arts in English, IGNOU.'],
+      ['Education', 'Master of Design in User Experience Design with AI, O P Jindal University. 4-Year Professional Diploma in Interaction Design, Pearl Academy. Bachelor of Arts in English, IGNOU.'],
     ],
   },
   explore: {
