@@ -4,6 +4,7 @@ import { gsap, useGSAP, motionOk } from '@/lib/gsap'
 import { Link } from '@/lib/navigation'
 import { projectHash } from '@/lib/routes.js'
 import { aiProjects, type Project } from '@/lib/content'
+import { responsive } from '@/lib/images'
 import { ProjectTile, openLabel } from '@/components/study'
 import { MetricValue } from '@/sections/work'
 import { cn } from '@/lib/utils'
@@ -97,6 +98,7 @@ export function BuiltWithAI() {
               >
                 <img
                   src={project.cover.src}
+                  {...responsive(project.cover, '42vw')}
                   alt=""
                   width={project.cover.width}
                   height={project.cover.height}

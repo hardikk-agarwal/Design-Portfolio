@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowUpRight, Lock } from 'lucide-react'
 import { gsap, ScrollTrigger, useGSAP, motionOk } from '@/lib/gsap'
 import { Link } from '@/lib/navigation'
 import { email, projectById, workProjects, type CaseStudy, type Project, type Shot } from '@/lib/content'
+import { responsive } from '@/lib/images'
 import { isSealed, isSecure, openedStudy, preloadSealed, unlockStudy } from '@/lib/protected'
 import { projectHash, type ProjectId } from '@/lib/routes.js'
 import { PageTitle } from '@/components/page-title'
@@ -47,6 +48,7 @@ function CaseStudyPage({ project, study, filmLink }: { project: Project; study: 
           <figure className="project-art-wrap relative mt-6 md:absolute md:inset-y-0 md:right-0 md:mt-0 md:flex md:w-[54%] md:items-center md:justify-center md:pr-10 md:pt-[var(--header-height)]">
             <img
               src={cover.src}
+              {...responsive(cover, '(min-width: 768px) 54vw, 100vw')}
               alt={cover.alt}
               width={cover.width}
               height={cover.height}
@@ -142,13 +144,14 @@ function ProjectGate({ project, onUnlock }: { project: Project; onUnlock: () => 
       : status === 'failed' ? `The ${noun} didn't load. Check your connection and try again.`
         : status === 'checking' ? 'Unlocking…' : ''
 
-  useEffect(preloadSealed, [])
-
   useGSAP(() => {
     gsap.matchMedia().add(motionOk, () => {
       gsap.from('.gate-panel', { y: 48, opacity: 0, duration: 1.3, ease: 'expo.out', delay: 0.35 })
     })
   }, { scope: root })
+
+  // Visitors without the password never download the sealed study; reaching for the form starts it.
+  const warm = () => preloadSealed(project.id)
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -183,13 +186,13 @@ function ProjectGate({ project, onUnlock }: { project: Project; onUnlock: () => 
             <HeroMetrics metrics={project.metrics} className="mt-8" />
           </div>
 
-          <section aria-labelledby="gate-title" className="gate-panel rounded-[24px] p-6 md:col-span-5 md:col-start-8 md:p-8" style={{ backgroundColor: project.ink, color: project.color }}>
+          <section aria-labelledby="gate-title" onPointerEnter={warm} className="gate-panel rounded-[24px] p-6 md:col-span-5 md:col-start-8 md:p-8" style={{ backgroundColor: project.ink, color: project.color }}>
             <Lock aria-hidden="true" className="size-7" strokeWidth={1.75} />
             <h2 id="gate-title" className="mt-5 text-[clamp(1.5rem,2vw,1.9rem)] font-bold leading-tight tracking-[-0.02em] [font-stretch:106%]">This {noun} is under NDA</h2>
             <p className="mt-3 text-[16px] leading-relaxed">
               This work is covered by a non-disclosure agreement, so {project.tool ? 'this page is' : 'the full case study is'} password protected.
             </p>
-            <form onSubmit={submit} className="mt-7">
+            <form onSubmit={submit} onFocus={warm} className="mt-7">
               <label htmlFor="case-study-password" className="text-[14px] font-semibold">Password</label>
               <div className="mt-2 flex flex-wrap gap-2">
                 <input

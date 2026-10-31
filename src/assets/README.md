@@ -58,6 +58,12 @@ layers. That is interpolation only: it adds no detail and keeps the layers
 registered. A higher-resolution original would be the real fix; rebuild both
 layers from it at its native size.
 
+`hardik-bench-scene-1122/1683.webp` and `hardik-bench-subject-1122/1683.webp`
+are the same two layers downscaled with Lanczos3 (same quality settings) for the
+cover's srcset. Their widths keep the exact 561:701 ratio, so the layers stay
+registered at every size. Rebuild them from the 2244 px masters whenever those
+change.
+
 Clothing edit (7 October 2026, requested by Hardik): the open shirt is buttoned
 up to the collar, with only the top collar button left open, and the beaded
 brooch is removed. Both changes were made with Azure OpenAI image editing
@@ -126,7 +132,7 @@ index and project pages; project screens open in a full-size viewer.
 
 The Windows Developer Center screens are under NDA. They live with the case
 study text in `src/protected/portal/` (git-ignored) and ship only inside the
-encrypted `src/app/lib/sealed-case-studies.json`. The public
+encrypted `src/app/lib/sealed/portal.json`. The public
 `work/portal-cover-locked.webp` is the cover reduced to an 8x5 colour field,
 scaled back up and blurred, with a lock badge, so no layout or text survives.
 

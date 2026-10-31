@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import { gsap, ScrollTrigger, useGSAP, motionOk } from '@/lib/gsap'
 import { Link, useNavigation } from '@/lib/navigation'
 import { aiProjects, type CaseStudy, type Project, type Shot } from '@/lib/content'
+import { responsive } from '@/lib/images'
 import { projectHash } from '@/lib/routes.js'
 import { PageTitle } from '@/components/page-title'
 import { WatchFilm } from '@/components/film-player'
@@ -117,6 +118,7 @@ export function BuildPage({ project, study, filmLink }: { project: Project; stud
             <figure className="build-shot mx-auto" style={{ width: `min(100%, 72rem, calc((100svh - var(--header-height) - 4rem) * ${cover.width / cover.height}))` }}>
               <img
                 src={cover.src}
+                {...responsive(cover, '(min-width: 1232px) 1152px, 100vw')}
                 alt={cover.alt}
                 width={cover.width}
                 height={cover.height}

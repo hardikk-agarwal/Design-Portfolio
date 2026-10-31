@@ -3,6 +3,7 @@ import { ArrowUpRight, Lock } from 'lucide-react'
 import { gsap, useGSAP, motionOk } from '@/lib/gsap'
 import { Link } from '@/lib/navigation'
 import { aiProjects, workProjects, type Project } from '@/lib/content'
+import { responsive } from '@/lib/images'
 import { PageTitle } from '@/components/page-title'
 import { WatchFilm } from '@/components/film-player'
 import { ProjectTile } from '@/components/study'
@@ -22,6 +23,7 @@ function WorkRow({ project }: { project: Project }) {
       <div className="flex aspect-[3/2] items-center justify-center overflow-hidden rounded-[20px] p-[7%] md:col-span-5" style={{ backgroundColor: project.color }}>
         <img
           src={project.cover.src}
+          {...responsive(project.cover, '(min-width: 768px) 42vw, 100vw')}
           alt={project.cover.alt}
           width={project.cover.width}
           height={project.cover.height}

@@ -7,13 +7,14 @@ import { existsSync, readdirSync, statSync } from 'node:fs'
 
 const entries = { production: './index.html', pages: './index.html', desk: './desk.html', story: './story.html' }
 const outDirs = { production: 'dist', pages: 'dist', desk: 'dist/desk', story: 'dist/story' }
-const sealedFile = fileURLToPath(new URL('./src/app/lib/sealed-case-studies.json', import.meta.url))
+const sealedDir = fileURLToPath(new URL('./src/app/lib/sealed/', import.meta.url))
 const protectedSource = fileURLToPath(new URL('./src/protected/', import.meta.url))
 
 function checkSealed() {
-  if (!existsSync(sealedFile)) throw new Error('The password-protected case study is not sealed. Add CASE_STUDY_PASSWORD to .env.local and run npm run seal.')
+  const sealed = existsSync(sealedDir) ? readdirSync(sealedDir).filter((file) => file.endsWith('.json')) : []
+  if (!sealed.length) throw new Error('The password-protected case studies are not sealed. Add CASE_STUDY_PASSWORD to .env.local and run npm run seal.')
   if (!existsSync(protectedSource)) return
-  const sealedAt = statSync(sealedFile).mtimeMs
+  const sealedAt = Math.min(...sealed.map((file) => statSync(sealedDir + file).mtimeMs))
   if (readdirSync(protectedSource, { recursive: true }).some((file) => statSync(protectedSource + file).mtimeMs > sealedAt)) {
     console.warn('src/protected changed after the last seal. Run npm run seal to include the update.')
   }
@@ -34,16 +35,22 @@ function preloadCritical() {
           if (!file) throw new Error(`No build asset matches ${pattern}; update preloadCritical in vite.config.js.`)
           return `./${file}`
         }
-        // The two photograph layers, then the wall mask that the star trails and the veil are cut to.
+        // The two photograph layers at the size their srcset will pick (same sizes as `cover` in src/app/lib/content.ts),
+        // then the wall mask that the star trails and the veil are cut to.
+        const layer = (name) => ({
+          as: 'image',
+          imageSrcset: [1122, 1683].map((width) => `${asset(new RegExp(`${name}-${width}-[\\w-]{8}\\.webp$`))} ${width}w`).concat(`${asset(new RegExp(`${name}-[\\w-]{8}\\.webp$`))} 2244w`).join(', '),
+          imageSizes: '(min-aspect-ratio: 4/5) 115vw, 92vh',
+        })
         const hero = JSON.stringify([
-          ['image', asset(/hardik-bench-scene-[\w-]+\.webp$/)],
-          ['image', asset(/hardik-bench-subject-[\w-]+\.webp$/)],
-          ['image', asset(/hardik-bench-wall-[\w-]+\.png$/)],
+          layer('hardik-bench-scene'),
+          layer('hardik-bench-subject'),
+          { as: 'image', href: asset(/hardik-bench-wall-[\w-]+\.png$/) },
         ])
         return [
           { tag: 'link', attrs: { rel: 'preload', href: asset(/mona-sans-latin-wdth-normal-[\w-]+\.woff2$/), as: 'font', type: 'font/woff2', crossorigin: true }, injectTo: 'head' },
           // Mirrors parseRoute in src/app/lib/routes.js: these hashes open a page without the hero.
-          { tag: 'script', children: `if (!/^#(?:work|ai|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) for (const [as, href] of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload', as, href }))`, injectTo: 'head' },
+          { tag: 'script', children: `if (!/^#(?:work|ai|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) for (const link of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload' }, link))`, injectTo: 'head' },
         ]
       },
     },

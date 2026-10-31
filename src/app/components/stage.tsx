@@ -3,10 +3,12 @@ import { ArrowUpRight, Check, Minus, Pause, Play, Square, X } from 'lucide-react
 import type { Stage } from '@/lib/content'
 import { prefersReducedMotion } from '@/lib/gsap'
 import { Compare, screen } from '@/components/study'
+import { responsive } from '@/lib/images'
 import { cn } from '@/lib/utils'
 
 const pill = 'inline-flex items-center gap-2 rounded-full px-4 py-2 text-[15px] font-semibold transition-colors'
 const fade = 'absolute inset-0 size-full object-cover transition-opacity duration-700 ease-expo motion-reduce:transition-none'
+const full = '(min-width: 1232px) 1152px, 100vw'
 
 type StraddleProps = { media: ReactNode; children?: ReactNode; caption?: ReactNode } & Omit<HTMLAttributes<HTMLElement>, 'children'>
 
@@ -46,6 +48,7 @@ function Fan({ stage }: { stage: Of<'fan'> }) {
             <img
               key={item.shot.src}
               src={item.shot.src}
+              {...responsive(item.shot, '(min-width: 1232px) 600px, (min-width: 640px) 52vw, 70vw')}
               alt={on ? item.shot.alt : ''}
               aria-hidden={on ? undefined : true}
               width={item.shot.width}
@@ -91,15 +94,21 @@ function Tour({ stage }: { stage: Of<'tour'> }) {
   const [active, setActive] = useState(0)
   const [playing, setPlaying] = useState(false)
   const [held, setHeld] = useState(false)
+  const [inView, setInView] = useState(false)
   const [first] = stage.items
 
+  // Starts the first time the tour is on screen, and holds whenever it scrolls away.
   useEffect(() => {
     const element = frame.current
     if (!element || prefersReducedMotion()) return
+    let started = false
     const observer = new IntersectionObserver(([entry]) => {
-      if (!entry?.isIntersecting) return
-      setPlaying(true)
-      observer.disconnect()
+      const visible = Boolean(entry?.isIntersecting)
+      setInView(visible)
+      if (visible && !started) {
+        started = true
+        setPlaying(true)
+      }
     }, { threshold: 0.4 })
     observer.observe(element)
     return () => observer.disconnect()
@@ -118,6 +127,7 @@ function Tour({ stage }: { stage: Of<'tour'> }) {
             <img
               key={item.shot.src}
               src={item.shot.src}
+              {...responsive(item.shot, full)}
               alt={index === active ? item.shot.alt : ''}
               aria-hidden={index === active ? undefined : true}
               width={item.shot.width}
@@ -149,7 +159,7 @@ function Tour({ stage }: { stage: Of<'tour'> }) {
                     // The active step's bar is the clock: when it fills, the tour moves on.
                     onAnimationEnd={() => setActive((step) => (step + 1) % stage.items.length)}
                     style={index === active && playing
-                      ? { animation: 'tour-fill 3.6s linear forwards', animationPlayState: held ? 'paused' : 'running' }
+                      ? { animation: 'tour-fill 3.6s linear forwards', animationPlayState: held || !inView ? 'paused' : 'running' }
                       : { width: index < active || index === active ? '100%' : '0%' }}
                   />
                 </span>
@@ -214,6 +224,7 @@ function Run({ stage }: { stage: Of<'run'> }) {
             <img
               key={item.shot.src}
               src={item.shot.src}
+              {...responsive(item.shot, full)}
               alt={index === step ? item.shot.alt : ''}
               aria-hidden={index === step ? undefined : true}
               width={item.shot.width}

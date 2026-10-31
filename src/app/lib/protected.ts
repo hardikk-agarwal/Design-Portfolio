@@ -2,20 +2,23 @@ import type { CaseStudy, Film } from './projects'
 import type { ProjectId } from './routes.js'
 
 type Box = { iv: string; data: string }
-type Sealed = { salt: string; iterations: number; studies: Record<string, { content: Box; files: Record<string, Box & { type: string }> }> }
+type Sealed = { salt: string; iterations: number; content: Box; files: Record<string, Box & { type: string }> }
 
-// Written by `npm run seal`; absent only before the first seal. Loaded on demand, so only the gate downloads it.
-const loadSealed = Object.values(import.meta.glob<Sealed>('./sealed-case-studies.json', { import: 'default' }))[0]
+// Written by `npm run seal`, one file per study; absent only before the first seal. Each loads on demand, so a gate
+// downloads only its own study.
+const loaders: Record<string, () => Promise<Sealed>> = Object.fromEntries(
+  Object.entries(import.meta.glob<Sealed>('./sealed/*.json', { import: 'default' })).map(([path, load]) => [path.slice('./sealed/'.length, -'.json'.length), load]),
+)
 const opened = new Map<ProjectId, CaseStudy>()
 const films = new Map<string, Promise<string>>()
 const bytes = (base64: string) => Uint8Array.from(atob(base64), (char) => char.charCodeAt(0))
 const sealedFields = new Set(['src', 'poster', 'captions'])
 
-export const isSealed = loadSealed !== undefined
+export const isSealed = Object.keys(loaders).length > 0
 
-// Starts the download while the visitor types; unlockStudy reports a failed load.
-export function preloadSealed() {
-  loadSealed?.().catch(() => {})
+// Starts the download once the visitor reaches for the password; unlockStudy reports a failed load.
+export function preloadSealed(id: ProjectId) {
+  loaders[id]?.().catch(() => {})
 }
 // Web Crypto only exists on https and localhost; GitHub Pages serves https.
 export const isSecure = typeof crypto !== 'undefined' && crypto.subtle !== undefined
@@ -26,12 +29,11 @@ export function openedStudy(id: ProjectId) {
 
 // A wrong password fails AES-GCM authentication and rejects with an OperationError.
 export async function unlockStudy(id: ProjectId, password: string) {
-  const sealed = await loadSealed?.()
-  const study = sealed?.studies[id]
-  if (!sealed || !study) throw new Error(`No sealed case study for ${id}`)
+  const study = await loaders[id]?.()
+  if (!study) throw new Error(`No sealed case study for ${id}`)
   const material = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey'])
   const key = await crypto.subtle.deriveKey(
-    { name: 'PBKDF2', salt: bytes(sealed.salt), iterations: sealed.iterations, hash: 'SHA-256' },
+    { name: 'PBKDF2', salt: bytes(study.salt), iterations: study.iterations, hash: 'SHA-256' },
     material,
     { name: 'AES-GCM', length: 256 },
     false,

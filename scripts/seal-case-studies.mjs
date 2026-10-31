@@ -1,6 +1,6 @@
-// Encrypts src/protected/<id> into src/app/lib/sealed-case-studies.json with CASE_STUDY_PASSWORD.
-// The sealed file is safe to commit and deploy; src/protected and .env.local stay on this machine.
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+// Encrypts each src/protected/<id> into src/app/lib/sealed/<id>.json with CASE_STUDY_PASSWORD.
+// The sealed files are safe to commit and deploy; src/protected and .env.local stay on this machine.
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { createCipheriv, createHash, pbkdf2Sync, randomBytes } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
 import { loadEnv } from 'vite'
@@ -52,25 +52,24 @@ function sealFilm(study, folder) {
   return { src: `./films/${study}.film`, poster: 'film/poster.jpg', captions: 'film/captions.vtt', duration, key: filmKey, iv }
 }
 
-const sealed = {
-  salt: salt.toString('base64'),
-  iterations,
-  studies: Object.fromEntries(studies.map((study) => {
-    const folder = `${root}src/protected/${study}/`
-    const content = JSON.parse(readFileSync(`${folder}case-study.json`, 'utf8'))
-    const names = new Set([...JSON.stringify(content).matchAll(/"src":"([^"]+)"/g)].map((match) => match[1]))
-    const film = sealFilm(study, folder)
-    if (film) {
-      content.film = film
-      names.add(film.poster).add(film.captions)
-    }
-    const files = Object.fromEntries([...names].map((name) => {
-      const extension = name.split('.').pop()
-      return [name, { ...seal(readFileSync(folder + name)), type: types[extension] ?? `image/${extension}` }]
-    }))
-    return [study, { content: seal(Buffer.from(JSON.stringify(content))), files }]
-  })),
+// One file per study, so a gate downloads only its own study. All share one salt, so one password opens them all.
+const output = `${root}src/app/lib/sealed/`
+mkdirSync(output, { recursive: true })
+for (const file of readdirSync(output)) if (!studies.includes(file.replace(/\.json$/, ''))) rmSync(output + file)
+for (const study of studies) {
+  const folder = `${root}src/protected/${study}/`
+  const content = JSON.parse(readFileSync(`${folder}case-study.json`, 'utf8'))
+  const names = new Set([...JSON.stringify(content).matchAll(/"src":"([^"]+)"/g)].map((match) => match[1]))
+  const film = sealFilm(study, folder)
+  if (film) {
+    content.film = film
+    names.add(film.poster).add(film.captions)
+  }
+  const files = Object.fromEntries([...names].map((name) => {
+    const extension = name.split('.').pop()
+    return [name, { ...seal(readFileSync(folder + name)), type: types[extension] ?? `image/${extension}` }]
+  }))
+  const sealed = { salt: salt.toString('base64'), iterations, content: seal(Buffer.from(JSON.stringify(content))), files }
+  writeFileSync(`${output}${study}.json`, JSON.stringify(sealed))
 }
-
-writeFileSync(`${root}src/app/lib/sealed-case-studies.json`, JSON.stringify(sealed))
-console.log(`Sealed ${studies.join(', ')} into src/app/lib/sealed-case-studies.json. Commit that file; src/protected stays local.`)
+console.log(`Sealed ${studies.join(', ')} into src/app/lib/sealed/. Commit that folder; src/protected stays local.`)

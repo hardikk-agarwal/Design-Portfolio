@@ -4,7 +4,11 @@ import cameraPortrait from '../../assets/hardik-camera.webp'
 import cameraChip from '../../assets/hardik-camera-chip.webp'
 import candid from '../../assets/hardik-candid.webp'
 import subject from '../../assets/hardik-bench-subject.webp'
+import subject1122 from '../../assets/hardik-bench-subject-1122.webp'
+import subject1683 from '../../assets/hardik-bench-subject-1683.webp'
 import benchScene from '../../assets/hardik-bench-scene.webp'
+import benchScene1122 from '../../assets/hardik-bench-scene-1122.webp'
+import benchScene1683 from '../../assets/hardik-bench-scene-1683.webp'
 import { projects } from './projects'
 import type { Endorsement } from './projects'
 import type { ProjectId } from './routes.js'
@@ -12,6 +16,14 @@ import type { ProjectId } from './routes.js'
 export { projects }
 export type { CaseStudy, Endorsement, Film, Flow, Metric, Project, Quote, Shot, Stage } from './projects'
 export const photos = { cameraPortrait, cameraChip, candid, subject, benchScene }
+// The cover layers come in three registered sizes, so phones and 1x screens fetch less at the same sharpness. The
+// sizes allow for the 104% cover crop and the 1.1 resting scale; preloadCritical in vite.config.js repeats them.
+// The single-file export (mode production) inlines every image, so it keeps one size.
+export const cover = import.meta.env.MODE === 'production' ? undefined : {
+  sizes: '(min-aspect-ratio: 4/5) 115vw, 92vh',
+  scene: `${benchScene1122} 1122w, ${benchScene1683} 1683w, ${benchScene} 2244w`,
+  subject: `${subject1122} 1122w, ${subject1683} 1683w, ${subject} 2244w`,
+}
 export const email = 'madebyhardik@gmail.com'
 export const phone = { label: '+91 92055 38968', href: 'tel:+919205538968' }
 export const profiles = [

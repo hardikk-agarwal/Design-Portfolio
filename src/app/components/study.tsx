@@ -4,6 +4,7 @@ import { gsap, useGSAP, motionOk } from '@/lib/gsap'
 import { Link } from '@/lib/navigation'
 import { projectHash } from '@/lib/routes.js'
 import type { CaseStudy, Flow, Metric, Project, Quote, Shot } from '@/lib/content'
+import { responsive } from '@/lib/images'
 import { MetricValue } from '@/sections/work'
 import { Marked, RoleChip } from '@/sections/words'
 import { cn } from '@/lib/utils'
@@ -21,13 +22,15 @@ export function openLabel(project: Project) {
 
 function Shots({ shots, onZoom }: { shots: Shot[]; onZoom: (shot: Shot) => void }) {
   const columns = shots.length === 3 ? 'sm:grid-cols-3' : shots.length > 1 ? 'sm:grid-cols-2' : ''
+  const sizes = shots.length === 3 ? 'auto, (min-width: 1232px) 384px, (min-width: 640px) 34vw, 100vw'
+    : shots.length > 1 ? 'auto, (min-width: 1232px) 576px, (min-width: 640px) 50vw, 100vw' : 'auto, (min-width: 1232px) 1152px, 100vw'
   return (
     <div className={cn('mt-8 grid items-start gap-5', columns)}>
       {shots.map((shot) => (
         <figure key={shot.src}>
           {shot.caption && <figcaption className="mb-3 text-[14px] font-medium text-muted-foreground">{shot.caption}</figcaption>}
           <button type="button" onClick={() => onZoom(shot)} aria-label={`Enlarge image: ${shot.alt}`} className="block w-full cursor-zoom-in rounded-xl">
-            <img src={shot.src} alt="" width={shot.width} height={shot.height} loading="lazy" decoding="async" className={cn('h-auto w-full', screen)} />
+            <img src={shot.src} {...responsive(shot, sizes)} alt="" width={shot.width} height={shot.height} loading="lazy" decoding="async" className={cn('h-auto w-full', screen)} />
           </button>
         </figure>
       ))}
@@ -77,8 +80,8 @@ export function Compare({ before, after, className = 'mt-8' }: { before: Shot; a
         className={cn('group/compare relative cursor-ew-resize touch-pan-y select-none overflow-hidden', screen, portrait && 'rounded-[13.5%/6.2%]')}
         style={{ '--split': '50%', aspectRatio: `${after.width} / ${after.height}` } as CSSProperties}
       >
-        <img src={after.src} alt={after.alt} width={after.width} height={after.height} loading="lazy" decoding="async" draggable={false} className="absolute inset-0 size-full object-cover" />
-        <img src={before.src} alt={before.alt} width={before.width} height={before.height} loading="lazy" decoding="async" draggable={false} className="absolute inset-0 size-full object-cover [clip-path:inset(0_calc(100%_-_var(--split))_0_0)]" />
+        <img src={after.src} {...responsive(after, 'auto, (min-width: 1232px) 1152px, 100vw')} alt={after.alt} width={after.width} height={after.height} loading="lazy" decoding="async" draggable={false} className="absolute inset-0 size-full object-cover" />
+        <img src={before.src} {...responsive(before, 'auto, (min-width: 1232px) 1152px, 100vw')} alt={before.alt} width={before.width} height={before.height} loading="lazy" decoding="async" draggable={false} className="absolute inset-0 size-full object-cover [clip-path:inset(0_calc(100%_-_var(--split))_0_0)]" />
         {/* On phone screens the labels sit mid-height, clear of the rounded corners, status bar and tab bar. */}
         <span aria-hidden="true" className={cn('absolute rounded-full bg-black/70 px-2.5 py-1 text-[13px] font-semibold text-white', portrait ? 'left-[5%] top-[40%]' : 'left-3 top-3')}>Before</span>
         <span aria-hidden="true" className={cn('absolute rounded-full bg-black/70 px-2.5 py-1 text-[13px] font-semibold text-white', portrait ? 'right-[5%] top-[40%]' : 'right-3 top-3')}>After</span>
@@ -227,7 +230,7 @@ export function Byline({ project, className }: { project: Project; className?: s
 export function ProjectTile({ project, className, style }: { project: Project; className?: string; style?: CSSProperties }) {
   return (
     <span aria-hidden="true" className={cn('flex aspect-square items-center justify-center overflow-hidden rounded-2xl p-[14%]', className)} style={{ backgroundColor: project.color, ...style }}>
-      <img src={project.cover.src} alt="" width={project.cover.width} height={project.cover.height} loading="lazy" decoding="async" className="h-auto max-h-full w-auto max-w-full rounded-[3px] shadow-[0_6px_14px_-6px_rgb(0_0_0/0.55)]" />
+      <img src={project.cover.src} {...responsive(project.cover, '144px')} alt="" width={project.cover.width} height={project.cover.height} loading="lazy" decoding="async" className="h-auto max-h-full w-auto max-w-full rounded-[3px] shadow-[0_6px_14px_-6px_rgb(0_0_0/0.55)]" />
     </span>
   )
 }
@@ -253,6 +256,7 @@ export function NextProject({ project }: { project: Project }) {
       <img
         aria-hidden="true"
         src={project.cover.src}
+        {...responsive(project.cover, '42vw')}
         alt=""
         width={project.cover.width}
         height={project.cover.height}

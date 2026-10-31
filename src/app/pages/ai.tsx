@@ -4,6 +4,7 @@ import { gsap, useGSAP, motionOk } from '@/lib/gsap'
 import { Link } from '@/lib/navigation'
 import { projectHash } from '@/lib/routes.js'
 import { aiProjects, type Project } from '@/lib/content'
+import { responsive } from '@/lib/images'
 import { PageTitle } from '@/components/page-title'
 import { WatchFilm } from '@/components/film-player'
 import { NdaPill, StackList, openLabel } from '@/components/study'
@@ -24,6 +25,7 @@ function AiEntry({ project, flip }: { project: Project; flip: boolean }) {
       <div className={cn('flex aspect-[16/10] items-center justify-center overflow-hidden rounded-[20px] p-[6%] md:col-span-7', flip && 'md:order-last')} style={{ backgroundColor: project.color }}>
         <img
           src={project.cover.src}
+          {...responsive(project.cover, '(min-width: 768px) 58vw, 100vw')}
           alt={project.cover.alt}
           width={project.cover.width}
           height={project.cover.height}

@@ -11,7 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
-# Readable NDA source; only src/app/lib/sealed-case-studies.json is committed
+# Readable NDA source; only the encrypted src/app/lib/sealed/*.json files are committed
 src/protected/
 # Full-size originals and storyboard explorations stay local
 Images/

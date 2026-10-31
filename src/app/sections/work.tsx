@@ -4,6 +4,7 @@ import { gsap, SplitText, useGSAP, cinematic, motionOk } from '@/lib/gsap'
 import { Link, useNavigation } from '@/lib/navigation'
 import { featuredProjects, splitChange, type Metric, type Project } from '@/lib/content'
 import { WatchFilm } from '@/components/film-player'
+import { responsive } from '@/lib/images'
 import { cn } from '@/lib/utils'
 
 const stackQuery = '(min-width: 768px) and (min-height: 640px)'
@@ -60,7 +61,7 @@ function Chapter({ project, index }: { project: Project; index: number }) {
           <p className="mt-4 max-w-[44ch] text-[17px] leading-relaxed">{project.description}</p>
 
           <figure className="chapter-figure relative mt-8 md:hidden">
-            <img src={project.cover.src} alt={project.cover.alt} width={project.cover.width} height={project.cover.height} loading="lazy" decoding="async" className="w-full rounded-lg shadow-[0_20px_40px_-20px_rgb(0_0_0/0.5)]" />
+            <img src={project.cover.src} {...responsive(project.cover, 'auto, 100vw')} alt={project.cover.alt} width={project.cover.width} height={project.cover.height} loading="lazy" decoding="async" className="w-full rounded-lg shadow-[0_20px_40px_-20px_rgb(0_0_0/0.5)]" />
           </figure>
 
           <dl className="mt-10 flex flex-wrap gap-x-12 gap-y-6 md:mt-auto md:pt-10">
@@ -87,6 +88,7 @@ function Chapter({ project, index }: { project: Project; index: number }) {
         <figure aria-hidden="true" className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] items-center justify-center pr-10 pt-[var(--header-height)] md:flex">
           <img
             src={project.cover.src}
+            {...responsive(project.cover, '52vw')}
             alt=""
             width={project.cover.width}
             height={project.cover.height}

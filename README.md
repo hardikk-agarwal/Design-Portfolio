@@ -25,8 +25,8 @@ npm run build
 The Windows Developer Center case study is under NDA, so the site ships it encrypted. Its readable source is `src/protected/portal/` (`case-study.json` plus its screens). That folder and `.env.local` are git-ignored and stay on this machine; keep a private backup of the folder.
 
 1. Add the password to `.env.local`: `CASE_STUDY_PASSWORD=your-long-passphrase`. Use 12+ characters; a few random words work well.
-2. Run `npm run seal`. It encrypts the case study and its screens with AES-256-GCM, using a key derived from the password with PBKDF2-SHA256 (600,000 iterations), into `src/app/lib/sealed-case-studies.json`.
-3. Commit that sealed file. Run `npm run seal` again after editing `src/protected/` or changing the password. The production build stops if the seal is missing and warns when the source is newer than the seal.
+2. Run `npm run seal`. It encrypts each case study and its screens with AES-256-GCM, using a key derived from the password with PBKDF2-SHA256 (600,000 iterations), into one file per study in `src/app/lib/sealed/`.
+3. Commit that sealed folder. Run `npm run seal` again after editing `src/protected/` or changing the password. The production build stops if the seal is missing and warns when the source is newer than the seal.
 
 Visitors see the public teaser and an NDA gate that asks for the password or offers an email request. The browser derives the key from the typed password and decrypts in memory; a wrong password fails the integrity check. Nothing is stored, so a reload asks again. Anyone given the password can read and save the case study. Decryption uses Web Crypto, which needs https or localhost.
 
@@ -34,7 +34,9 @@ Visitors see the public teaser and an NDA gate that asks for the password or off
 
 The build needs no secrets because it ships only the sealed copy. Routes use the hash and asset URLs are relative, so the site works at a user site root or a `/<repo>/` project path without a 404 fallback.
 
-`npm run build:pages` is the hosted build. Unlike `npm run build`, it keeps JavaScript, CSS, fonts and images as separate hashed files, so the first visit downloads roughly a quarter of the single-file export: images load as they near the viewport, the browser fetches only the font subsets it needs, and the sealed case study loads only on its gate. The HTML preloads the display font and, when the URL opens the home page, both hero layers, so the first render matches the single-file build. Its `desk` and `story` exports are unchanged.
+`npm run build:pages` is the hosted build. Unlike `npm run build`, it keeps JavaScript, CSS, fonts and images as separate hashed files, so the first visit downloads roughly a quarter of the single-file export: images load as they near the viewport, the browser fetches only the font subsets it needs, and the sealed case study loads only on its gate, once the visitor reaches for the password, and only that one study. The HTML preloads the display font and, when the URL opens the home page, both hero layers, so the first render matches the single-file build. Its `desk` and `story` exports are unchanged.
+
+The hero layers and the work screens also ship in smaller copies, and each image's `srcset` lets the browser pick the smallest copy that is still sharp on that screen. After adding or replacing an image in `src/assets/work/` or a hero layer, run `npm install --no-save sharp` and `node scripts/size-images.mjs`, then commit the new copies.
 
 1. Push the repository to GitHub. A public repository is fine: it holds only the sealed case study.
 2. In Settings > Pages, set Source to GitHub Actions.
