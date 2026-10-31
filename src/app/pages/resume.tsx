@@ -1,7 +1,7 @@
 import { useRef } from 'react'
-import { Download } from 'lucide-react'
+import { ArrowUpRight, Download } from 'lucide-react'
 import { gsap, useGSAP, motionOk } from '@/lib/gsap'
-import { education, experience, skills } from '@/lib/content'
+import { education, email, experience, phone, profiles, skills } from '@/lib/content'
 import { PageTitle } from '@/components/page-title'
 
 export function ResumePage() {
@@ -34,6 +34,20 @@ export function ResumePage() {
         <p className="mt-10 max-w-[48ch] text-[clamp(1.2rem,1.7vw,1.6rem)] leading-snug">
           I'm a product designer with 5+ years across AI, enterprise B2B platforms and consumer products. At Microsoft, where I was rated Outstanding, I lifted Store company onboarding success from 35% to 73% and cut the wait from ~15 days to ~1 day. I design end to end, from product strategy to prototypes in code with AI, working closely with product managers and engineers.
         </p>
+        <ul aria-label="Location and contact" className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[16px] font-medium">
+          <li className="text-muted-foreground">Hyderabad, India</li>
+          <li><a href={`mailto:${email}`} className="underline decoration-1 underline-offset-[6px] hover:decoration-2">{email}</a></li>
+          <li><a href={phone.href} className="underline decoration-1 underline-offset-[6px] hover:decoration-2">{phone.label}</a></li>
+          {profiles.filter((profile) => profile.label === 'LinkedIn').map((profile) => (
+            <li key={profile.label}>
+              <a href={profile.href} target="_blank" rel="noopener noreferrer" className="underline decoration-1 underline-offset-[6px] hover:decoration-2">
+                {profile.label}
+                <ArrowUpRight aria-hidden="true" className="ml-0.5 inline size-4 align-[-0.15em]" strokeWidth={1.75} />
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section aria-labelledby="resume-experience" className="px-5 pt-[clamp(5rem,14vh,9rem)] md:px-10">

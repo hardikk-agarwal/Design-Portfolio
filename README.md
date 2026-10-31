@@ -41,7 +41,7 @@ The build needs no secrets because it ships only the sealed copy. Routes use the
 3. Push to `main`. [The workflow](.github/workflows/deploy-pages.yml) deploys every push automatically: it installs dependencies from the public npm registry, runs `npm run build:pages`, and publishes `dist`. To redeploy without a new commit, use Actions > Deploy to GitHub Pages > Run workflow.
 4. With a custom domain, turn on Enforce HTTPS.
 
-Before going live, remove `noindex, nofollow` from the HTML files if the site should appear in search.
+The portfolio (`index.html`) is indexable; the archived desk and story studies keep `noindex, nofollow`. After a deploy, submit `sitemap.xml` in Google Search Console for the `https://hardikk-agarwal.github.io/Design-Portfolio/` property.
 
 ## Portfolio
 
@@ -99,7 +99,7 @@ Drag the room to look around. Arrow keys select objects in the viewfinder; its z
 
 Captured frames and visited-object state exist only in memory and reset on reload. Only the theme preference is saved to localStorage. Captures are rendered room images, not photos from the device.
 
-Additional personal photo sourcing, Instagram integration, detailed research case studies, and deployment remain deferred. Three personal photographs were supplied and approved for the scroll-story iteration. Project text and metrics are grounded in the supplied resume. No confidential product screenshots are included. The HTML remains `noindex, nofollow` until publication is approved.
+Additional personal photo sourcing, Instagram integration, detailed research case studies, and deployment remain deferred. Three personal photographs were supplied and approved for the scroll-story iteration. Project text and metrics are grounded in the supplied resume. No confidential product screenshots are included. The portfolio is public and indexable since 31 October 2026; `desk.html` and `story.html` remain `noindex, nofollow`.
 
 ## Edit
 

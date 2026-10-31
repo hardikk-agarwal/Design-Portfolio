@@ -1,10 +1,11 @@
-import { useRef } from 'react'
+import { useRef, type CSSProperties } from 'react'
 import { ArrowUpRight, Lock } from 'lucide-react'
 import { gsap, useGSAP, motionOk } from '@/lib/gsap'
 import { Link } from '@/lib/navigation'
-import { projects, type Project } from '@/lib/content'
+import { aiProjects, workProjects, type Project } from '@/lib/content'
 import { PageTitle } from '@/components/page-title'
 import { WatchFilm } from '@/components/film-player'
+import { ProjectTile } from '@/components/study'
 import { MetricValue } from '@/sections/work'
 
 function WorkRow({ project }: { project: Project }) {
@@ -84,8 +85,34 @@ export function WorkPage() {
         </p>
       </section>
       <ol className="px-5 pb-[clamp(5rem,14vh,10rem)] md:px-10" aria-label="Projects">
-        {projects.map((project) => <WorkRow key={project.id} project={project} />)}
+        {workProjects.map((project) => <WorkRow key={project.id} project={project} />)}
       </ol>
+      <section aria-labelledby="work-ai-title" className="px-5 pb-[clamp(5rem,14vh,10rem)] md:px-10">
+        <div className="work-ai group relative grid gap-10 overflow-hidden rounded-[28px] bg-foreground p-6 text-background sm:p-8 md:grid-cols-12 md:items-center md:p-12">
+          <div className="md:col-span-6">
+            <h2 id="work-ai-title" className="display text-[clamp(2.5rem,5vw,5.5rem)]">
+              <Link to="#ai" className="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none focus-visible:after:rounded-[28px] focus-visible:after:outline-2 focus-visible:after:outline-offset-4 focus-visible:after:outline-ring">
+                Built with AI
+              </Link>
+            </h2>
+            <p className="mt-5 max-w-[38ch] text-[17px] leading-relaxed opacity-80">Apps, tools and prototypes I built with AI in 2026 have their own page, apart from these case studies.</p>
+            <p className="mt-8 inline-flex items-center gap-2 text-[15px] font-semibold">
+              See what I built <ArrowUpRight aria-hidden="true" className="size-4 transition-transform duration-500 ease-expo group-hover:-translate-y-0.5 group-hover:translate-x-0.5" strokeWidth={2} />
+            </p>
+          </div>
+          <ul aria-hidden="true" className="flex justify-start md:col-span-6 md:justify-end">
+            {aiProjects.map((project, index) => (
+              <li
+                key={project.id}
+                className="-ml-[6%] w-[24%] max-w-36 rounded-2xl ring-[5px] ring-foreground transition-transform duration-700 ease-expo first:ml-0 group-hover:translate-x-[calc(var(--fan)*1%)]"
+                style={{ '--fan': (index - (aiProjects.length - 1) / 2) * 6, rotate: `${(index - (aiProjects.length - 1) / 2) * 3}deg` } as CSSProperties}
+              >
+                <ProjectTile project={project} />
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
     </div>
   )
 }

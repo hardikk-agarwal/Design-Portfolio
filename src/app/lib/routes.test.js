@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { parseRoute, routeKey, routeTitle } from './routes.js'
+import { parseRoute, projectHash, projectSection, routeKey, routeTitle } from './routes.js'
 
 test('reading routes stay compatible with the previous portfolio', () => {
   assert.deepEqual(parseRoute('#work'), { page: 'work' })
@@ -12,8 +12,22 @@ test('reading routes stay compatible with the previous portfolio', () => {
   assert.deepEqual(parseRoute('#work/hello'), { page: 'work' })
 })
 
+test('AI projects live under #ai, apart from the case studies', () => {
+  assert.deepEqual(parseRoute('#ai'), { page: 'ai' })
+  assert.deepEqual(parseRoute('#ai/craft-check'), { page: 'project', id: 'craft-check' })
+  assert.deepEqual(parseRoute('#ai/portal-prototype'), { page: 'project', id: 'portal-prototype' })
+  assert.deepEqual(parseRoute('#work/craft-check'), { page: 'home' })
+  assert.deepEqual(parseRoute('#ai/store'), { page: 'home' })
+  assert.deepEqual(parseRoute('#built-with-ai'), { page: 'home', anchor: 'built-with-ai' })
+  assert.equal(projectSection('app-trust'), 'ai')
+  assert.equal(projectSection('store'), 'work')
+  assert.equal(projectHash('xaml-skill'), '#ai/xaml-skill')
+  assert.equal(projectHash('copilot'), '#work/copilot')
+})
+
 test('film links open the project with its film', () => {
   assert.deepEqual(parseRoute('#work/store/film'), { page: 'project', id: 'store', film: true })
+  assert.deepEqual(parseRoute('#ai/app-trust/film'), { page: 'project', id: 'app-trust', film: true })
   assert.equal(routeKey(parseRoute('#work/store/film')), routeKey(parseRoute('#work/store')))
   assert.deepEqual(parseRoute('#work/hello/film'), { page: 'home' })
   assert.deepEqual(parseRoute('#work/store/films'), { page: 'home' })
@@ -38,4 +52,5 @@ test('route keys and titles', () => {
   assert.equal(routeKey({ page: 'home', anchor: 'contact' }), 'home')
   assert.equal(routeTitle({ page: 'project', id: 'store' }, { store: 'Microsoft Store' }), 'Microsoft Store')
   assert.equal(routeTitle({ page: 'resume' }), 'Resume')
+  assert.equal(routeTitle({ page: 'ai' }), 'Built with AI')
 })

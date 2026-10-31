@@ -1,5 +1,7 @@
 import { useRef } from 'react'
+import { ArrowUpRight } from 'lucide-react'
 import { gsap, SplitText, useGSAP, motionOk } from '@/lib/gsap'
+import { Link } from '@/lib/navigation'
 import { photos, practice } from '@/lib/content'
 
 export function Approach() {
@@ -56,6 +58,11 @@ export function Approach() {
                 <li key={tool} className="rounded-full border border-border px-3 py-1.5 text-[13px] font-medium">{tool}</li>
               ))}
             </ul>
+            {item.title === 'Build' && (
+              <Link to="#ai" className="mt-6 inline-flex items-center gap-1.5 text-[17px] font-semibold underline decoration-1 underline-offset-[6px] hover:decoration-2">
+                See what I built with AI <ArrowUpRight aria-hidden="true" className="size-4" strokeWidth={2} />
+              </Link>
+            )}
           </article>
         ))}
       </div>

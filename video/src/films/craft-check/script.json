@@ -1,0 +1,46 @@
+{
+  "voice": "am_michael",
+  "speed": 1.08,
+  "fps": 30,
+  "gap": 0.35,
+  "captions": [["four hundred", "400"], ["twenty twenty-six", "2026"], ["F H L", "FHL"]],
+  "scenes": [
+    {"id":"hook","lead":0.7,"tail":2.4, "lines": [
+      "On one Microsoft Store launch, I surfaced four hundred craft and implementation issues in review, from line heights and spacing to loaders and dark-mode colors.",
+      "They were found by eye, after the feature was built."
+    ] },
+    {"id":"title","min":4.4, "lines": [] },
+    {"id":"problem","lead":0.6,"tail":1.6, "lines": [
+      "Every issue meant the same round trip: spot the mismatch, screenshot it, write it up, file a bug, then check the fix.",
+      "The feedback was scattered across Figma, Loop and the bug tracker, and the designer stayed the last quality gate."
+    ] },
+    {"id":"insight","lead":0.5,"tail":1.6, "lines": [
+      "Some craft decisions need a designer.",
+      "Most mismatches just need measuring."
+    ] },
+    {"id":"decision1","lead":0.8,"tail":1.2, "lines": [
+      "So I moved the check before the designer's review. Engineers drop in the design and the build, and run it.",
+      "There's no setup. Two screenshots are enough to start."
+    ] },
+    {"id":"decision2","lead":0.8,"tail":1.4, "lines": [
+      "Each check runs two engines. First, a pixel-level color diff catches exact hex mismatches.",
+      "Then an AI vision model compares both screens for copy, spacing and missing elements, the things a pixel diff can't explain."
+    ] },
+    {"id":"decision3","lead":0.8,"tail":1.4, "lines": [
+      "Every issue names the property, the design value, and the built value.",
+      "Hover an issue, and its region lights up on the build. Filters let designers and engineers each focus on what matters to them."
+    ] },
+    {"id":"decision4","lead":0.8,"tail":1.4, "lines": [
+      "Then it goes straight into the team's workflow.",
+      "One click files a pre-filled bug in Azure DevOps, or copies every issue into Loop as a ready table."
+    ] },
+    {"id":"result","lead":0.8,"tail":2.4, "lines": [
+      "I built Craft Check on my own with AI: a React app with Fluent UI, a server, and a command line tool that also compares Figma tokens with CSS and Windows XAML.",
+      "It's a working prototype, which I took to Microsoft's F H L hackathon in March twenty twenty-six. Next, direct Figma integration, then running the check automatically before code is merged."
+    ] },
+    {"id":"takeaway","lead":0.5,"tail":1.4, "lines": [
+      "Automate the measuring, so designers can spend their time on judgment."
+    ] },
+    {"id":"end","min":5, "lines": [] }
+  ]
+}

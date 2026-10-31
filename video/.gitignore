@@ -1,8 +1,13 @@
 node_modules
 out
 public/*.wav
+# Source footage for films stays local; finished films go to ../public/films.
+public/*.mp4
 # NDA films (narration, scenes and timings quote the locked case study); src/protected holds their sources.
 src/films/portal/
 src/films/trip-planning/
+src/films/figma-storybook/
+src/films/xaml-skill/
+src/films/portal-prototype/
 # Films made for a friend's portfolio (his screens and copy), kept out of this public repo.
 ankush/

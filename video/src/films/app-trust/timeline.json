@@ -1,0 +1,217 @@
+{
+  "fps": 30,
+  "durationInFrames": 4603,
+  "scenes": [
+    {
+      "id": "hook",
+      "from": 0,
+      "duration": 602,
+      "lines": [
+        {
+          "text": "Windows lets you install apps from anywhere. But outside the Microsoft Store, it's hard to tell who made an app, or whether the file is genuine.",
+          "file": "hook-0.wav",
+          "start": 0.7,
+          "seconds": 9.15475,
+          "from": 21,
+          "duration": 275
+        },
+        {
+          "text": "In a survey of sixty Windows users, eighty-seven percent stop or research an app when they don't recognize the publisher.",
+          "file": "hook-1.wav",
+          "start": 10.204749999999999,
+          "seconds": 7.465833333333333,
+          "from": 306,
+          "duration": 224
+        }
+      ]
+    },
+    {
+      "id": "title",
+      "from": 602,
+      "duration": 132,
+      "lines": []
+    },
+    {
+      "id": "problem",
+      "from": 734,
+      "duration": 530,
+      "lines": [
+        {
+          "text": "Windows already has strong protection, but its warnings rarely explain why, and no warning doesn't feel like proof of safety.",
+          "file": "problem-0.wav",
+          "start": 25.066666666666666,
+          "seconds": 7.795791666666666,
+          "from": 752,
+          "duration": 234
+        },
+        {
+          "text": "So careful people check signatures, compare hashes, or upload files to VirusTotal. Everyone else guesses.",
+          "file": "problem-1.wav",
+          "start": 33.21245833333333,
+          "seconds": 7.307958333333334,
+          "from": 996,
+          "duration": 219
+        }
+      ]
+    },
+    {
+      "id": "insight",
+      "from": 1264,
+      "duration": 185,
+      "lines": [
+        {
+          "text": "People weren't asking whether a file was signed.",
+          "file": "insight-0.wav",
+          "start": 42.63333333333333,
+          "seconds": 2.3848333333333334,
+          "from": 1279,
+          "duration": 72
+        },
+        {
+          "text": "They were asking who made it.",
+          "file": "insight-1.wav",
+          "start": 45.36816666666667,
+          "seconds": 1.3190833333333334,
+          "from": 1361,
+          "duration": 40
+        }
+      ]
+    },
+    {
+      "id": "decision1",
+      "from": 1449,
+      "duration": 561,
+      "lines": [
+        {
+          "text": "So I split trust into two questions. Is the developer verified, with an identity that follows them across apps and releases?",
+          "file": "decision1-0.wav",
+          "start": 49.099999999999994,
+          "seconds": 7.881916666666666,
+          "from": 1473,
+          "duration": 236
+        },
+        {
+          "text": "And is this exact file signed, unchanged, and recognized? Security signals fill in the rest, so signed never has to mean safe.",
+          "file": "decision1-1.wav",
+          "start": 57.331916666666665,
+          "seconds": 8.480291666666666,
+          "from": 1720,
+          "duration": 254
+        }
+      ]
+    },
+    {
+      "id": "decision2",
+      "from": 2010,
+      "duration": 670,
+      "lines": [
+        {
+          "text": "Instead of block or allow, I designed four states. A trusted app from a verified developer installs after a short countdown.",
+          "file": "decision2-0.wav",
+          "start": 67.8,
+          "seconds": 8.138125,
+          "from": 2034,
+          "duration": 244
+        },
+        {
+          "text": "A signed app from an unverified developer gets a plain explanation and a choice. An unsigned app gets the strongest warning, and a new version from a known developer sits in between.",
+          "file": "decision2-1.wav",
+          "start": 76.28812500000001,
+          "seconds": 11.647041666666667,
+          "from": 2289,
+          "duration": 349
+        }
+      ]
+    },
+    {
+      "id": "decision3",
+      "from": 2680,
+      "duration": 453,
+      "lines": [
+        {
+          "text": "A warning alone leaves people stuck, so the experience also points to the Microsoft Store.",
+          "file": "decision3-0.wav",
+          "start": 90.13333333333333,
+          "seconds": 5.53675,
+          "from": 2704,
+          "duration": 166
+        },
+        {
+          "text": "It looks for the same app from the same publisher first. When there isn't one, AI suggests a verified alternative.",
+          "file": "decision3-1.wav",
+          "start": 96.02008333333333,
+          "seconds": 7.027375,
+          "from": 2881,
+          "duration": 211
+        }
+      ]
+    },
+    {
+      "id": "decision4",
+      "from": 3133,
+      "duration": 620,
+      "lines": [
+        {
+          "text": "To test it on real installers, I built a working Windows app with AI. It runs when a setup file starts, or from the right-click menu.",
+          "file": "decision4-0.wav",
+          "start": 105.23333333333333,
+          "seconds": 9.074291666666667,
+          "from": 3157,
+          "duration": 272
+        },
+        {
+          "text": "Each scan combines six checks, from the digital signature to Windows Defender and VirusTotal, in about two seconds, without admin rights.",
+          "file": "decision4-1.wav",
+          "start": 114.65762500000001,
+          "seconds": 9.049083333333334,
+          "from": 3440,
+          "duration": 271
+        }
+      ]
+    },
+    {
+      "id": "result",
+      "from": 3753,
+      "duration": 513,
+      "lines": [
+        {
+          "text": "The trust states went into a pilot in China through Microsoft PC Manager, with more than three hundred thousand trust dialog views across twenty apps.",
+          "file": "result-0.wav",
+          "start": 125.89999999999999,
+          "seconds": 9.794833333333333,
+          "from": 3777,
+          "duration": 294
+        },
+        {
+          "text": "And the working app showed the whole model holding up on real files.",
+          "file": "result-1.wav",
+          "start": 136.04483333333332,
+          "seconds": 3.757833333333333,
+          "from": 4081,
+          "duration": 113
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "from": 4266,
+      "duration": 187,
+      "lines": [
+        {
+          "text": "Trust isn't a badge. It's knowing who made something, and what you're about to run.",
+          "file": "takeaway-0.wav",
+          "start": 142.7,
+          "seconds": 4.318375,
+          "from": 4281,
+          "duration": 130
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "from": 4453,
+      "duration": 150,
+      "lines": []
+    }
+  ]
+}

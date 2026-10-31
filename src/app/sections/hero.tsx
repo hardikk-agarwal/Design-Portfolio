@@ -84,6 +84,9 @@ function HeroStage() {
                   <path fill="#ffb900" d="M11 11h10v10H11z" />
                 </svg>
               </span>
+              <span className="whitespace-nowrap font-medium opacity-85 max-sm:block">
+                <span aria-hidden="true" className="px-2 max-sm:hidden">·</span><span className="sr-only">, </span>Hyderabad, India
+              </span>
             </p>
             <p className="text-lg leading-snug md:text-[1.35rem]">I design for AI, developer platforms and identity, and prototype in code.</p>
             <div className="mt-6 flex flex-wrap gap-3">

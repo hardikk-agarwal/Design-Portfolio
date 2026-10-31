@@ -15,7 +15,7 @@
         // The app restores scroll itself; the home page opens on the cover's viewfinder, so its black and the clear header
         // are painted before the app loads (the cover clears data-boot once it is up).
         history.scrollRestoration = 'manual'
-        if (!/^#(?:work|about|resume|exhibition|my-story|my-approach|selected-work|experience|beyond-work|contact)(?:\/|$)/.test(location.hash)) {
+        if (!/^#(?:work|ai|about|resume|exhibition|my-story|my-approach|selected-work|built-with-ai|experience|beyond-work|contact)(?:\/|$)/.test(location.hash)) {
           document.documentElement.dataset.boot = ''
           document.documentElement.dataset.headerTone = 'clear'
         }
@@ -25,16 +25,66 @@
       html[data-boot] { background: #030403; }
     </style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="I'm Hardik Agarwal, a product designer at Microsoft. I grew up customizing Windows and now help design it, across developer platforms, identity and AI." />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content="I'm Hardik Agarwal, a product designer at Microsoft in Hyderabad, India. Case studies from Microsoft Store, Windows and Copilot, and apps I built with AI." />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://hardikk-agarwal.github.io/Design-Portfolio/" />
+    <!-- Link previews (LinkedIn, email, chat) need absolute URLs; public/og-image.jpg is rendered from the cover photo. -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Hardik Agarwal" />
+    <meta property="og:title" content="Hardik Agarwal, product designer at Microsoft" />
+    <meta property="og:description" content="Case studies from Microsoft Store, Windows and Copilot, and the apps and tools I built with AI." />
+    <meta property="og:url" content="https://hardikk-agarwal.github.io/Design-Portfolio/" />
+    <meta property="og:image" content="https://hardikk-agarwal.github.io/Design-Portfolio/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Hardik Agarwal on a green bench, with his name and role: product designer at Microsoft" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="theme-color" content="#eef0f2" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#141414" media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23141414'/%3E%3Ctext x='14' y='23' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='19' fill='%23eeeeec'%3Eh%3C/text%3E%3Ccircle cx='23' cy='21' r='2.6' fill='%23f0587a'/%3E%3C/svg%3E" />
-    <title>Hardik Agarwal | Product designer</title>
+    <!-- Search results need a crawlable favicon file; a data URI isn't one. -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <title>Hardik Agarwal | Product designer at Microsoft</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://hardikk-agarwal.github.io/Design-Portfolio/#website",
+            "url": "https://hardikk-agarwal.github.io/Design-Portfolio/",
+            "name": "Hardik Agarwal",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://hardikk-agarwal.github.io/Design-Portfolio/#person",
+            "name": "Hardik Agarwal",
+            "jobTitle": "Product designer",
+            "worksFor": { "@type": "Organization", "name": "Microsoft", "url": "https://www.microsoft.com" },
+            "homeLocation": { "@type": "Place", "address": { "@type": "PostalAddress", "addressLocality": "Hyderabad", "addressCountry": "IN" } },
+            "url": "https://hardikk-agarwal.github.io/Design-Portfolio/",
+            "image": "https://hardikk-agarwal.github.io/Design-Portfolio/og-image.jpg",
+            "sameAs": ["https://www.linkedin.com/in/hardikkagarwal/", "https://www.instagram.com/hardikk_agarwal/"],
+            "knowsAbout": ["Product design", "UX design", "Interaction design", "Design systems", "AI prototyping", "Developer platforms"],
+            "alumniOf": [
+              { "@type": "CollegeOrUniversity", "name": "O P Jindal University" },
+              { "@type": "EducationalOrganization", "name": "Pearl Academy" },
+              { "@type": "CollegeOrUniversity", "name": "IGNOU" }
+            ]
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <noscript><p>Hardik Agarwal, product designer at Microsoft. Contact <a href="mailto:madebyhardik@gmail.com">madebyhardik@gmail.com</a>. JavaScript is required for this portfolio.</p></noscript>
+    <noscript>
+      <h1>Hardik Agarwal, product designer at Microsoft</h1>
+      <p>I'm a product designer at Microsoft in Hyderabad, India, designing for AI, developer platforms and identity. My case studies cover Microsoft Store developer onboarding, the Windows Developer Center and Copilot Sports, alongside apps and tools I built with AI.</p>
+      <p><a href="./Hardik_Agarwal_Resume.pdf">Resume (PDF)</a> · <a href="https://www.linkedin.com/in/hardikkagarwal/">LinkedIn</a> · <a href="mailto:madebyhardik@gmail.com">madebyhardik@gmail.com</a></p>
+      <p>JavaScript is required for the full portfolio.</p>
+    </noscript>
     <script type="module" src="/src/app/main.tsx"></script>
   </body>
 </html>

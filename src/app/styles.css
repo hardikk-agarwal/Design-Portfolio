@@ -136,6 +136,12 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* Fills the active step of an AI project tour while it plays. */
+@keyframes tour-fill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
 /* Hero: the portrait becomes a window, and the Windows statement arrives around it. */
 .hero-frame {
   clip-path: inset(0% 0% 0% 0% round 0px);
@@ -171,6 +177,16 @@
 
 .hero-sequence[data-cinematic="true"] .statement-spacer {
   display: block;
+}
+
+/* Without the cinematic sequence (reduced motion, short screens), then and now sit side by side instead of leaving half the screen empty. */
+@media (min-width: 1024px) {
+  .hero-sequence:not([data-cinematic="true"]) .hero-statement {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 5vw, 6rem);
+    align-items: start;
+  }
 }
 
 /* Cover: photo and cutout share one crop so they stay registered; the name sits between them. */

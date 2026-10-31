@@ -43,7 +43,7 @@ function preloadCritical() {
         return [
           { tag: 'link', attrs: { rel: 'preload', href: asset(/mona-sans-latin-wdth-normal-[\w-]+\.woff2$/), as: 'font', type: 'font/woff2', crossorigin: true }, injectTo: 'head' },
           // Mirrors parseRoute in src/app/lib/routes.js: these hashes open a page without the hero.
-          { tag: 'script', children: `if (!/^#(?:work|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) for (const [as, href] of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload', as, href }))`, injectTo: 'head' },
+          { tag: 'script', children: `if (!/^#(?:work|ai|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) for (const [as, href] of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload', as, href }))`, injectTo: 'head' },
         ]
       },
     },

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUp, ArrowUpRight } from 'lucide-react'
+import { ArrowDown, ArrowUp, ArrowUpRight } from 'lucide-react'
 import { TypographyVortexCanvas } from '@designcodeio/threeui/components/TypographyVortexCanvas'
 import { Magnetic } from '@/components/magnetic'
 import { gsap, motionOk } from '@/lib/gsap'
@@ -125,13 +125,20 @@ export function SiteFooter() {
               </a>
             </li>
           ))}
+          <li>
+            <a href="./Hardik_Agarwal_Resume.pdf" download className="underline decoration-1 underline-offset-[6px] hover:decoration-2">
+              Resume (PDF)
+              <ArrowDown aria-hidden="true" className="ml-0.5 inline size-4 align-[-0.15em]" strokeWidth={1.75} />
+            </a>
+          </li>
         </ul>
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-border bg-[#eef1f6]/90 px-5 py-5 text-[15px] backdrop-blur-md md:px-10 dark:bg-[#151515]/90">
-        <p>© 2026 Hardik Agarwal</p>
+        <p>© 2026 Hardik Agarwal<span aria-hidden="true" className="px-2">·</span><span className="sr-only">, </span>Hyderabad, India</p>
         <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-6 gap-y-2">
           <Link to="#work" className="hover:underline">Work</Link>
+          <Link to="#ai" className="hover:underline">Built with AI</Link>
           <Link to="#about" className="hover:underline">About</Link>
           <Link to="#resume" className="hover:underline">Resume</Link>
           <button type="button" onClick={() => scrollTo(0)} className="inline-flex items-center gap-1.5 hover:underline">

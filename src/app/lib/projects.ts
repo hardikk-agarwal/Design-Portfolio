@@ -15,6 +15,24 @@ import copilotPre from '../../assets/work/copilot-pre.webp'
 import copilotLive from '../../assets/work/copilot-live.webp'
 import copilotPost from '../../assets/work/copilot-post.webp'
 import copilotShell from '../../assets/work/copilot-shell.webp'
+import appTrustCover from '../../assets/work/app-trust-cover.webp'
+import appTrustUnverified from '../../assets/work/app-trust-unverified.webp'
+import appTrustUnsigned from '../../assets/work/app-trust-unsigned.webp'
+import appTrustClean from '../../assets/work/app-trust-clean.webp'
+import appTrustMalicious from '../../assets/work/app-trust-malicious.webp'
+import appTrustStoreToast from '../../assets/work/app-trust-store-toast.webp'
+import appTrustStore from '../../assets/work/app-trust-store.webp'
+import appTrustRightClick from '../../assets/work/app-trust-right-click.webp'
+import appTrustReport from '../../assets/work/app-trust-report.webp'
+import craftCover from '../../assets/work/craft-check-cover.webp'
+import craftEmpty from '../../assets/work/craft-check-empty.webp'
+import craftRunning from '../../assets/work/craft-check-running.webp'
+import craftResults from '../../assets/work/craft-check-results.webp'
+import craftActions from '../../assets/work/craft-check-actions.webp'
+import craftLoop from '../../assets/work/craft-check-loop.webp'
+import storybookCoverLocked from '../../assets/work/figma-storybook-cover-locked.webp'
+import xamlCoverLocked from '../../assets/work/xaml-skill-cover-locked.webp'
+import prototypeCoverLocked from '../../assets/work/portal-prototype-cover-locked.webp'
 import smsCover from '../../assets/work/sms-cover.webp'
 import smsNavigation from '../../assets/work/sms-navigation.webp'
 import smsReminders from '../../assets/work/sms-reminders.webp'
@@ -48,6 +66,14 @@ export type Quote = { text: string; source: string }
 // Words from colleagues' Microsoft feedback; an ellipsis marks each cut. `highlight` is quoted verbatim from `text`.
 export type Endorsement = { text: string; role: string; highlight?: string }
 export type Flow = { label: string; steps: string[] }
+// The opening visual of an AI project, chosen to show its own idea: states to flip through, a tour of the tool,
+// a skill run, the live prototype, or a before and after to drag.
+export type Stage =
+  | { kind: 'fan'; caption: string; items: { label: string; note: string; shot: Shot }[] }
+  | { kind: 'tour'; caption: string; items: { label: string; shot: Shot }[] }
+  | { kind: 'run'; command: string; caption: string; items: { label: string; shot: Shot }[] }
+  | { kind: 'live'; caption: string; href: string; title: string; poster: Shot }
+  | { kind: 'compare'; before: Shot; after: Shot }
 // Rendered by the Remotion project in video/ into public/films.
 // NDA films are AES-GCM encrypted; their key and iv only exist inside the unlocked case study.
 export type Film = { src: string; poster: string; captions: string; duration: string; key?: string; iv?: string }
@@ -57,10 +83,15 @@ export type CaseStudy = {
   insight: string
   contrast?: { title: string; items: string[]; keep: boolean }[]
   decisions: { title: string; body: string; shots: Shot[]; flows?: Flow[]; compare?: true }[]
+  // Moments where an AI-built project went wrong and how it was caught; `fix` names Hardik only where the work was his.
+  steering?: { title: string; wrong: string; fix: string }[]
   result: { title?: string; body: string; metrics?: Metric[]; note?: string; quote?: Quote; changes?: [string, string][]; shots?: Shot[] }
   takeaway: { line: string; body?: string }
   partners?: Endorsement[]
   film?: Film
+  // A working prototype readers can open, shown beside the film.
+  live?: { href: string; label: string }
+  stage?: Stage
   // Replaces the public cover once a locked case study is opened.
   cover?: Shot
 }
@@ -86,12 +117,17 @@ type Teaser = {
   earlier?: true
   // Self-initiated or challenge work that wasn't built: Work page only, labelled as a concept.
   concept?: true
+  // Apps, tools and prototypes Hardik built with AI: listed under Built with AI (#ai), never among the case studies.
+  tool?: true
+  // What an AI project was built with, as short names. Hardik built all of them with GitHub Copilot in VS Code and a Claude Opus model.
+  stack?: string[]
 }
 
 // Locked case studies live encrypted in src/protected/<id> and open with a password.
 export type Project = Teaser & ((CaseStudy & { locked?: never }) | { locked: true })
 
 // Screens come from Hardik's Figma case studies and, for earlier work, his previous portfolio. Figures are the ones those sources and his resume report.
+// App Trust screens are rendered from the working app he built and taken from his demo recording.
 // Club Seals is a design challenge: its screens come from its prototype and its figures describe the work, not results.
 export const projects: Project[] = [
   {
@@ -266,6 +302,293 @@ export const projects: Project[] = [
     color: '#2d5bcc',
     ink: '#e2e9f5',
     cover: { src: copilotCover, alt: 'Copilot answering "Next India T20 match" with a match card for India versus New Zealand and a carousel of upcoming fixtures', width: 1400, height: 1447 },
+  },
+  {
+    id: 'app-trust',
+    name: 'Windows App Trust',
+    category: 'Consumer trust and security',
+    headline: 'Know who made it before you install it.',
+    description: 'Apps from the web leave people guessing who made them. I designed how Windows could show who stands behind an app and what it knows about the file, then built a working app that checks real installers.',
+    summary: "I split trust into two questions, who made the app and whether it's the real file, then built a working app that checks real installers. The trust states were piloted in China.",
+    role: 'Product designer',
+    organization: 'Microsoft',
+    timeline: 'March 2026',
+    status: 'Piloted in China with Microsoft PC Manager',
+    team: 'Store and PC Manager partners on the pilot. I built the working app on my own.',
+    scope: 'Research, trust model, install experience, trust states and a working Windows app built with AI',
+    tool: true,
+    stack: ['GitHub Copilot', 'Claude Opus', 'Python', 'PyQt6'],
+    metrics: [
+      { value: '313K+', label: 'Trust dialog views in the PC Manager pilot' },
+      { value: '6', label: 'Checks in every scan of the working app' },
+      { value: '~2 s', label: 'Per scan, with no admin rights' },
+    ],
+    problem: {
+      body: "Windows is open by design: people install apps from the Microsoft Store or straight from the web. Outside the Store, they're left to work out who made an app, whether the file is genuine and what Windows knows about it. A warning can block an app without saying why, and no warning doesn't feel like proof of safety. Technical users check signatures, compare hashes or upload files to VirusTotal; everyone else guesses. In a survey of 60 Windows users, most were already doing this work themselves.",
+      stats: [
+        { value: '89%', label: 'Said knowing who made an app is important or very important' },
+        { value: '87%', label: 'Stop or research an app when they see an unrecognized publisher' },
+        { value: '53%', label: 'Want Windows to warn them about unverified developers' },
+      ],
+    },
+    insight: "People weren't asking whether a file was signed. They were asking who made it.",
+    contrast: [
+      { title: 'Kept: an open platform', items: ['Installs from anywhere', 'Defender, SmartScreen and Smart App Control', 'The choice to install anyway'], keep: true },
+      { title: 'Removed: the guesswork', items: ['Certificate jargon', 'Blocks with no reason', 'One badge for every kind of trust', 'Checking VirusTotal by hand'], keep: false },
+    ],
+    decisions: [
+      {
+        title: "Separate who made the app from what you're installing",
+        body: "A digital signature shows which certificate signed a file and that the file hasn't changed since. It doesn't show who stands behind the app, or whether this is the version they shipped. I split trust into two questions. Is the developer verified, with an identity that follows them across apps and releases? And is this exact file signed, unchanged and recognized? Signals from Defender and reputation services complete the picture, so signed never has to mean safe.",
+        flows: [
+          { label: 'Before: a verdict without reasons', steps: ['Download', 'A warning, or nothing', 'Guess'] },
+          { label: 'After: what Windows knows', steps: ['Who made it', 'Is the developer verified', 'Is this the real file', 'What security signals say', 'What to do next'] },
+        ],
+        shots: [],
+      },
+      {
+        title: 'Four trust states instead of block or allow',
+        body: "A trusted app from a verified developer installs without a question. A signed app from an unverified developer gets a plain explanation and a choice. An unsigned app gets the strongest warning, with exactly what's missing. A known developer shipping an unrecognized version gets a state in between. Every message says what Windows knows, what it doesn't and what to do next, without certificate jargon.",
+        shots: [
+          { src: appTrustUnverified, alt: 'Windows App Trust dialog: Publisher not verified by Microsoft, for SomeTool_Setup.exe from SomeTool Inc, with Browse Microsoft Store and Install anyway', width: 1096, height: 860, caption: "Signed, but the developer isn't verified" },
+          { src: appTrustUnsigned, alt: "Windows App Trust dialog: We don't know who made this app, for an unsigned FoneTool_Installer.exe, with Browse Microsoft Store and Install anyway", width: 1096, height: 860, caption: "Unsigned: Windows can't confirm who made it" },
+          { src: appTrustClean, alt: 'SmartInstall notification: ChromeSetup.exe from Google LLC is safe to install, starting installation in 5 seconds', width: 1096, height: 520, caption: 'Trusted: it installs after a short countdown' },
+          { src: appTrustMalicious, alt: 'SmartInstall notification: TotalVideoConverter is malicious, with Check report, Install anyway and Don\'t install', width: 1096, height: 600, caption: 'Malicious: stop, and say why' },
+        ],
+      },
+      {
+        title: 'Offer a better path, not just a warning',
+        body: "A warning alone leaves people stuck with the job they came to do, so the experience also points to the Microsoft Store. It first looks for the same app from the same publisher: Canva's installer leads to Canva in the Store. When there's no match, AI turns the file's name, description and company into a short category search, like a video player, and suggests a verified alternative.",
+        shots: [
+          { src: appTrustStoreToast, alt: 'SmartInstall notification: Canva Setup is safe to install, with Install, Don\'t install and a link to get Canva from Microsoft Store', width: 1096, height: 600, caption: 'A Store link next to the verdict' },
+          { src: appTrustStore, alt: 'Canva open in the Microsoft Store after following the link, with the SmartInstall notification still in the corner', width: 1600, height: 1067, caption: 'One click opens the Store version' },
+        ],
+      },
+      {
+        title: 'Build it for real, not just in Figma',
+        body: 'To test the experience on real installers, I built a working Windows app with AI, in Python and PyQt6. It runs when a setup file starts, or from the right-click menu. It reads the signature and the executable and combines six checks: digital signature, Windows Defender, VirusTotal, MalwareBazaar, import analysis and file entropy. A scan takes about two seconds without admin rights, and each result maps to a trust state, with a full report for anyone who wants the detail.',
+        flows: [{ label: 'How a scan works', steps: ['Run or right-click', 'Read signature and executable', 'Six checks', 'Classify', 'Explain', 'Suggest a next step'] }],
+        shots: [
+          { src: appTrustRightClick, alt: 'File Explorer right-click menu on Canva Setup in Downloads, with Scan with Windows SmartInstall', width: 1700, height: 1280, caption: 'Scan any installer from the right-click menu' },
+          { src: appTrustReport, alt: 'SmartInstall report for a malicious test file: threat detected, app information and security checks for antivirus, malware database, publisher identity and file structure', width: 1360, height: 1440, caption: 'The report behind a verdict' },
+        ],
+      },
+    ],
+    steering: [
+      {
+        title: 'One verdict looked like proof of safety',
+        wrong: 'The first build rolled all six signals into a single verdict: safe, suspicious or malicious. A verdict like that looks authoritative even when data is missing, services disagree or a valid signature is taken as proof of safety, and a new app with little reputation can read as malicious.',
+        fix: 'I split it into two questions: who made the app, and what we know about this exact file. That split became the trust model, so a verified developer never reads as a safe app by default.',
+      },
+      {
+        title: 'It looked more finished than it was',
+        wrong: 'A working app that labels real installers can pass for a production security classifier, while the trust science behind it was still a first pass.',
+        fix: 'I presented it as a testable idea for the experience and the signal model, and kept user research, more signals, false-positive analysis and security review as the next steps.',
+      },
+    ],
+    result: {
+      body: 'The trust states went into a pilot in China through Microsoft PC Manager, which checks installers downloaded from the web against verified publishers and apps, then shows the matching dialog. The working app showed the full model holding up on real files: developer identity, file provenance and security signals in one answer people can act on.',
+      metrics: [
+        { value: '313K+', label: 'Trust dialog views in the PC Manager pilot' },
+        { value: '20', label: 'Apps in the pilot' },
+        { value: '6', label: 'Checks in every scan of the working app' },
+        { value: '~2 s', label: 'Per scan, with no admin rights' },
+      ],
+      note: 'Pilot figures from Microsoft PC Manager. The working app is a prototype.',
+    },
+    takeaway: {
+      line: "Trust isn't a badge. It's knowing who made something and what you're about to run.",
+      body: 'The project started as dialog design and became a working trust system I could test on real files.',
+    },
+    stage: {
+      kind: 'fan',
+      caption: 'Screens from the working app I built.',
+      items: [
+        { label: 'Trusted', note: 'a verified developer and a clean file, so it installs after a short countdown.', shot: { src: appTrustClean, alt: 'SmartInstall notification: ChromeSetup.exe from Google LLC is safe to install, starting installation in 5 seconds', width: 1096, height: 520 } },
+        { label: 'Unverified developer', note: 'the file is signed, but the developer isn\'t verified, so you get a plain explanation and a choice.', shot: { src: appTrustUnverified, alt: 'Windows App Trust dialog: Publisher not verified by Microsoft, for SomeTool_Setup.exe from SomeTool Inc, with Browse Microsoft Store and Install anyway', width: 1096, height: 860 } },
+        { label: 'Unsigned', note: 'no signature, so Windows can\'t confirm who made it or whether it changed. The strongest warning, with what\'s missing.', shot: { src: appTrustUnsigned, alt: "Windows App Trust dialog: We don't know who made this app, for an unsigned FoneTool_Installer.exe, with Browse Microsoft Store and Install anyway", width: 1096, height: 860 } },
+        { label: 'Malicious', note: 'security checks flag the file, so it says stop, and why.', shot: { src: appTrustMalicious, alt: "SmartInstall notification: TotalVideoConverter is malicious, with Check report, Install anyway and Don't install", width: 1096, height: 600 } },
+      ],
+    },
+    film: { src: './films/app-trust.mp4', poster: './films/app-trust-poster.jpg', captions: './films/app-trust.vtt', duration: '2:33' },
+    color: '#a9c7ee',
+    ink: '#0d1b2e',
+    cover: { src: appTrustCover, alt: 'Windows App Trust dialog over a dimmed desktop: Publisher not verified by Microsoft, for SomeTool_Setup.exe from SomeTool Inc', width: 1600, height: 1000 },
+  },
+  {
+    id: 'craft-check',
+    name: 'Craft Check',
+    category: 'Design QA tool',
+    headline: 'Catch design drift before it ships.',
+    description: 'Designers were the last visual QA gate, comparing builds with Figma by eye after features were built. I built Craft Check on my own with AI: it compares a design with its build, lists every mismatch with the expected and actual value, and hands the list to engineering in one click.',
+    summary: 'After finding 400 craft issues by hand for one launch, I built a tool with AI that compares a design with its build, lists every mismatch and files them to engineering in one click.',
+    role: 'Product designer',
+    organization: 'Microsoft',
+    timeline: 'March 2026',
+    status: 'Working prototype',
+    team: 'Built on my own',
+    scope: 'Problem framing, QA workflow, interface design and a working tool built with AI: web app, server and command line',
+    tool: true,
+    stack: ['GitHub Copilot', 'Claude Opus', 'React', 'Fluent UI', 'GPT-4.1'],
+    metrics: [
+      { value: '1 click', label: 'From a mismatch to a pre-filled Azure DevOps bug' },
+      { value: '2', label: 'Engines in every check: a pixel color diff and an AI vision pass' },
+    ],
+    problem: {
+      body: "Shipping didn't end when the Figma file was done. Engineers translated designs into code, small mismatches piled up, and designers became the last visual QA gate, comparing screens by eye after the feature was built. Every finding meant a screenshot, a write-up and a bug, spread across Figma, Loop and the bug tracker, then another round to check the fix.",
+      stats: [
+        { value: '400', label: 'Craft and implementation issues I surfaced in review for one launch, Microsoft Store onboarding' },
+      ],
+    },
+    insight: 'Some craft decisions need a designer. Most mismatches just need measuring.',
+    contrast: [
+      { title: 'Kept: design judgment', items: ['Hierarchy and clarity', 'Interaction and accessibility', 'The formal craft review'], keep: true },
+      { title: 'Removed: the mechanical work', items: ['Comparing values by eye', 'Screenshots pasted between tools', 'Writing up every bug by hand', 'Finding drift after the build'], keep: false },
+    ],
+    decisions: [
+      {
+        title: "Move the check before the designer's review",
+        body: "The old loop ended with a designer inspecting the build. I put a repeatable check in front of that: engineers drop in the design and the build, run the check and fix what it finds before anyone signs off. Two screenshots are enough to start, with no setup, so it fits wherever the work already is.",
+        flows: [
+          { label: 'Before', steps: ['Figma done', 'Engineer builds', 'Designer inspects by eye', 'Fix', 'Recheck'] },
+          { label: 'After', steps: ['Figma done', 'Engineer builds', 'Craft Check', 'Fix', 'Designer validates'] },
+        ],
+        shots: [{ src: craftEmpty, alt: 'Craft Check before a run: a design panel and an implementation panel, each asking for a Figma link, an app link or a screenshot', width: 1620, height: 950, caption: 'Drop in the design and the build' }],
+      },
+      {
+        title: 'Exact where it can be, AI where it needs judgment',
+        body: "Each check runs two engines. A pixel-level color diff catches exact hex mismatches. Then an AI vision model, GPT-4.1, compares both screens for copy, spacing and missing elements, the differences a pixel diff can't explain. A second mode compares Figma tokens with the CSS, SCSS or Windows XAML that should match them.",
+        shots: [{ src: craftRunning, alt: 'Craft Check running on a Microsoft Store onboarding screen, with the design on the left, the build on the right and a status line sending both to the AI model', width: 1620, height: 950, caption: 'Pixel diff first, then the AI pass' }],
+      },
+      {
+        title: "Every issue says what's wrong, and where",
+        body: 'Each issue names the property, the design value and the built value. Hover an issue and its region lights up on the build; hover the build and the issue lights up, so both panels stay in sync. Filters by type let designers and engineers each focus on what matters to them.',
+        shots: [{ src: craftResults, alt: 'Craft Check results: issues such as wrong button color and wrong heading copy, each with a fix, beside the build with the mismatched regions highlighted', width: 1620, height: 950, caption: 'Issues on the left, their regions highlighted on the build' }],
+      },
+      {
+        title: 'Hand it off without retyping',
+        body: 'Finding an issue and tracking it used to be separate jobs. From one issue or all of them, one click files a pre-filled bug in Azure DevOps with the title, repro steps and design values, or copies the issues into Loop as a ready table.',
+        shots: [
+          { src: craftActions, alt: 'Craft Check toolbar with File all to Azure DevOps and Copy to Loop actions', width: 1620, height: 950, caption: 'File to Azure DevOps or copy to Loop' },
+          { src: craftLoop, alt: 'A Loop page called Craft Bugs with a table of issues, each with the property, design value, implementation value and fix', width: 1620, height: 950, caption: 'Pasted into Loop as a ready table' },
+        ],
+      },
+    ],
+    steering: [
+      {
+        title: 'A missing link read as a typo',
+        wrong: 'Craft Check caught that the helper text had dropped “Look it up” and suggested adding the words back. But “Look it up” was a link into the company lookup, where a company finds its D-U-N-S number. Fixing the sentence alone would have left that path missing.',
+        fix: 'I split the finding into copy and behavior: correct the text, and build the missing link to the lookup. Engineering got both, so the journey was fixed and not just the words.',
+      },
+      {
+        title: 'Every color difference became an error',
+        wrong: 'It reported near matches such as #D8DDF6 against #DEDEF7 as errors. A small difference can mean a wrong token, but it can also come from theming, opacity or rendering.',
+        fix: 'I added a color tolerance and treat the results as a review queue: I check the intended Fluent token before asking engineering for a change. The tool supplies the evidence; a designer makes the call.',
+      },
+    ],
+    result: {
+      body: "Craft Check works end to end: drop in a design and a build, get categorized issues in seconds, and send them on to Azure DevOps or Loop. I built it on my own with AI, as a React app with Fluent UI, a server and a command line tool, and took it to Microsoft's FHL hackathon in March 2026. Next comes direct Figma integration, then a check on every pull request.",
+      metrics: [
+        { value: '2', label: 'Engines in every check' },
+        { value: '4', label: 'Issue types: color, copy, spacing and missing elements' },
+        { value: '3', label: 'Code formats for token checks: CSS, SCSS and XAML' },
+        { value: '1 click', label: 'To Azure DevOps or Loop' },
+      ],
+      note: 'A working prototype, not yet rolled out to teams. The 400 issues were found by hand, before it existed.',
+    },
+    takeaway: {
+      line: 'Automate the measuring, not the judgment.',
+      body: "Building it changed how I see the designer's job: the handoff and the quality loop are part of the design too.",
+    },
+    stage: {
+      kind: 'tour',
+      caption: 'One check, from two screenshots to a filed bug.',
+      items: [
+        { label: 'Drop in the design and the build', shot: { src: craftEmpty, alt: 'Craft Check before a run: a design panel and an implementation panel, each asking for a Figma link, an app link or a screenshot', width: 1620, height: 950 } },
+        { label: 'Pixel diff first, then the AI pass', shot: { src: craftRunning, alt: 'Craft Check running on a Microsoft Store onboarding screen, with the design on the left and the build on the right', width: 1620, height: 950 } },
+        { label: 'Every mismatch, located on the build', shot: { src: craftResults, alt: 'Craft Check results: issues with design and built values beside the build, with the mismatched regions highlighted', width: 1620, height: 950 } },
+        { label: 'Filed to Azure DevOps in one click', shot: { src: craftActions, alt: 'Craft Check toolbar with File all to Azure DevOps and Copy to Loop actions', width: 1620, height: 950 } },
+      ],
+    },
+    film: { src: './films/craft-check.mp4', poster: './films/craft-check-poster.jpg', captions: './films/craft-check.vtt', duration: '2:17' },
+    color: '#c9b8f5',
+    ink: '#1b1230',
+    cover: { src: craftCover, alt: 'Craft Check results: a list of issues with design and built values beside the implementation screen, with mismatched regions highlighted', width: 1620, height: 950 },
+  },
+  {
+    id: 'portal-prototype',
+    name: 'Developer Center, vibe coded',
+    category: 'AI-built prototype',
+    headline: 'The whole developer journey, clickable before it was built.',
+    description: 'I built the new Windows Developer Center end to end with AI, from a developer finding it in search to publishing an app, so product, engineering and leadership could use the direction instead of imagining it.',
+    summary: 'I built it end to end with AI, from a search result to a published app, so product, engineering and leadership could use the direction instead of imagining it.',
+    role: 'Product designer',
+    organization: 'Microsoft',
+    timeline: 'June to September 2026',
+    status: 'Prototype for alignment and research',
+    team: 'I built it with AI; two product managers also edited it',
+    scope: 'End-to-end prototype with GitHub Copilot, Opus 4.8 and Fluent: search, marketing, sign-in, portal, publishing, certificates and analytics',
+    tool: true,
+    stack: ['GitHub Copilot', 'Claude Opus 4.8', 'Fluent web components'],
+    metrics: [
+      { value: '6', label: 'Versions of the publishing flow, built in code' },
+      { value: '4', label: 'Developers tested the core flow' },
+      { value: '2', label: 'Leadership reviews of the whole journey' },
+    ],
+    locked: true,
+    color: '#f4e19a',
+    ink: '#2a2208',
+    cover: { src: prototypeCoverLocked, alt: 'Blurred preview of the vibe-coded Windows Developer Center with a lock, protected under NDA', width: 1600, height: 1000 },
+  },
+  {
+    id: 'figma-storybook',
+    name: 'Figma to Storybook',
+    category: 'Design to code',
+    headline: 'From a Figma frame to a reviewed component.',
+    description: 'My idea for the Windows Developer Center: an AI workflow that turns approved Figma screens into reusable React components, reviewed in Storybook and merged through engineering’s pull requests.',
+    summary: 'I brought Storybook into our design-to-code process and wrote the AI skill that turns Figma screens into components engineers can review.',
+    role: 'Product designer, workflow lead',
+    organization: 'Microsoft',
+    timeline: 'September 2026',
+    status: 'Proof of concept',
+    team: 'Led it, with two product managers and two engineers',
+    scope: 'Agent skill, Figma MCP, React and Fluent 2 components, Storybook, pull request and package flow',
+    tool: true,
+    stack: ['GitHub Copilot', 'Claude Opus', 'Figma MCP', 'React', 'Fluent 2', 'Storybook'],
+    metrics: [
+      { value: '65', label: 'Stories in the shared Storybook' },
+      { value: '4', label: 'Reusable parts from one portal page' },
+      { value: '1 link', label: 'A Figma frame link starts the skill' },
+    ],
+    locked: true,
+    color: '#f5b8cb',
+    ink: '#2b0d17',
+    cover: { src: storybookCoverLocked, alt: 'Blurred preview of the Figma to Storybook workflow with a lock, protected under NDA', width: 1600, height: 1000 },
+  },
+  {
+    id: 'xaml-skill',
+    name: 'Windows XAML skill',
+    category: 'Native Windows prototyping',
+    headline: 'From a screenshot to a running Windows app.',
+    description: 'Windows UX Engineering built an AI skill that writes and reviews WinUI 3 code. Within hours of their workshop I rebuilt legacy Windows surfaces with it, then wrote a guide and taught our design team to do the same.',
+    summary: 'Within hours of Windows UX Engineering’s workshop, I rebuilt legacy Windows surfaces as native WinUI 3 prototypes with their AI skill, then taught our design team to do the same.',
+    role: 'Product designer',
+    organization: 'Microsoft',
+    timeline: 'July 2026',
+    status: 'Prototypes and team training',
+    team: 'With Windows UX Engineering in Redmond',
+    scope: 'WinUI 3 prototypes from screenshots, a visual guide for designers and a live team session',
+    tool: true,
+    stack: ['GitHub Copilot', 'Claude Opus', 'WinUI 3', 'XAML'],
+    metrics: [
+      { value: '3', label: 'Legacy Windows surfaces rebuilt as WinUI 3 prototypes' },
+      { value: '1 afternoon', label: 'From the workshop to two running prototypes' },
+      { value: '10 days', label: 'From learning the skill to teaching it' },
+    ],
+    locked: true,
+    color: '#a9e4cf',
+    ink: '#0b2a20',
+    cover: { src: xamlCoverLocked, alt: 'Blurred preview of the Windows XAML skill prototypes with a lock, protected under NDA', width: 1600, height: 1000 },
   },
   {
     id: 'sms-organizer',

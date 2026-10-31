@@ -1,7 +1,7 @@
 export const stories = {
   vr: {
     name: 'AR / VR at PlayShifu', object: 'Meta Quest 3', category: 'Spatial interaction', title: 'Interfaces beyond the screen.',
-    description: 'At PlayShifu, I launched AR learning games for kids, led a 3D avatar team and moved VR interfaces off the HUD and into the world.', color: 'blue', role: 'Visual designer and avatar team lead', organization: 'PlayShifu',
+    description: 'At PlayShifu, I launched AR learning games for kids, led a 3D avatar team and moved VR interfaces off the HUD and into the world.', color: 'blue', role: 'UX, UI and visual designer; avatar team lead', organization: 'PlayShifu',
     summary: 'Launched AR learning games, led a 3D avatar team and moved VR interfaces into world space.',
     metrics: [['40% lift', 'Educational engagement'], ['10,000+', 'Avatar users'], ['35% lift', 'VR interaction rate']],
     sections: [
@@ -63,7 +63,7 @@ export const stories = {
       ['Outside work', 'Photography is practice in deciding what belongs in the frame. Astronomy is a regular reminder of how much is left to learn. I try new tech as early as I can, which is a big part of why I prototype with AI, and staying active keeps my head clear.'],
       ['Microsoft', 'UX Designer, March 2025 to now. I was rated Outstanding. I rebuilt Microsoft Store company onboarding, nearly doubling its success rate, and shaped the new Windows Developer Center. I also designed Copilot\'s visual sports answers, led design for the Trusted Developer Program pilot and worked on Windows Hello and passkeys.'],
       ['Microsoft x Tech Mahindra', 'Senior Associate UX Designer, February 2023 to January 2025. I designed Bing Search answer modules serving 1M+ queries a month, plus Bing Travel\'s map and trip planning, and helped lift travel booking success by 20%. I also contributed Bing design system components used across 5+ products and redesigned SMS Organizer.'],
-      ['PlayShifu', 'Visual Designer, May 2021 to January 2023. I launched 6+ AR STEM games for kids, led the 3D avatar team from concept to integration, and moved VR interfaces off the HUD and into the world.'],
+      ['PlayShifu', 'UI/UX Designer (Visual Designer), May 2021 to January 2023. I owned UX, UI and visual design for 6+ AR STEM games for kids, led the 3D avatar team from concept to integration, and moved VR interfaces off the HUD and into the world.'],
       ['Education', 'Master of Design in User Experience Design with AI, O P Jindal University. 4-Year Professional Diploma in Interaction Design, Pearl Academy. Bachelor of Arts in English, IGNOU.'],
     ],
   },

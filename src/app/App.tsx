@@ -2,7 +2,7 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import Lenis from 'lenis'
 import { gsap, ScrollTrigger, prefersReducedMotion } from '@/lib/gsap'
 import { NavigationContext, type Navigation } from '@/lib/navigation'
-import { parseRoute, routeKey, routeTitle, type Route } from '@/lib/routes.js'
+import { parseRoute, projectSection, routeKey, routeTitle, type Route } from '@/lib/routes.js'
 import { ThemeContext, useThemeState } from '@/lib/theme'
 import { projectNames } from '@/lib/content'
 import { SiteHeader } from '@/components/site-header'
@@ -11,6 +11,7 @@ import { Curtain, type CurtainHandle } from '@/components/curtain'
 import { CursorLabel } from '@/components/cursor-label'
 import { HomePage } from '@/pages/home'
 import { WorkPage } from '@/pages/work'
+import { AiPage } from '@/pages/ai'
 import { ProjectPage } from '@/pages/project'
 import { AboutPage } from '@/pages/about'
 import { ResumePage } from '@/pages/resume'
@@ -21,12 +22,13 @@ let keySeed = 0
 const createKey = () => `${Date.now().toString(36)}-${(keySeed++).toString(36)}`
 
 function documentTitle(route: Route) {
-  return route.page === 'home' ? 'Hardik Agarwal | Product designer' : `${routeTitle(route, projectNames)} | Hardik Agarwal`
+  return route.page === 'home' ? 'Hardik Agarwal | Product designer at Microsoft' : `${routeTitle(route, projectNames)} | Hardik Agarwal`
 }
 
 function Page({ route }: { route: Route }) {
   switch (route.page) {
     case 'work': return <WorkPage />
+    case 'ai': return <AiPage />
     case 'project': return <ProjectPage id={route.id} film={route.film} />
     case 'about': return <AboutPage />
     case 'resume': return <ResumePage />
@@ -181,7 +183,8 @@ export function App() {
     const onKey = (event: KeyboardEvent) => {
       if (event.key !== 'Escape' || routeRef.current.page === 'home' || event.defaultPrevented) return
       const current = routeRef.current
-      navigate(current.page === 'project' ? `#exhibition/${current.id}` : '#top')
+      if (current.page !== 'project') navigate('#top')
+      else navigate(projectSection(current.id) === 'ai' ? '#built-with-ai' : `#exhibition/${current.id}`)
     }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)

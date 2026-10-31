@@ -10,7 +10,7 @@ import type { Endorsement } from './projects'
 import type { ProjectId } from './routes.js'
 
 export { projects }
-export type { CaseStudy, Endorsement, Film, Flow, Metric, Project, Quote, Shot } from './projects'
+export type { CaseStudy, Endorsement, Film, Flow, Metric, Project, Quote, Shot, Stage } from './projects'
 export const photos = { cameraPortrait, cameraChip, candid, subject, benchScene }
 export const email = 'madebyhardik@gmail.com'
 export const phone = { label: '+91 92055 38968', href: 'tel:+919205538968' }
@@ -24,7 +24,9 @@ export function projectById(id: ProjectId) {
 }
 
 export const projectNames = Object.fromEntries(projects.map((project) => [project.id, project.name]))
-export const featuredProjects = projects.filter((project) => !project.earlier && !project.concept)
+export const featuredProjects = projects.filter((project) => !project.earlier && !project.concept && !project.tool)
+export const workProjects = projects.filter((project) => !project.tool)
+export const aiProjects = projects.filter((project) => project.tool)
 
 export const experience = (resumeSections as [string, string[]][]).map(([title, highlights]) => {
   const [role, company, dates] = title.split(' | ')

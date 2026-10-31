@@ -1,0 +1,145 @@
+WEBVTT
+
+1
+00:00:00.700 --> 00:00:05.595
+Windows lets you install apps from anywhere. But outside the Microsoft Store,
+
+2
+00:00:05.595 --> 00:00:07.790
+it's hard to tell who made an app,
+
+3
+00:00:07.790 --> 00:00:09.855
+or whether the file is genuine.
+
+4
+00:00:10.205 --> 00:00:12.570
+In a survey of 60 Windows users,
+
+5
+00:00:12.570 --> 00:00:17.671
+87% stop or research an app when they don't recognize the publisher.
+
+6
+00:00:25.067 --> 00:00:27.437
+Windows already has strong protection,
+
+7
+00:00:27.437 --> 00:00:29.744
+but its warnings rarely explain why,
+
+8
+00:00:29.744 --> 00:00:32.862
+and no warning doesn't feel like proof of safety.
+
+9
+00:00:33.212 --> 00:00:36.762
+So careful people check signatures, compare hashes,
+
+10
+00:00:36.762 --> 00:00:40.520
+or upload files to VirusTotal. Everyone else guesses.
+
+11
+00:00:42.633 --> 00:00:45.018
+People weren't asking whether a file was signed.
+
+12
+00:00:45.368 --> 00:00:46.687
+They were asking who made it.
+
+13
+00:00:49.100 --> 00:00:53.105
+So I split trust into two questions. Is the developer verified,
+
+14
+00:00:53.105 --> 00:00:56.982
+with an identity that follows them across apps and releases?
+
+15
+00:00:57.332 --> 00:01:00.091
+And is this exact file signed, unchanged,
+
+16
+00:01:00.091 --> 00:01:03.497
+and recognized? Security signals fill in the rest,
+
+17
+00:01:03.497 --> 00:01:05.812
+so signed never has to mean safe.
+
+18
+00:01:07.800 --> 00:01:09.506
+Instead of block or allow,
+
+19
+00:01:09.506 --> 00:01:15.938
+I designed four states. A trusted app from a verified developer installs after a short countdown.
+
+20
+00:01:16.288 --> 00:01:24.223
+A signed app from an unverified developer gets a plain explanation and a choice. An unsigned app gets the strongest warning,
+
+21
+00:01:24.223 --> 00:01:27.935
+and a new version from a known developer sits in between.
+
+22
+00:01:30.133 --> 00:01:32.348
+A warning alone leaves people stuck,
+
+23
+00:01:32.348 --> 00:01:35.670
+so the experience also points to the Microsoft Store.
+
+24
+00:01:36.020 --> 00:01:40.828
+It looks for the same app from the same publisher first. When there isn't one,
+
+25
+00:01:40.828 --> 00:01:43.047
+AI suggests a verified alternative.
+
+26
+00:01:45.233 --> 00:01:47.280
+To test it on real installers,
+
+27
+00:01:47.280 --> 00:01:52.241
+I built a working Windows app with AI. It runs when a setup file starts,
+
+28
+00:01:52.241 --> 00:01:54.308
+or from the right-click menu.
+
+29
+00:01:54.658 --> 00:01:56.639
+Each scan combines six checks,
+
+30
+00:01:56.639 --> 00:02:00.800
+from the digital signature to Windows Defender and VirusTotal,
+
+31
+00:02:00.800 --> 00:02:03.707
+in about two seconds, without admin rights.
+
+32
+00:02:05.900 --> 00:02:11.358
+The trust states went into a pilot in China through Microsoft PC Manager,
+
+33
+00:02:11.358 --> 00:02:15.695
+with more than 300,000 trust dialog views across 20 apps.
+
+34
+00:02:16.045 --> 00:02:19.803
+And the working app showed the whole model holding up on real files.
+
+35
+00:02:22.700 --> 00:02:25.458
+Trust isn't a badge. It's knowing who made something,
+
+36
+00:02:25.458 --> 00:02:27.018
+and what you're about to run.

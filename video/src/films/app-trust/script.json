@@ -1,0 +1,46 @@
+{
+  "voice": "am_michael",
+  "speed": 1.08,
+  "fps": 30,
+  "gap": 0.35,
+  "captions": [["sixty Windows users", "60 Windows users"], ["eighty-seven percent", "87%"], ["three hundred thousand", "300,000"], ["twenty apps", "20 apps"]],
+  "scenes": [
+    {"id":"hook","lead":0.7,"tail":2.4, "lines": [
+      "Windows lets you install apps from anywhere. But outside the Microsoft Store, it's hard to tell who made an app, or whether the file is genuine.",
+      "In a survey of sixty Windows users, eighty-seven percent stop or research an app when they don't recognize the publisher."
+    ] },
+    {"id":"title","min":4.4, "lines": [] },
+    {"id":"problem","lead":0.6,"tail":1.6, "lines": [
+      "Windows already has strong protection, but its warnings rarely explain why, and no warning doesn't feel like proof of safety.",
+      "So careful people check signatures, compare hashes, or upload files to VirusTotal. Everyone else guesses."
+    ] },
+    {"id":"insight","lead":0.5,"tail":1.6, "lines": [
+      "People weren't asking whether a file was signed.",
+      "They were asking who made it."
+    ] },
+    {"id":"decision1","lead":0.8,"tail":1.2, "lines": [
+      "So I split trust into two questions. Is the developer verified, with an identity that follows them across apps and releases?",
+      "And is this exact file signed, unchanged, and recognized? Security signals fill in the rest, so signed never has to mean safe."
+    ] },
+    {"id":"decision2","lead":0.8,"tail":1.4, "lines": [
+      "Instead of block or allow, I designed four states. A trusted app from a verified developer installs after a short countdown.",
+      "A signed app from an unverified developer gets a plain explanation and a choice. An unsigned app gets the strongest warning, and a new version from a known developer sits in between."
+    ] },
+    {"id":"decision3","lead":0.8,"tail":1.4, "lines": [
+      "A warning alone leaves people stuck, so the experience also points to the Microsoft Store.",
+      "It looks for the same app from the same publisher first. When there isn't one, AI suggests a verified alternative."
+    ] },
+    {"id":"decision4","lead":0.8,"tail":1.4, "lines": [
+      "To test it on real installers, I built a working Windows app with AI. It runs when a setup file starts, or from the right-click menu.",
+      "Each scan combines six checks, from the digital signature to Windows Defender and VirusTotal, in about two seconds, without admin rights."
+    ] },
+    {"id":"result","lead":0.8,"tail":2.4, "lines": [
+      "The trust states went into a pilot in China through Microsoft PC Manager, with more than three hundred thousand trust dialog views across twenty apps.",
+      "And the working app showed the whole model holding up on real files."
+    ] },
+    {"id":"takeaway","lead":0.5,"tail":1.4, "lines": [
+      "Trust isn't a badge. It's knowing who made something, and what you're about to run."
+    ] },
+    {"id":"end","min":5, "lines": [] }
+  ]
+}

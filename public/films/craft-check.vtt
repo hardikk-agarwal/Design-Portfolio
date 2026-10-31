@@ -1,0 +1,141 @@
+WEBVTT
+
+1
+00:00:00.700 --> 00:00:02.775
+On one Microsoft Store launch,
+
+2
+00:00:02.775 --> 00:00:06.787
+I surfaced 400 craft and implementation issues in review,
+
+3
+00:00:06.787 --> 00:00:11.145
+from line heights and spacing to loaders and dark-mode colors.
+
+4
+00:00:11.495 --> 00:00:14.381
+They were found by eye, after the feature was built.
+
+5
+00:00:21.767 --> 00:00:25.210
+Every issue meant the same round trip: spot the mismatch,
+
+6
+00:00:25.210 --> 00:00:28.834
+screenshot it, write it up, file a bug, then check the fix.
+
+7
+00:00:29.184 --> 00:00:31.432
+The feedback was scattered across Figma,
+
+8
+00:00:31.432 --> 00:00:32.894
+Loop and the bug tracker,
+
+9
+00:00:32.894 --> 00:00:35.535
+and the designer stayed the last quality gate.
+
+10
+00:00:37.633 --> 00:00:39.829
+Some craft decisions need a designer.
+
+11
+00:00:40.179 --> 00:00:42.400
+Most mismatches just need measuring.
+
+12
+00:00:44.800 --> 00:00:50.202
+So I moved the check before the designer's review. Engineers drop in the design and the build,
+
+13
+00:00:50.202 --> 00:00:50.891
+and run it.
+
+14
+00:00:51.241 --> 00:00:54.297
+There's no setup. Two screenshots are enough to start.
+
+15
+00:00:56.300 --> 00:00:58.824
+Each check runs two engines. First,
+
+16
+00:00:58.824 --> 00:01:02.790
+a pixel-level color diff catches exact hex mismatches.
+
+17
+00:01:03.141 --> 00:01:06.694
+Then an AI vision model compares both screens for copy,
+
+18
+00:01:06.694 --> 00:01:08.596
+spacing and missing elements,
+
+19
+00:01:08.596 --> 00:01:11.153
+the things a pixel diff can't explain.
+
+20
+00:01:13.367 --> 00:01:15.201
+Every issue names the property,
+
+21
+00:01:15.201 --> 00:01:17.508
+the design value, and the built value.
+
+22
+00:01:17.858 --> 00:01:18.776
+Hover an issue,
+
+23
+00:01:18.776 --> 00:01:25.568
+and its region lights up on the build. Filters let designers and engineers each focus on what matters to them.
+
+24
+00:01:27.767 --> 00:01:29.826
+Then it goes straight into the team's workflow.
+
+25
+00:01:30.176 --> 00:01:33.469
+One click files a pre-filled bug in Azure DevOps,
+
+26
+00:01:33.469 --> 00:01:36.829
+or copies every issue into Loop as a ready table.
+
+27
+00:01:39.033 --> 00:01:43.817
+I built Craft Check on my own with AI: a React app with Fluent UI,
+
+28
+00:01:43.817 --> 00:01:44.541
+a server,
+
+29
+00:01:44.541 --> 00:01:50.557
+and a command line tool that also compares Figma tokens with CSS and Windows XAML.
+
+30
+00:01:50.907 --> 00:01:52.747
+It's a working prototype,
+
+31
+00:01:52.747 --> 00:01:57.384
+which I took to Microsoft's FHL hackathon in March 2026. Next,
+
+32
+00:01:57.384 --> 00:01:59.246
+direct Figma integration,
+
+33
+00:01:59.246 --> 00:02:03.714
+then running the check automatically before code is merged.
+
+34
+00:02:06.600 --> 00:02:07.943
+Automate the measuring,
+
+35
+00:02:07.943 --> 00:02:10.688
+so designers can spend their time on judgment.

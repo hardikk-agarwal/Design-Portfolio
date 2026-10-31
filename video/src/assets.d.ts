@@ -3,5 +3,10 @@ declare module '*.webp' {
   export default src
 }
 
+declare module '*.png' {
+  const src: string
+  export default src
+}
+
 // webpack's require.context, used by Root to find films.
 declare const require: { context(directory: string, recursive: boolean, pattern: RegExp): { keys(): string[]; (id: string): unknown } }

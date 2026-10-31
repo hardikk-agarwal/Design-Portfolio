@@ -1,0 +1,217 @@
+{
+  "fps": 30,
+  "durationInFrames": 4113,
+  "scenes": [
+    {
+      "id": "hook",
+      "from": 0,
+      "duration": 503,
+      "lines": [
+        {
+          "text": "On one Microsoft Store launch, I surfaced four hundred craft and implementation issues in review, from line heights and spacing to loaders and dark-mode colors.",
+          "file": "hook-0.wav",
+          "start": 0.7,
+          "seconds": 10.445041666666667,
+          "from": 21,
+          "duration": 313
+        },
+        {
+          "text": "They were found by eye, after the feature was built.",
+          "file": "hook-1.wav",
+          "start": 11.495041666666665,
+          "seconds": 2.886125,
+          "from": 345,
+          "duration": 87
+        }
+      ]
+    },
+    {
+      "id": "title",
+      "from": 503,
+      "duration": 132,
+      "lines": []
+    },
+    {
+      "id": "problem",
+      "from": 635,
+      "duration": 479,
+      "lines": [
+        {
+          "text": "Every issue meant the same round trip: spot the mismatch, screenshot it, write it up, file a bug, then check the fix.",
+          "file": "problem-0.wav",
+          "start": 21.76666666666667,
+          "seconds": 7.067125,
+          "from": 653,
+          "duration": 212
+        },
+        {
+          "text": "The feedback was scattered across Figma, Loop and the bug tracker, and the designer stayed the last quality gate.",
+          "file": "problem-1.wav",
+          "start": 29.183791666666668,
+          "seconds": 6.351541666666667,
+          "from": 876,
+          "duration": 191
+        }
+      ]
+    },
+    {
+      "id": "insight",
+      "from": 1114,
+      "duration": 206,
+      "lines": [
+        {
+          "text": "Some craft decisions need a designer.",
+          "file": "insight-0.wav",
+          "start": 37.63333333333333,
+          "seconds": 2.1952083333333334,
+          "from": 1129,
+          "duration": 66
+        },
+        {
+          "text": "Most mismatches just need measuring.",
+          "file": "insight-1.wav",
+          "start": 40.17854166666667,
+          "seconds": 2.2218333333333335,
+          "from": 1205,
+          "duration": 67
+        }
+      ]
+    },
+    {
+      "id": "decision1",
+      "from": 1320,
+      "duration": 345,
+      "lines": [
+        {
+          "text": "So I moved the check before the designer's review. Engineers drop in the design and the build, and run it.",
+          "file": "decision1-0.wav",
+          "start": 44.8,
+          "seconds": 6.091333333333333,
+          "from": 1344,
+          "duration": 183
+        },
+        {
+          "text": "There's no setup. Two screenshots are enough to start.",
+          "file": "decision1-1.wav",
+          "start": 51.24133333333333,
+          "seconds": 3.0560416666666668,
+          "from": 1537,
+          "duration": 92
+        }
+      ]
+    },
+    {
+      "id": "decision2",
+      "from": 1665,
+      "duration": 512,
+      "lines": [
+        {
+          "text": "Each check runs two engines. First, a pixel-level color diff catches exact hex mismatches.",
+          "file": "decision2-0.wav",
+          "start": 56.3,
+          "seconds": 6.4905,
+          "from": 1689,
+          "duration": 195
+        },
+        {
+          "text": "Then an AI vision model compares both screens for copy, spacing and missing elements, the things a pixel diff can't explain.",
+          "file": "decision2-1.wav",
+          "start": 63.1405,
+          "seconds": 8.012291666666666,
+          "from": 1894,
+          "duration": 240
+        }
+      ]
+    },
+    {
+      "id": "decision3",
+      "from": 2177,
+      "duration": 432,
+      "lines": [
+        {
+          "text": "Every issue names the property, the design value, and the built value.",
+          "file": "decision3-0.wav",
+          "start": 73.36666666666666,
+          "seconds": 4.1415,
+          "from": 2201,
+          "duration": 124
+        },
+        {
+          "text": "Hover an issue, and its region lights up on the build. Filters let designers and engineers each focus on what matters to them.",
+          "file": "decision3-1.wav",
+          "start": 77.85816666666666,
+          "seconds": 7.710166666666667,
+          "from": 2336,
+          "duration": 231
+        }
+      ]
+    },
+    {
+      "id": "decision4",
+      "from": 2609,
+      "duration": 338,
+      "lines": [
+        {
+          "text": "Then it goes straight into the team's workflow.",
+          "file": "decision4-0.wav",
+          "start": 87.76666666666667,
+          "seconds": 2.0597083333333335,
+          "from": 2633,
+          "duration": 62
+        },
+        {
+          "text": "One click files a pre-filled bug in Azure DevOps, or copies every issue into Loop as a ready table.",
+          "file": "decision4-1.wav",
+          "start": 90.17637500000001,
+          "seconds": 6.652791666666666,
+          "from": 2705,
+          "duration": 200
+        }
+      ]
+    },
+    {
+      "id": "result",
+      "from": 2947,
+      "duration": 836,
+      "lines": [
+        {
+          "text": "I built Craft Check on my own with AI: a React app with Fluent UI, a server, and a command line tool that also compares Figma tokens with CSS and Windows XAML.",
+          "file": "result-0.wav",
+          "start": 99.03333333333333,
+          "seconds": 11.523458333333334,
+          "from": 2971,
+          "duration": 346
+        },
+        {
+          "text": "It's a working prototype, which I took to Microsoft's F H L hackathon in March twenty twenty-six. Next, direct Figma integration, then running the check automatically before code is merged.",
+          "file": "result-1.wav",
+          "start": 110.90679166666666,
+          "seconds": 12.807,
+          "from": 3327,
+          "duration": 384
+        }
+      ]
+    },
+    {
+      "id": "takeaway",
+      "from": 3783,
+      "duration": 180,
+      "lines": [
+        {
+          "text": "Automate the measuring, so designers can spend their time on judgment.",
+          "file": "takeaway-0.wav",
+          "start": 126.6,
+          "seconds": 4.087625,
+          "from": 3798,
+          "duration": 123
+        }
+      ]
+    },
+    {
+      "id": "end",
+      "from": 3963,
+      "duration": 150,
+      "lines": []
+    }
+  ]
+}

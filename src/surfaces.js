@@ -6,7 +6,7 @@ export const resumeSections = [
     'Led design for the Trusted Developer Program pilot with Microsoft PC Manager (20 apps, 313K+ trust dialog views) and developer identity verification concepts, grounded in research with 100+ participants.',
     'Raised craft in Windows Hello and passkeys: triaged 30+ usability issues, contributing to 20% fewer craft bugs, System Usability Scale 79.5 to 83.2, and a 12% lift in biometric enrollment.',
     'Standardized Copilot Sports answer cards, the AI result surface for cricket, tennis, motorsports and American football, into a reusable schema enabling 4 new sports per cycle.',
-    'Drove AI-assisted design practice: Claude Code and Figma MCP workflows, design-to-code prototyping, and agentic prototypes demoed to 30+ cross-functional stakeholders.',
+    'Mentored junior designers and drove AI-assisted design practice: Claude Code and Figma MCP workflows, design-to-code prototyping, and agentic prototypes demoed to 30+ cross-functional stakeholders.',
   ]],
   ['Senior Associate UX Designer | Microsoft x Tech Mahindra | Feb 2023 - Jan 2025', [
     'Designed search answer modules for Bing Search, serving 1M+ user queries monthly.',
@@ -15,8 +15,8 @@ export const resumeSections = [
     'Contributed core components to the Bing design system, used across 5+ major products, and cut design signoff turnaround 40%.',
     'Revamped the SMS Organizer app, increasing user engagement 30%.',
   ]],
-  ['Visual Designer | PlayShifu | May 2021 - Jan 2023', [
-    'Launched 6+ AR STEM games for children aged 6–12, lifting educational engagement 40%.',
+  ['UI/UX Designer (Visual Designer) | PlayShifu | May 2021 - Jan 2023', [
+    'Owned UX, UI and visual design for 6+ AR STEM games for children aged 6–12 on iOS and Android, lifting educational engagement 40%.',
     'Led the 3D avatar team from concept art to app integration: a swappable avatar system improved resource reuse 20% and enabled customization for 10,000+ users.',
     'Converted traditional HUD UI to diegetic (world-space) UI for VR, raising interaction rates 35%.',
   ]],
