@@ -35,8 +35,9 @@ function preloadCritical() {
           if (!file) throw new Error(`No build asset matches ${pattern}; update preloadCritical in vite.config.js.`)
           return `./${file}`
         }
-        // The two photograph layers at the size their srcset will pick (same sizes as `cover` in src/app/lib/content.ts),
-        // then the wall mask that the star trails and the veil are cut to.
+        // The photograph at the size its srcset will pick (same sizes as `cover` in src/app/lib/content.ts), then the wall
+        // mask that the star trails and the veil are cut to. The front layer is fetched (coverFront in content.ts shows
+        // it as a blob, out of image search), so it is preloaded as a fetch at the size coverFront picks.
         const layer = (name) => ({
           as: 'image',
           imageSrcset: [1122, 1683].map((width) => `${asset(new RegExp(`${name}-${width}-[\\w-]{8}\\.webp$`))} ${width}w`).concat(`${asset(new RegExp(`${name}-[\\w-]{8}\\.webp$`))} 2244w`).join(', '),
@@ -44,13 +45,14 @@ function preloadCritical() {
         })
         const hero = JSON.stringify([
           layer('hardik-bench-scene'),
-          layer('hardik-bench-subject'),
           { as: 'image', href: asset(/hardik-bench-wall-[\w-]+\.png$/) },
         ])
+        const front = JSON.stringify([1122, 1683].map((width) => [width, asset(new RegExp(`hardik-bench-front-${width}-[\\w-]{8}\\.webp$`))]).concat([[2244, asset(/hardik-bench-front-[\w-]{8}\.webp$/)]]))
+        const preloadFront = `const need = (matchMedia('(min-aspect-ratio: 4/5)').matches ? innerWidth * 1.15 : innerHeight * 0.92) * devicePixelRatio; const front = ${front}; document.head.append(Object.assign(document.createElement('link'), { rel: 'preload', as: 'fetch', crossOrigin: 'anonymous', href: (front.find(([width]) => width >= need) || front[front.length - 1])[1] }))`
         return [
           { tag: 'link', attrs: { rel: 'preload', href: asset(/mona-sans-latin-wdth-normal-[\w-]+\.woff2$/), as: 'font', type: 'font/woff2', crossorigin: true }, injectTo: 'head' },
           // Mirrors parseRoute in src/app/lib/routes.js: these hashes open a page without the hero.
-          { tag: 'script', children: `if (!/^#(?:work|ai|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) for (const link of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload' }, link))`, injectTo: 'head' },
+          { tag: 'script', children: `if (!/^#(?:work|ai|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) { for (const link of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload' }, link)); ${preloadFront} }`, injectTo: 'head' },
         ]
       },
     },

@@ -3,9 +3,9 @@ import { resumeSections, education as educationLines, skillGroups } from '../../
 import cameraPortrait from '../../assets/hardik-camera.webp'
 import cameraChip from '../../assets/hardik-camera-chip.webp'
 import candid from '../../assets/hardik-candid.webp'
-import subject from '../../assets/hardik-bench-subject.webp'
-import subject1122 from '../../assets/hardik-bench-subject-1122.webp'
-import subject1683 from '../../assets/hardik-bench-subject-1683.webp'
+import front from '../../assets/hardik-bench-front.webp'
+import front1122 from '../../assets/hardik-bench-front-1122.webp'
+import front1683 from '../../assets/hardik-bench-front-1683.webp'
 import benchScene from '../../assets/hardik-bench-scene.webp'
 import benchScene1122 from '../../assets/hardik-bench-scene-1122.webp'
 import benchScene1683 from '../../assets/hardik-bench-scene-1683.webp'
@@ -15,14 +15,27 @@ import type { ProjectId } from './routes.js'
 
 export { projects }
 export type { CaseStudy, Endorsement, Film, Flow, Metric, Project, Quote, Shot, Stage } from './projects'
-export const photos = { cameraPortrait, cameraChip, candid, subject, benchScene }
+export const photos = { cameraPortrait, cameraChip, candid, benchScene }
 // The cover layers come in three registered sizes, so phones and 1x screens fetch less at the same sharpness. The
 // sizes allow for the 104% cover crop and the 1.1 resting scale; preloadCritical in vite.config.js repeats them.
 // The single-file export (mode production) inlines every image, so it keeps one size.
-export const cover = import.meta.env.MODE === 'production' ? undefined : {
+const single = import.meta.env.MODE === 'production'
+export const cover = single ? undefined : {
   sizes: '(min-aspect-ratio: 4/5) 115vw, 92vh',
   scene: `${benchScene1122} 1122w, ${benchScene1683} 1683w, ${benchScene} 2244w`,
-  subject: `${subject1122} 1122w, ${subject1683} 1683w, ${subject} 2244w`,
+}
+
+// The front layer is the cutout that lifts Hardik over the name. It is shown through a blob URL, so search engines
+// index the finished cover but never find the cutout as an image of its own. The size rule mirrors preloadCritical.
+let frontLayer: Promise<string> | undefined
+export function coverFront() {
+  if (!frontLayer) {
+    const sizes: [number, string][] = single ? [[2244, front]] : [[1122, front1122], [1683, front1683], [2244, front]]
+    const need = (matchMedia('(min-aspect-ratio: 4/5)').matches ? innerWidth * 1.15 : innerHeight * 0.92) * devicePixelRatio
+    const [, url] = sizes.find(([width]) => width >= need) ?? sizes[sizes.length - 1]
+    frontLayer = fetch(url).then((response) => response.blob()).then((blob) => URL.createObjectURL(blob))
+  }
+  return frontLayer
 }
 export const email = 'madebyhardik@gmail.com'
 export const phone = { label: '+91 92055 38968', href: 'tel:+919205538968' }

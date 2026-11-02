@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { gsap, SplitText, useGSAP, cinematic, motionOk } from '@/lib/gsap'
 import { Link, useNavigation } from '@/lib/navigation'
-import { photos, cover } from '@/lib/content'
+import { photos, cover, coverFront } from '@/lib/content'
 import { NoteCards, NoteMarks, bindNotes, hideNotes, layoutNotes, noteAt, revealNotes, type Note } from '@/sections/hero-notes'
 import { StarTrails, FocusPoint, Viewfinder, exposure, type CoverContext } from '@/sections/hero-exposure'
 
@@ -62,7 +62,7 @@ function HeroStage() {
           </div>
           <div className="hero-image pointer-events-none absolute inset-0">
             <div className="cover-photo absolute inset-0">
-              <img className={layer} data-cover="subject" src={photos.subject} srcSet={cover?.subject} sizes={cover?.sizes} alt="" aria-hidden="true" width={2244} height={2804} decoding="async" />
+              <img className={layer} data-cover="subject" alt="" aria-hidden="true" width={2244} height={2804} decoding="async" />
             </div>
           </div>
           <div className="hero-scrim pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgb(10_16_11/0.4)_0%,rgb(10_16_11/0)_16%,rgb(10_16_11/0)_52%,rgb(10_16_11/0.85)_100%)]" />
@@ -239,10 +239,20 @@ export function Hero() {
         revealNotes(sequence, notes)
       })
       const inputs = ['wheel', 'touchstart', 'keydown', 'pointerdown'] as const
+      const subject = q('[data-cover="subject"]')[0] as HTMLImageElement
+      const decoded = (image: HTMLImageElement) => image.decode().catch(() => undefined)
+      const ready = Promise.all([
+        decoded(q('[data-cover="scene"]')[0] as HTMLImageElement),
+        coverFront().then((url) => {
+          if (subject.src !== url) subject.src = url
+          return decoded(subject)
+        }, () => undefined),
+      ])
       const cover: CoverContext = {
         q: (selector) => q(selector) as HTMLElement[],
         stage: q('.hero-stage')[0] as HTMLElement,
-        subject: q('[data-cover="subject"]')[0] as HTMLImageElement,
+        subject,
+        ready,
         rest: isCinematic ? 1.1 : 1,
         motion,
         // Once the photograph is in place: the name, the copy, then the notes.

@@ -8,6 +8,8 @@ export type CoverContext = {
   q: (selector: string) => HTMLElement[]
   stage: HTMLElement
   subject: HTMLImageElement
+  // Settles once both photo layers have decoded (or failed to).
+  ready: Promise<unknown>
   // The photograph's resting scale (1.1 at the top of the cinematic sequence).
   rest: number
   motion: boolean
@@ -376,7 +378,7 @@ export const exposure = {
     const open = () => {
       if (mounted) intro.play()
     }
-    void Promise.all(context.q('img[data-cover]').map((image) => (image as HTMLImageElement).decode().catch(() => undefined))).then(open)
+    void context.ready.then(open)
     const timer = window.setTimeout(open, 4000)
     context.onCleanup(() => {
       mounted = false

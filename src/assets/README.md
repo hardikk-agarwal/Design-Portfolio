@@ -31,7 +31,7 @@ the opening. Facial features are neither synthesized nor retouched. The bench
 photo was rejected for foreground extraction because the bench produced poor
 segmentation edges; its intact photograph is used instead.
 
-`hardik-bench-subject.webp` (2244x2804, quality 90, lossless alpha) is the
+`hardik-bench-front.webp` (2244x2804, quality 90, lossless alpha) is the
 front layer for the landing page cover, where the name passes behind Hardik's
 head. Its colour pixels are the bench photograph
 ([Image (3).jpg](../../Images/Image%20(3).jpg)) with the clothing edit described
@@ -39,6 +39,10 @@ below; its alpha is
 taken from Hardik's supplied background-removed export
 ([Image (3) 1.png](../../Images/PNGs/Image%20(3)%201.png), measured as registered
 to the photo within JPEG noise). It sits exactly over the photograph beneath.
+The page shows it through a blob URL (`coverFront` in src/app/lib/content.ts),
+not an image address, so search engines index the finished cover and never the
+cutout on its own (Hardik asked for this on 3 November 2026 after Google Images
+listed the cutout under its old name, `hardik-bench-subject`).
 
 `hardik-bench-scene.webp` (2244x2804, quality 82) is the landing cover
 photograph. Hardik, the bench slats and everything below the seat (legs,
@@ -58,7 +62,7 @@ layers. That is interpolation only: it adds no detail and keeps the layers
 registered. A higher-resolution original would be the real fix; rebuild both
 layers from it at its native size.
 
-`hardik-bench-scene-1122/1683.webp` and `hardik-bench-subject-1122/1683.webp`
+`hardik-bench-scene-1122/1683.webp` and `hardik-bench-front-1122/1683.webp`
 are the same two layers downscaled with Lanczos3 (same quality settings) for the
 cover's srcset. Their widths keep the exact 561:701 ratio, so the layers stay
 registered at every size. Rebuild them from the 2244 px masters whenever those

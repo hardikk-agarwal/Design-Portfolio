@@ -9,7 +9,7 @@ sharp.cache(false)
 const assets = fileURLToPath(new URL('../src/assets/', import.meta.url))
 
 // Hero layers: widths keep the masters' exact 561:701 ratio, so the photo and its cutout stay registered.
-const hero = { 'hardik-bench-scene': { quality: 82, effort: 6 }, 'hardik-bench-subject': { quality: 90, alphaQuality: 100, effort: 6 } }
+const hero = { 'hardik-bench-scene': { quality: 82, effort: 6 }, 'hardik-bench-front': { quality: 90, alphaQuality: 100, effort: 6 } }
 for (const [name, options] of Object.entries(hero)) {
   const master = readFileSync(`${assets}${name}.webp`)
   for (const width of [1122, 1683]) {
