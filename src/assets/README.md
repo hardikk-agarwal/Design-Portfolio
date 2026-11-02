@@ -69,10 +69,11 @@ registered at every size. Rebuild them from the 2244 px masters whenever those
 change.
 
 The site icons in public/ (`favicon.ico` with 16, 32 and 48 px images,
-`icon-192.png`, `apple-touch-icon.png` at 180 px) are a 440 px square head crop
-of `hardik-bench-scene.webp` centred at (1190, 545), resized with Lanczos3
+`icon-192.png`, `apple-touch-icon.png` at 180 px) are a 430 px square head crop
+of the restaurant photo ([Image (4).jpg](../../Images/Image%20(4).jpg), the
+source of `hardik-candid.jpg`) centred at (568, 250), resized with Lanczos3
 (the small sizes lightly sharpened, the two large PNGs palette-quantized).
-Hardik asked for his photo as the icon on 3 November 2026. The same files sit
+Hardik chose this photo for the icon on 3 November 2026. The same files sit
 at the root of the hardikk-agarwal.github.io repository, because Google reads a
 site's favicon from the hostname's home page.
 
