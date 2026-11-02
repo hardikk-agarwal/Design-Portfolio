@@ -68,6 +68,14 @@ cover's srcset. Their widths keep the exact 561:701 ratio, so the layers stay
 registered at every size. Rebuild them from the 2244 px masters whenever those
 change.
 
+The site icons in public/ (`favicon.ico` with 16, 32 and 48 px images,
+`icon-192.png`, `apple-touch-icon.png` at 180 px) are a 440 px square head crop
+of `hardik-bench-scene.webp` centred at (1190, 545), resized with Lanczos3
+(the small sizes lightly sharpened, the two large PNGs palette-quantized).
+Hardik asked for his photo as the icon on 3 November 2026. The same files sit
+at the root of the hardikk-agarwal.github.io repository, because Google reads a
+site's favicon from the hostname's home page.
+
 Clothing edit (7 October 2026, requested by Hardik): the open shirt is buttoned
 up to the collar, with only the top collar button left open, and the beaded
 brooch is removed. Both changes were made with Azure OpenAI image editing
