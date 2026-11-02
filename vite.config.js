@@ -28,7 +28,7 @@ function preloadCritical() {
     apply: 'build',
     transformIndexHtml: {
       order: 'post',
-      handler(_html, { bundle }) {
+      handler(html, { bundle }) {
         const files = Object.keys(bundle ?? {})
         const asset = (pattern) => {
           const file = files.find((name) => pattern.test(name))
@@ -49,11 +49,20 @@ function preloadCritical() {
         ])
         const front = JSON.stringify([1122, 1683].map((width) => [width, asset(new RegExp(`hardik-bench-front-${width}-[\\w-]{8}\\.webp$`))]).concat([[2244, asset(/hardik-bench-front-[\w-]{8}\.webp$/)]]))
         const preloadFront = `const need = (matchMedia('(min-aspect-ratio: 4/5)').matches ? innerWidth * 1.15 : innerHeight * 0.92) * devicePixelRatio; const front = ${front}; document.head.append(Object.assign(document.createElement('link'), { rel: 'preload', as: 'fetch', crossOrigin: 'anonymous', href: (front.find(([width]) => width >= need) || front[front.length - 1])[1] }))`
-        return [
-          { tag: 'link', attrs: { rel: 'preload', href: asset(/mona-sans-latin-wdth-normal-[\w-]+\.woff2$/), as: 'font', type: 'font/woff2', crossorigin: true }, injectTo: 'head' },
-          // Mirrors parseRoute in src/app/lib/routes.js: these hashes open a page without the hero.
-          { tag: 'script', children: `if (!/^#(?:work|ai|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) { for (const link of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload' }, link)); ${preloadFront} }`, injectTo: 'head' },
-        ]
+        // The stylesheet goes inline, so the first frame paints with the HTML instead of after a second request. Its font
+        // URLs are relative to assets/, so they are rewritten for the page.
+        const stylesheet = asset(/^assets\/index-[\w-]+\.css$/)
+        const link = `<link rel="stylesheet" crossorigin href="${stylesheet}">`
+        if (!html.includes(link)) throw new Error('The stylesheet link changed shape; update preloadCritical in vite.config.js.')
+        const css = String(bundle[stylesheet.slice(2)].source).replaceAll('url(./', 'url(./assets/')
+        return {
+          html: html.replace(link, () => `<style>${css}</style>`),
+          tags: [
+            { tag: 'link', attrs: { rel: 'preload', href: asset(/mona-sans-latin-wdth-normal-[\w-]+\.woff2$/), as: 'font', type: 'font/woff2', crossorigin: true }, injectTo: 'head' },
+            // Mirrors parseRoute in src/app/lib/routes.js: these hashes open a page without the hero.
+            { tag: 'script', children: `if (!/^#(?:work|ai|about|resume)(?:\\/|$)|^#exhibition\\/(?:hello|vr)$/.test(location.hash)) { for (const link of ${hero}) document.head.append(Object.assign(document.createElement('link'), { rel: 'preload' }, link)); ${preloadFront} }`, injectTo: 'head' },
+          ],
+        }
       },
     },
   }

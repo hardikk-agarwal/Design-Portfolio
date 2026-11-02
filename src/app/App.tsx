@@ -54,6 +54,8 @@ export function App() {
 
   const scrollToY = useCallback((y: number, immediate: boolean) => {
     const top = Math.max(0, Math.round(y))
+    // Lenis caps targets at the page height it last measured; the home page can still be adding sections.
+    lenis.current?.resize()
     if (lenis.current) lenis.current.scrollTo(top, { immediate, force: true, duration: 1.15 })
     else window.scrollTo({ top, behavior: immediate || prefersReducedMotion() ? 'instant' : 'smooth' })
   }, [])

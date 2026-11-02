@@ -3,6 +3,7 @@ import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { gsap, SplitText, useGSAP, cinematic, motionOk } from '@/lib/gsap'
 import { Link, useNavigation } from '@/lib/navigation'
 import { photos, cover, coverFront } from '@/lib/content'
+import { sectionsReady } from '@/lib/stage'
 import { NoteCards, NoteMarks, bindNotes, hideNotes, layoutNotes, noteAt, revealNotes, type Note } from '@/sections/hero-notes'
 import { StarTrails, FocusPoint, Viewfinder, exposure, type CoverContext } from '@/sections/hero-exposure'
 
@@ -247,6 +248,7 @@ export function Hero() {
           if (subject.src !== url) subject.src = url
           return decoded(subject)
         }, () => undefined),
+        sectionsReady,
       ])
       const cover: CoverContext = {
         q: (selector) => q(selector) as HTMLElement[],

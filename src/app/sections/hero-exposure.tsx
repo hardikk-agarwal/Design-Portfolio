@@ -8,7 +8,7 @@ export type CoverContext = {
   q: (selector: string) => HTMLElement[]
   stage: HTMLElement
   subject: HTMLImageElement
-  // Settles once both photo layers have decoded (or failed to).
+  // Settles once both photo layers have decoded (or failed to) and the sections below the cover are in.
   ready: Promise<unknown>
   // The photograph's resting scale (1.1 at the top of the cinematic sequence).
   rest: number
@@ -288,9 +288,9 @@ export const exposure = {
     if (field) field.state.speed = 1
   },
   // With motion, once per page load, the cover is shot through a viewfinder: at night (the stars still points, the photo
-  // dark) the focus point hunts while the photo layers load and locks once both have decoded (or after 4 s, or on any
-  // input). Then the shutter opens: the trails grow and the cover exposes as the time a real exposure would take counts
-  // up. It closes with a blink, the view zooms into the photo and the story plays.
+  // dark) the focus point hunts while the photo layers load and locks once both have decoded and the sections below are
+  // in (or after 4 s, or on any input). Then the shutter opens: the trails grow and the cover exposes as the time a real
+  // exposure would take counts up. It closes with a blink, the view zooms into the photo and the story plays.
   intro(context: CoverContext) {
     const { dim, canvas } = parts(context)
     if (!field) {
