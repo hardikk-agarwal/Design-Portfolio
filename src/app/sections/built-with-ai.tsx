@@ -7,6 +7,7 @@ import { aiProjects, type Project } from '@/lib/content'
 import { responsive } from '@/lib/images'
 import { ProjectTile, openLabel } from '@/components/study'
 import { MetricValue } from '@/sections/work'
+import { AgentSwarm } from '@/sections/agent-swarm'
 import { cn } from '@/lib/utils'
 
 function Row({ project, dimmed, onActivate }: { project: Project; dimmed: boolean; onActivate: () => void }) {
@@ -108,6 +109,7 @@ export function BuiltWithAI() {
                 />
               </div>
             ))}
+            <AgentSwarm rush={engaged} />
           </div>
         </div>
       </div>
